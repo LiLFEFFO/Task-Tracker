@@ -752,6 +752,12 @@
             border-color: var(--accent);
         }
         
+        .theme-used-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1643,19 +1649,36 @@
                 const price = item.price;
                 if (credits >= price) {
                     credits -= price;
-                    inventory.push({
-                        id: item.id,
-                        name: item.name,
-                        icon: item.icon,
-                        description: item.description,
-                        used: false,
-                        purchasedAt: new Date().toLocaleDateString()
-                    });
+                    
+                    if (item.id === 'custom_theme') {
+                        currentTheme = randomizeTheme();
+                        applyTheme(currentTheme);
+                        inventory.push({
+                            id: item.id,
+                            name: item.name,
+                            icon: item.icon,
+                            description: item.description,
+                            used: true,
+                            applied: true,
+                            purchasedAt: new Date().toLocaleDateString()
+                        });
+                        addActivity('Applied new random theme');
+                    } else {
+                        inventory.push({
+                            id: item.id,
+                            name: item.name,
+                            icon: item.icon,
+                            description: item.description,
+                            used: false,
+                            purchasedAt: new Date().toLocaleDateString()
+                        });
+                        addActivity('Purchased: ' + item.name);
+                    }
+                    
                     save();
                     renderTasks();
                     renderInventory();
                     updateStats();
-                    addActivity('Purchased: ' + item.name);
                     this.textContent = 'purchased';
                     setTimeout(() => this.textContent = 'buy', 1500);
                 } else {
@@ -1673,23 +1696,27 @@
             }
             
             grid.innerHTML = inventory.map((item, index) => {
-                let actionBtn = '';
+                let statusHtml = '';
+                
                 if (item.id === 'custom_theme') {
-                    actionBtn = `<button class="inventory-action" data-index="${index}">${item.used ? 'new theme' : 'apply theme'}</button>`;
+                    statusHtml = `<span class="theme-used-label">theme applied</span>`;
+                } else {
+                    statusHtml = `
+                        <input type="checkbox" class="inventory-checkbox" data-index="${index}" ${item.used ? 'checked' : ''}>
+                        <span>${item.used ? 'active' : 'inactive'}</span>
+                    `;
                 }
                 
                 return `
-                <div class="inventory-item ${item.used ? 'used' : ''}">
+                <div class="inventory-item ${item.used && item.id !== 'custom_theme' ? 'used' : ''}">
                     <button class="inventory-delete" data-index="${index}">x</button>
                     <div class="inventory-item-header">
                         <div class="inventory-item-icon">${item.icon}</div>
                         <div class="inventory-item-name">${item.name}</div>
                     </div>
                     <div class="inventory-item-used">
-                        <input type="checkbox" class="inventory-checkbox" data-index="${index}" ${item.used ? 'checked' : ''}>
-                        <span>${item.used ? 'active' : 'inactive'}</span>
+                        ${statusHtml}
                     </div>
-                    ${actionBtn}
                 </div>
             `;
             }).join('');
@@ -1703,19 +1730,6 @@
                     applyInventoryEffects();
                     updateStats();
                     addActivity(inventory[idx].used ? 'Activated: ' + inventory[idx].name : 'Deactivated: ' + inventory[idx].name);
-                });
-            });
-            
-            document.querySelectorAll('.inventory-action').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.index);
-                    currentTheme = randomizeTheme();
-                    applyTheme(currentTheme);
-                    inventory[idx].used = true;
-                    save();
-                    renderInventory();
-                    updateStats();
-                    addActivity('Applied new random theme');
                 });
             });
             

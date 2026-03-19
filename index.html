@@ -632,6 +632,100 @@
             border-color: var(--accent);
         }
         
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .inventory-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 16px;
+            position: relative;
+        }
+        
+        .inventory-item.used {
+            opacity: 0.5;
+        }
+        
+        .inventory-item-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .inventory-item-icon {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+        
+        .inventory-item-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .inventory-item-used {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        
+        .inventory-item.used .inventory-item-used {
+            color: var(--text);
+        }
+        
+        .inventory-checkbox {
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--text-dim);
+            background: transparent;
+            cursor: pointer;
+            appearance: none;
+            position: relative;
+        }
+        
+        .inventory-checkbox:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .inventory-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 0px;
+            width: 5px;
+            height: 8px;
+            border: solid var(--bg);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .inventory-delete {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0;
+            padding: 4px;
+        }
+        
+        .inventory-item:hover .inventory-delete {
+            opacity: 1;
+        }
+        
+        .inventory-delete:hover {
+            color: var(--text);
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -775,6 +869,7 @@
             <div class="tab" data-tab="documents">documents</div>
             <div class="tab" data-tab="habits">habits</div>
             <div class="tab" data-tab="shop">shop</div>
+            <div class="tab" data-tab="inventory">inventory</div>
             <div class="tab" data-tab="stats">stats</div>
         </div>
         
@@ -872,6 +967,13 @@
             </div>
         </section>
         
+        <section id="inventory" class="section">
+            <div class="card">
+                <h2 class="card-title">> your items</h2>
+                <div class="inventory-grid" id="inventory-grid"></div>
+            </div>
+        </section>
+        
         <section id="stats" class="section">
             <div class="stats-summary">
                 <div class="stat">
@@ -957,9 +1059,17 @@
         let habits = JSON.parse(localStorage.getItem('habits'));
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         let documents = JSON.parse(localStorage.getItem('documents')) || {};
+        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
         let currentDoc = 'notes.txt';
         let activityLog = JSON.parse(localStorage.getItem('activity')) || [];
         let selectedCategory = 'daily';
+        
+        const shopItems = [
+            { id: 'custom_theme', name: 'Custom Theme', icon: '[_]', price: 100 },
+            { id: 'extra_slots', name: 'Extra Slots', icon: '[*]', price: 200 },
+            { id: 'stats_pack', name: 'Stats Pack', icon: '[~]', price: 150 },
+            { id: 'priority_support', name: 'Priority Support', icon: '[x]', price: 500 }
+        ];
         
         function save() {
             localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -967,9 +1077,10 @@
             localStorage.setItem('activity', JSON.stringify(activityLog));
             localStorage.setItem('habits', JSON.stringify(habits));
             localStorage.setItem('credits', credits);
+            localStorage.setItem('inventory', JSON.stringify(inventory));
         }
         
-        if (!habits || habits.length === 0) {
+        if (habits === null || habits === undefined) {
             habits = [
                 { name: 'meditation', streak: 0, difficulty: 'medium', category: 'daily', completed: false },
                 { name: 'reading', streak: 0, difficulty: 'medium', category: 'daily', completed: false }
@@ -1303,14 +1414,23 @@
             document.getElementById('current-streak').textContent = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
         }
         
-        document.querySelectorAll('.buy-btn').forEach(btn => {
+        document.querySelectorAll('.buy-btn').forEach((btn, index) => {
             btn.addEventListener('click', function() {
-                const price = parseInt(this.previousElementSibling.textContent);
+                const item = shopItems[index];
+                const price = item.price;
                 if (credits >= price) {
                     credits -= price;
+                    inventory.push({
+                        id: item.id,
+                        name: item.name,
+                        icon: item.icon,
+                        used: false,
+                        purchasedAt: new Date().toLocaleDateString()
+                    });
                     save();
                     renderTasks();
-                    addActivity('Purchased item for ' + price + ' credits');
+                    renderInventory();
+                    addActivity('Purchased: ' + item.name);
                     this.textContent = 'purchased';
                     setTimeout(() => this.textContent = 'buy', 1500);
                 } else {
@@ -1320,10 +1440,53 @@
             });
         });
         
+        function renderInventory() {
+            const grid = document.getElementById('inventory-grid');
+            if (inventory.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="empty-icon">[*]</div><div class="empty-text">no items yet</div></div>';
+                return;
+            }
+            
+            grid.innerHTML = inventory.map((item, index) => `
+                <div class="inventory-item ${item.used ? 'used' : ''}">
+                    <button class="inventory-delete" data-index="${index}">x</button>
+                    <div class="inventory-item-header">
+                        <div class="inventory-item-icon">${item.icon}</div>
+                        <div class="inventory-item-name">${item.name}</div>
+                    </div>
+                    <div class="inventory-item-used">
+                        <input type="checkbox" class="inventory-checkbox" data-index="${index}" ${item.used ? 'checked' : ''}>
+                        <span>${item.used ? 'used' : 'mark as used'}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.inventory-checkbox').forEach(cb => {
+                cb.addEventListener('change', function() {
+                    const idx = parseInt(this.dataset.index);
+                    inventory[idx].used = this.checked;
+                    save();
+                    renderInventory();
+                    addActivity(inventory[idx].used ? 'Used: ' + inventory[idx].name : 'Reset: ' + inventory[idx].name);
+                });
+            });
+            
+            document.querySelectorAll('.inventory-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    inventory.splice(idx, 1);
+                    save();
+                    renderInventory();
+                    addActivity('Deleted item from inventory');
+                });
+            });
+        }
+        
         renderTasks();
         renderHabits();
         renderActivity();
         renderDocuments();
+        renderInventory();
         document.getElementById('doc-content').textContent = documents[currentDoc] || '';
         document.getElementById('credits-display').textContent = credits;
     </script>

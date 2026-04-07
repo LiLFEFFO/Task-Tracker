@@ -1960,6 +1960,14 @@
             .ai-focus-select {
                 width: 100%;
             }
+            
+            .mobile-input-spacer {
+                display: none;
+            }
+        }
+        
+        .mobile-input-spacer.active {
+            display: block;
         }
         
         @media (max-width: 480px) {
@@ -2287,6 +2295,7 @@
                         <input type="text" id="ai-input" class="ai-text-input" placeholder="Scrivi un messaggio..." autocomplete="off">
                         <button type="submit" class="ai-send-btn">invia</button>
                     </form>
+                    <div class="mobile-input-spacer" id="mobile-input-spacer"></div>
                 </div>
             </div>
         </section>
@@ -4120,14 +4129,49 @@
             }
         });
         
-        document.getElementById('ai-input').addEventListener('focus', () => {
+        const aiInput = document.getElementById('ai-input');
+        const mobileSpacer = document.getElementById('mobile-input-spacer');
+        let keyboardHeight = 0;
+        
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                const viewportHeight = window.visualViewport.height;
+                const windowHeight = window.innerHeight;
+                
+                if (windowHeight < viewportHeight - 50) {
+                    keyboardHeight = viewportHeight - windowHeight;
+                    mobileSpacer.style.height = keyboardHeight + 'px';
+                    mobileSpacer.classList.add('active');
+                } else {
+                    mobileSpacer.classList.remove('active');
+                    keyboardHeight = 0;
+                }
+            });
+        } else {
+            window.addEventListener('resize', () => {
+                const viewportHeight = window.innerHeight;
+                if (viewportHeight < window.outerHeight - 100) {
+                    keyboardHeight = window.outerHeight - viewportHeight;
+                    mobileSpacer.style.height = keyboardHeight + 'px';
+                    mobileSpacer.classList.add('active');
+                } else {
+                    mobileSpacer.classList.remove('active');
+                    keyboardHeight = 0;
+                }
+            });
+        }
+        
+        aiInput.addEventListener('blur', () => {
             setTimeout(() => {
-                document.getElementById('ai-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+                if (!document.activeElement || document.activeElement.tagName !== 'INPUT') {
+                    mobileSpacer.classList.remove('active');
+                }
+            }, 100);
         });
         
         document.getElementById('ai-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            mobileSpacer.classList.remove('active');
             const input = document.getElementById('ai-input');
             const message = input.value.trim();
             if (message) {

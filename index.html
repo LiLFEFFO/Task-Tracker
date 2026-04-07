@@ -1668,6 +1668,214 @@
             }
         }
         
+        .ai-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 200px);
+            min-height: 500px;
+        }
+        
+        .ai-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .ai-settings {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .ai-url-input {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 0.75rem;
+            width: 280px;
+        }
+        
+        .ai-url-input::placeholder {
+            color: var(--text-dim);
+        }
+        
+        .ai-url-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .ai-save-url-btn {
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        
+        .ai-save-url-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .ai-model-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .ai-model-badge {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            padding: 4px 10px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+        }
+        
+        .ai-clear-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.65rem;
+            cursor: pointer;
+        }
+        
+        .ai-clear-btn:hover {
+            border-color: #f87171;
+            color: #f87171;
+        }
+        
+        .ai-chat-container {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            overflow-y: auto;
+            margin-bottom: 16px;
+            padding: 16px;
+        }
+        
+        .ai-message {
+            display: flex;
+            margin-bottom: 16px;
+        }
+        
+        .ai-message.user {
+            justify-content: flex-end;
+        }
+        
+        .ai-message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        
+        .ai-message.user .ai-message-content {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        
+        .ai-message.bot .ai-message-content {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+        }
+        
+        .ai-message.loading .ai-message-content {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+        
+        .ai-message.error .ai-message-content {
+            border-color: #f87171;
+            color: #f87171;
+        }
+        
+        .ai-input-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 16px;
+        }
+        
+        .ai-system-prompt {
+            margin-bottom: 12px;
+        }
+        
+        .ai-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .ai-system-input {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 0.8rem;
+        }
+        
+        .ai-system-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .ai-form {
+            display: flex;
+            gap: 0;
+        }
+        
+        .ai-text-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-right: none;
+            color: var(--text);
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+        
+        .ai-text-input::placeholder {
+            color: var(--text-dim);
+        }
+        
+        .ai-text-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .ai-send-btn {
+            padding: 12px 24px;
+            background: var(--accent);
+            color: var(--bg);
+            border: 1px solid var(--accent);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .ai-send-btn:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+        
+        .ai-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         @media (max-width: 480px) {
             .nav-tabs {
                 gap: 0;
@@ -1729,6 +1937,7 @@
             <div class="tab" data-tab="inventory">inventory</div>
             <div class="tab" data-tab="quests">quests</div>
             <div class="tab" data-tab="memories">memories</div>
+            <div class="tab" data-tab="ai">AI</div>
             <div class="tab" data-tab="stats">stats</div>
         </div>
         
@@ -1937,6 +2146,40 @@
                 <div class="empty-state" id="memories-empty">
                     <div class="empty-icon">[o]</div>
                     <div class="empty-text">no memories yet</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="ai" class="section">
+            <div class="ai-container">
+                <div class="ai-header">
+                    <h2 class="card-title">> Peter AI</h2>
+                </div>
+                
+                <div class="ai-model-info">
+                    <span class="ai-model-badge">@cf/meta/llama-3-8b-instruct</span>
+                    <button class="ai-clear-btn" id="ai-clear-chat">pulisci chat</button>
+                </div>
+                
+                <div class="ai-chat-container">
+                    <div class="ai-messages" id="ai-messages">
+                        <div class="ai-message ai-message-bot">
+                            <div class="ai-message-content">
+                                Ciao! Sono Peter, la tua AI assist. Come posso aiutarti oggi?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ai-input-container">
+                    <div class="ai-system-prompt">
+                        <label class="ai-label">System prompt:</label>
+                        <input type="text" id="ai-system-prompt" class="ai-system-input" value="Sei Peter, l'assistente AI del Task Tracker. Conosci tutte le funzionalità del sito e puoi aiutare l'utente. Funzionalità principali: CHECKLIST - per creare e completare task, ogni task completato dà +10 crediti e EXP. HABITS - abitudini giornaliere/settimanali/mensili con difficoltà (easy=5xp, medium=10xp, hard=20xp), non modificabile dopo il primo utilizzo. TRACKING - statistiche di completamento habit con grafici circolari. SHOP - negozio dove comprare oggetti con crediti guadagnati dai task. INVENTORY - oggetti acquistati che danno bonus (temi personalizzati, slot extra, XP boost). QUESTS - missioni generate casualmente (physical/creative/social) con difficoltà (easy/medium/hard). Per completare una quest serve caricare una foto o video come prova. MEMORIES - galleria dei momenti documentati con le quest completate. STATS - statistiche complete: boss quest obbligatorie per avanzare di livello (EXP bloccata finché non completata), sistema medaglie (ogni 10 livelli: Principiante, Apprendista, Competente, Esperto, Maestro, Leggendario, Ultra Leggendario), barra EXP con progressione. LIVELLI - si sale di livello con l'EXP guadagnata da task e habit completati. BOSS QUEST - obbligatoria per avanzare, se abbandonata si torna al livello precedente. AI - chat con Cloudflare Workers AI. Se l'utente chiede come funziona qualcosa, spiegalo in modo chiaro e conciso.">
+                    </div>
+                    <form class="ai-form" id="ai-form">
+                        <input type="text" id="ai-input" class="ai-text-input" placeholder="Scrivi un messaggio..." autocomplete="off">
+                        <button type="submit" class="ai-send-btn">invia</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -2800,8 +3043,8 @@
         
         if (habits === null || habits === undefined) {
             habits = [
-                { name: 'meditation', streak: 0, difficulty: 'medium', category: 'daily', completed: false },
-                { name: 'reading', streak: 0, difficulty: 'medium', category: 'daily', completed: false }
+                { name: 'meditation', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null },
+                { name: 'reading', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null }
             ];
             save();
         }
@@ -3057,7 +3300,7 @@
                     ${difficultyHtml}
                     <div class="habit-stats">
                         <span>${getXpForDifficulty(h.difficulty)}xp</span>
-                        <span>${h.completed ? 'today' : 'pending'}</span>
+                        <span style="color: var(--accent);">${h.completedCount || 0}x completed</span>
                     </div>
                 </div>
             `;
@@ -3066,19 +3309,29 @@
             document.querySelectorAll('.habit-checkbox').forEach(cb => {
                 cb.addEventListener('change', function() {
                     const idx = parseInt(this.dataset.index);
-                    habits[idx].completed = this.checked;
+                    const habit = habits[idx];
+                    const today = new Date().toDateString();
+                    
+                    habit.completed = this.checked;
+                    
                     if (this.checked) {
-                        habits[idx].streak++;
-                        const habitExp = getXpForDifficulty(habits[idx].difficulty);
-                        addExp(habitExp);
-                        showExpGainPopup(habitExp);
-                        credits += getXpForDifficulty(habits[idx].difficulty);
+                        habit.streak++;
+                        
+                        if (habit.lastCompletedDate !== today) {
+                            habit.completedCount++;
+                            habit.lastCompletedDate = today;
+                            
+                            const habitExp = getXpForDifficulty(habit.difficulty);
+                            addExp(habitExp);
+                            showExpGainPopup(habitExp);
+                            credits += getXpForDifficulty(habit.difficulty);
+                            addActivity('Completed habit: ' + habit.name + ' (x' + habit.completedCount + ')');
+                            updateExpHistory('habits');
+                        }
+                        
                         this.nextElementSibling.textContent = 'completed';
-                        addActivity('Completed habit: ' + habits[idx].name);
-                        updateExpHistory('habits');
                     } else {
-                        habits[idx].streak = Math.max(0, habits[idx].streak - 1);
-                        credits -= getXpForDifficulty(habits[idx].difficulty);
+                        habit.streak = Math.max(0, habit.streak - 1);
                         this.nextElementSibling.textContent = 'mark done';
                     }
                     save();
@@ -3130,7 +3383,9 @@
                     streak: 0, 
                     difficulty: 'medium', 
                     category: selectedCategory,
-                    completed: false
+                    completed: false,
+                    completedCount: 0,
+                    lastCompletedDate: null
                 });
                 input.value = '';
                 save();
@@ -3591,6 +3846,145 @@
                 });
             });
         }
+        
+        // WALLIE AI CHAT
+        const aiWorkerUrl = 'https://peter.federicofongaro370.workers.dev/';
+        let aiMessages = JSON.parse(localStorage.getItem('aiMessages')) || [];
+        let aiSystemPrompt = localStorage.getItem('aiSystemPrompt') || 'Sei Peter, l\'assistente AI del Task Tracker. Conosci tutte le funzionalità del sito e puoi aiutare l\'utente. Funzionalità principali: CHECKLIST - per creare e completare task, ogni task completato dà +10 crediti e EXP. HABITS - abitudini giornaliere/settimanali/mensili con difficoltà (easy=5xp, medium=10xp, hard=20xp), non modificabile dopo il primo utilizzo. TRACKING - statistiche di completamento habit con grafici circolari. SHOP - negozio dove comprare oggetti con crediti guadagnati dai task. INVENTORY - oggetti acquistati che danno bonus (temi personalizzati, slot extra, XP boost). QUESTS - missioni generate casualmente (physical/creative/social) con difficoltà (easy/medium/hard). Per completare una quest serve caricare una foto o video come prova. MEMORIES - galleria dei momenti documentati con le quest completate. STATS - statistiche complete: boss quest obbligatorie per avanzare di livello (EXP bloccata finché non completata), sistema medaglie (ogni 10 livelli: Principiante, Apprendista, Competente, Esperto, Maestro, Leggendario, Ultra Leggendario), barra EXP con progressione. LIVELLI - si sale di livello con l\'EXP guadagnata da task e habit completati. BOSS QUEST - obbligatoria per avanzare, se abbandonata si torna al livello precedente. AI - chat con Cloudflare Workers AI. Se l\'utente chiede come funziona qualcosa, spiegalo in modo chiaro e conciso.';
+        
+        function initAI() {
+            document.getElementById('ai-system-prompt').value = aiSystemPrompt;
+            
+            if (aiMessages.length > 0) {
+                renderAIMessages();
+            }
+        }
+        
+        function renderAIMessages() {
+            const container = document.getElementById('ai-messages');
+            container.innerHTML = '';
+            
+            aiMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = `ai-message ${msg.role}`;
+                div.innerHTML = `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function addAIMessage(role, content) {
+            aiMessages.push({ role, content });
+            localStorage.setItem('aiMessages', JSON.stringify(aiMessages));
+            renderAIMessages();
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        async function sendAIMessage(message) {
+            if (!aiWorkerUrl) {
+                alert('Configura l\'URL del Worker Peter prima di chattare!');
+                return;
+            }
+            
+            addAIMessage('user', message);
+            
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'ai-message bot loading';
+            loadingDiv.innerHTML = '<div class="ai-message-content">Sto pensando...</div>';
+            document.getElementById('ai-messages').appendChild(loadingDiv);
+            document.getElementById('ai-messages').scrollTop = document.getElementById('ai-messages').scrollHeight;
+            
+            const sendBtn = document.querySelector('.ai-send-btn');
+            const input = document.getElementById('ai-input');
+            sendBtn.disabled = true;
+            input.disabled = true;
+            
+            try {
+                const conversation = [
+                    { role: 'system', content: aiSystemPrompt },
+                    ...aiMessages.slice(0, -1),
+                    { role: 'user', content: message }
+                ];
+                
+                const response = await fetch(aiWorkerUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages: conversation
+                    })
+                });
+                
+                loadingDiv.remove();
+                
+                if (!response.ok) {
+                    throw new Error(`Errore: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                let botResponse = '';
+                
+                if (typeof data === 'string') {
+                    botResponse = data;
+                } else if (data.response) {
+                    botResponse = data.response;
+                } else if (data.result) {
+                    botResponse = typeof data.result === 'string' ? data.result : JSON.stringify(data.result);
+                } else if (data.choices && data.choices[0] && data.choices[0].message) {
+                    botResponse = data.choices[0].message.content;
+                } else {
+                    botResponse = JSON.stringify(data);
+                }
+                
+                botResponse = botResponse.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+                
+                addAIMessage('bot', botResponse);
+                
+            } catch (error) {
+                loadingDiv.remove();
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'ai-message bot error';
+                errorDiv.innerHTML = `<div class="ai-message-content">Errore: ${error.message}</div>`;
+                document.getElementById('ai-messages').appendChild(errorDiv);
+            }
+            
+            sendBtn.disabled = false;
+            input.disabled = false;
+            input.value = '';
+            input.focus();
+        }
+        
+        document.getElementById('ai-system-prompt').addEventListener('change', (e) => {
+            aiSystemPrompt = e.target.value;
+            localStorage.setItem('aiSystemPrompt', aiSystemPrompt);
+        });
+        
+        document.getElementById('ai-clear-chat').addEventListener('click', () => {
+            if (confirm('Pulisci la cronologia chat?')) {
+                aiMessages = [];
+                localStorage.setItem('aiMessages', JSON.stringify(aiMessages));
+                renderAIMessages();
+            }
+        });
+        
+        document.getElementById('ai-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('ai-input');
+            const message = input.value.trim();
+            if (message) {
+                sendAIMessage(message);
+            }
+        });
+        
+        initAI();
         
         renderActiveQuests();
         renderMemories();

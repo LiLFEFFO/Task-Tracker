@@ -20,6 +20,7 @@
             --text-dim: #666;
             --border: #2a2a2a;
             --accent: #fff;
+            --viewport-height: 100vh;
         }
         
         body {
@@ -1671,15 +1672,21 @@
         .ai-container {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 200px);
-            min-height: 500px;
+            height: var(--viewport-height, 100dvh);
+            height: 100dvh;
+            height: -webkit-fill-available;
+            max-height: 100dvh;
+            max-height: 100vh;
+            max-height: -webkit-fill-available;
+            overflow: hidden;
         }
         
         .ai-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            padding: 12px 0;
+            flex-shrink: 0;
             flex-wrap: wrap;
             gap: 12px;
         }
@@ -1801,7 +1808,8 @@
         .ai-input-container {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            padding: 16px;
+            padding: 12px;
+            flex-shrink: 0;
         }
         
         .ai-form {
@@ -1920,7 +1928,7 @@
         }
         
         .ai-system-prompt {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .ai-label {
@@ -1932,25 +1940,32 @@
         
         @media (max-width: 768px) {
             .ai-container {
-                height: calc(100vh - 180px);
-                min-height: 400px;
+                height: var(--viewport-height, 100dvh);
+                height: 100dvh;
+                height: 100vh;
+                height: -webkit-fill-available;
+                max-height: var(--viewport-height, 100dvh);
+                max-height: 100dvh;
+                max-height: 100vh;
+                max-height: -webkit-fill-available;
             }
             
             .ai-chat-container {
                 flex: 1;
                 min-height: 0;
-            }
-            
-            .ai-input-container {
-                position: sticky;
-                bottom: 0;
-                background: var(--bg);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
             
             .ai-profile {
                 flex-direction: column;
-                gap: 12px;
+                gap: 8px;
                 align-items: flex-start;
+                padding: 10px;
+            }
+            
+            .ai-profile-info {
+                width: 100%;
             }
             
             .ai-focus-selector {
@@ -1961,13 +1976,13 @@
                 width: 100%;
             }
             
-            .mobile-input-spacer {
-                display: none;
+            .ai-model-info {
+                padding: 8px 0;
             }
-        }
-        
-        .mobile-input-spacer.active {
-            display: block;
+            
+            .ai-input-container {
+                padding: 8px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -2295,7 +2310,6 @@
                         <input type="text" id="ai-input" class="ai-text-input" placeholder="Scrivi un messaggio..." autocomplete="off">
                         <button type="submit" class="ai-send-btn">invia</button>
                     </form>
-                    <div class="mobile-input-spacer" id="mobile-input-spacer"></div>
                 </div>
             </div>
         </section>
@@ -4130,48 +4144,29 @@
         });
         
         const aiInput = document.getElementById('ai-input');
-        const mobileSpacer = document.getElementById('mobile-input-spacer');
-        let keyboardHeight = 0;
+        const aiContainer = document.querySelector('.ai-container');
+        const chatContainer = document.getElementById('ai-messages');
         
         if (window.visualViewport) {
             window.visualViewport.addEventListener('resize', () => {
-                const viewportHeight = window.visualViewport.height;
-                const windowHeight = window.innerHeight;
-                
-                if (windowHeight < viewportHeight - 50) {
-                    keyboardHeight = viewportHeight - windowHeight;
-                    mobileSpacer.style.height = keyboardHeight + 'px';
-                    mobileSpacer.classList.add('active');
-                } else {
-                    mobileSpacer.classList.remove('active');
-                    keyboardHeight = 0;
-                }
+                const vv = window.visualViewport;
+                document.documentElement.style.setProperty('--viewport-height', vv.height + 'px');
             });
-        } else {
-            window.addEventListener('resize', () => {
-                const viewportHeight = window.innerHeight;
-                if (viewportHeight < window.outerHeight - 100) {
-                    keyboardHeight = window.outerHeight - viewportHeight;
-                    mobileSpacer.style.height = keyboardHeight + 'px';
-                    mobileSpacer.classList.add('active');
-                } else {
-                    mobileSpacer.classList.remove('active');
-                    keyboardHeight = 0;
-                }
+            
+            window.visualViewport.addEventListener('scroll', () => {
+                const vv = window.visualViewport;
+                document.documentElement.style.setProperty('--viewport-height', vv.height + 'px');
             });
         }
         
-        aiInput.addEventListener('blur', () => {
+        aiInput.addEventListener('focus', () => {
             setTimeout(() => {
-                if (!document.activeElement || document.activeElement.tagName !== 'INPUT') {
-                    mobileSpacer.classList.remove('active');
-                }
+                chatContainer.scrollTop = chatContainer.scrollHeight;
             }, 100);
         });
         
         document.getElementById('ai-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            mobileSpacer.classList.remove('active');
             const input = document.getElementById('ai-input');
             const message = input.value.trim();
             if (message) {

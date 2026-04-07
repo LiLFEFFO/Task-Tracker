@@ -455,6 +455,13 @@
             color: var(--accent);
         }
         
+        .difficulty-display {
+            padding: 8px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        
         .habit-stats {
             display: flex;
             justify-content: space-between;
@@ -3024,6 +3031,18 @@
             
             habitsGrid.innerHTML = filtered.map((h) => {
                 const realIndex = habits.indexOf(h);
+                const isLocked = h.streak > 0 || h.completed;
+                const difficultyHtml = isLocked ? `
+                    <div class="difficulty-display">
+                        <span class="difficulty-locked" style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">${h.difficulty}</span>
+                    </div>
+                ` : `
+                    <div class="difficulty-selector">
+                        <button class="difficulty-btn ${h.difficulty === 'easy' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="easy">easy</button>
+                        <button class="difficulty-btn ${h.difficulty === 'medium' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="medium">medium</button>
+                        <button class="difficulty-btn ${h.difficulty === 'hard' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="hard">hard</button>
+                    </div>
+                `;
                 return `
                 <div class="habit-card">
                     <button class="habit-delete" data-index="${realIndex}">x</button>
@@ -3035,11 +3054,7 @@
                         <input type="checkbox" class="habit-checkbox" data-index="${realIndex}" ${h.completed ? 'checked' : ''}>
                         <span class="habit-completed-label">${h.completed ? 'completed' : 'mark done'}</span>
                     </div>
-                    <div class="difficulty-selector">
-                        <button class="difficulty-btn ${h.difficulty === 'easy' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="easy">easy</button>
-                        <button class="difficulty-btn ${h.difficulty === 'medium' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="medium">medium</button>
-                        <button class="difficulty-btn ${h.difficulty === 'hard' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="hard">hard</button>
-                    </div>
+                    ${difficultyHtml}
                     <div class="habit-stats">
                         <span>${getXpForDifficulty(h.difficulty)}xp</span>
                         <span>${h.completed ? 'today' : 'pending'}</span>

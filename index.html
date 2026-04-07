@@ -871,7 +871,635 @@
             color: var(--text);
         }
         
+        .quest-generator {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .quest-type-selector {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .quest-type-btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+        
+        .quest-type-btn:hover {
+            border-color: var(--text-dim);
+            color: var(--text);
+        }
+        
+        .quest-type-btn.active {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+        
+        .quest-difficulty-selector {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .quest-difficulty-btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+        
+        .quest-difficulty-btn:hover {
+            border-color: var(--text-dim);
+            color: var(--text);
+        }
+        
+        .quest-difficulty-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .quest-generate-btn {
+            padding: 14px 24px;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+        
+        .quest-generate-btn:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+        
+        .quest-preview {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-top: 20px;
+        }
+        
+        .quest-preview-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .quest-type-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 4px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+        
+        .quest-type-badge.physical { border-color: #58a6ff; color: #58a6ff; }
+        .quest-type-badge.creative { border-color: #c084fc; color: #c084fc; }
+        .quest-type-badge.social { border-color: #4ade80; color: #4ade80; }
+        
+        .quest-difficulty-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 4px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+        
+        .quest-difficulty-badge.easy { border-color: #4ade80; color: #4ade80; }
+        .quest-difficulty-badge.medium { border-color: #fbbf24; color: #fbbf24; }
+        .quest-difficulty-badge.hard { border-color: #f87171; color: #f87171; }
+        
+        .quest-preview-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .quest-preview-reward {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+        
+        .reward-value {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .quest-preview-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .quest-accept-btn {
+            flex: 1;
+            padding: 12px 24px;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg);
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+        
+        .quest-accept-btn:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+        
+        .quest-refuse-btn {
+            flex: 1;
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+        
+        .quest-refuse-btn:hover {
+            border-color: var(--text-dim);
+            color: var(--text);
+        }
+        
+        .active-quests-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .quest-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 16px;
+            position: relative;
+        }
+        
+        .quest-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .quest-card-badges {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .quest-card-reward {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .quest-card-text {
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        
+        .quest-card-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .quest-complete-btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg);
+            font-family: inherit;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+        }
+        
+        .quest-complete-btn:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+        
+        .quest-abandon-btn {
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+        }
+        
+        .quest-abandon-btn:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+        
+        .upload-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+        
+        .upload-text {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .upload-preview {
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .upload-preview img, .upload-preview video {
+            max-width: 100%;
+            max-height: 300px;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+        
+        .upload-preview video {
+            background: #000;
+        }
+        
+        .upload-preview-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .upload-confirm-btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg);
+            font-family: inherit;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+        }
+        
+        .upload-cancel-btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+        }
+        
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .memory-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 12px;
+            position: relative;
+        }
+        
+        .memory-item img, .memory-item video {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: var(--bg);
+            display: block;
+        }
+        
+        .memory-item video {
+            height: 150px;
+        }
+        
+        .memory-info {
+            padding: 10px 0 0;
+        }
+        
+        .memory-quest-name {
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+        }
+        
+        .memory-date {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
+        
+        .memory-delete {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            opacity: 0;
+        }
+        
+        .memory-item:hover .memory-delete {
+            opacity: 1;
+        }
+        
+        .memory-delete:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+        
+            .memory-type-icon {
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                padding: 4px 6px;
+                font-size: 0.65rem;
+                color: var(--text-dim);
+            }
+            
+            .level-display {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+            
+            .level-number {
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+            
+            .exp-gain-popup {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--bg-secondary);
+                border: 1px solid var(--accent);
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--accent);
+                animation: fadeOut 2s ease forwards;
+                z-index: 1000;
+            }
+            
+            @keyframes fadeOut {
+                0% { opacity: 1; transform: translateY(0); }
+                80% { opacity: 1; }
+                100% { opacity: 0; transform: translateY(-20px); }
+            }
+            
+            .level-up-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            }
+            
+            .level-up-content {
+                background: var(--bg-secondary);
+                border: 1px solid var(--accent);
+                padding: 40px;
+                text-align: center;
+                max-width: 400px;
+            }
+            
+            .level-up-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--accent);
+                margin-bottom: 16px;
+            }
+            
+            .level-up-level {
+                font-size: 4rem;
+                font-weight: 700;
+                color: var(--accent);
+                margin-bottom: 24px;
+            }
+            
+            .level-up-message {
+                font-size: 0.9rem;
+                color: var(--text-dim);
+                margin-bottom: 24px;
+            }
+            
+            .boss-quest-card {
+                background: var(--bg-tertiary);
+                border: 2px solid var(--accent);
+                padding: 24px;
+                margin-bottom: 20px;
+            }
+            
+            .boss-quest-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+            }
+            
+            .boss-quest-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: var(--accent);
+            }
+            
+            .boss-quest-type {
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                padding: 4px 10px;
+                background: var(--bg);
+                border: 1px solid var(--accent);
+                color: var(--accent);
+            }
+            
+            .boss-quest-desc {
+                font-size: 0.9rem;
+                margin-bottom: 16px;
+                line-height: 1.6;
+            }
+            
+            .boss-quest-reqs {
+                font-size: 0.75rem;
+                color: var(--text-dim);
+                margin-bottom: 16px;
+                padding: 12px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+            }
+            
+            .boss-quest-rewards {
+                display: flex;
+                gap: 20px;
+                margin-bottom: 20px;
+                font-size: 0.8rem;
+            }
+            
+            .boss-reward-item {
+                color: var(--accent);
+                font-weight: 700;
+            }
+            
+            .boss-quest-container {
+                margin-bottom: 24px;
+            }
+            
+            .medals-section {
+                margin-bottom: 24px;
+            }
+            
+            .medals-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+            
+            .medal-item {
+                background: var(--bg-secondary);
+                border: 2px solid;
+                padding: 16px;
+                text-align: center;
+            }
+            
+            .medal-icon {
+                font-size: 1.8rem;
+                margin-bottom: 8px;
+            }
+            
+            .medal-name {
+                font-size: 0.8rem;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+            
+            .medal-rarity {
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            
+            .medal-level {
+                font-size: 0.6rem;
+                margin-top: 4px;
+            }
+            
+            .boss-quest-warning {
+                background: var(--bg-tertiary);
+                border: 1px solid #f87171;
+                padding: 16px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            
+            .boss-quest-warning-title {
+                color: #f87171;
+                font-size: 0.9rem;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+            
+            .boss-quest-warning-text {
+                color: var(--text-dim);
+                font-size: 0.75rem;
+            }
+        
+        
         @media (max-width: 768px) {
+            .container {
+                padding: 20px 12px;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .nav-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 0;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .nav-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .tab {
+                white-space: nowrap;
+                padding: 12px 14px;
+                font-size: 0.65rem;
+            }
+            
             .docs-container {
                 flex-direction: column;
             }
@@ -883,8 +1511,14 @@
                 padding-right: 0;
                 padding-bottom: 16px;
                 display: flex;
-                gap: 12px;
+                gap: 8px;
                 flex-wrap: wrap;
+                overflow-x: auto;
+            }
+            
+            .doc-item {
+                font-size: 0.75rem;
+                padding: 8px 10px;
             }
             
             .habits-grid,
@@ -895,11 +1529,162 @@
             
             .habit-categories {
                 flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .category-btn {
+                padding: 8px 12px;
+                font-size: 0.65rem;
             }
             
             .stats-summary {
                 flex-wrap: wrap;
-                gap: 16px;
+                gap: 12px;
+            }
+            
+            .stats-summary .stat {
+                flex: 1 1 40%;
+                min-width: 100px;
+            }
+            
+            .quest-type-selector,
+            .quest-difficulty-selector {
+                flex-wrap: wrap;
+            }
+            
+            .quest-type-btn,
+            .quest-difficulty-btn {
+                padding: 10px 12px;
+                font-size: 0.65rem;
+            }
+            
+            .memories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .memory-item img, .memory-item video {
+                height: 100px;
+            }
+            
+            .memory-item video {
+                height: 100px;
+            }
+            
+            .task-form {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .task-input {
+                border-right: 1px solid var(--border);
+            }
+            
+            .add-btn {
+                width: 100%;
+            }
+            
+            .add-habit-form {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .add-habit-form input {
+                border-right: 1px solid var(--border);
+            }
+            
+            .difficulty-selector {
+                flex-wrap: wrap;
+            }
+            
+            .quest-preview-actions {
+                flex-direction: column;
+            }
+            
+            .quest-card-actions {
+                flex-direction: column;
+            }
+            
+            .credits-display {
+                padding: 16px;
+            }
+            
+            .credits-amount {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .card-title {
+                font-size: 0.65rem;
+            }
+            
+            .editor-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .tracking-section {
+                margin-bottom: 24px;
+            }
+            
+            .tracking-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .chart-container {
+                height: 180px;
+            }
+            
+            .level-display {
+                padding: 12px 16px;
+            }
+            
+            .level-number {
+                font-size: 1.5rem;
+            }
+            
+            .boss-quest-card {
+                padding: 16px;
+            }
+            
+            .boss-quest-rewards {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-tabs {
+                gap: 0;
+            }
+            
+            .tab {
+                padding: 10px 10px;
+                font-size: 0.6rem;
+            }
+            
+            .stat-card {
+                padding: 16px;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .memories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .inventory-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -911,14 +1696,32 @@
                 <h1>> task_tracker</h1>
                 <div class="subtitle">// your productivity terminal</div>
             </div>
+            <div class="level-display" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 8px 16px; display: flex; align-items: center; gap: 16px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;">level</div>
+                    <div class="level-number" id="level-display" style="font-size: 1.2rem; font-weight: 700;">1</div>
+                </div>
+                <div style="flex: 1; min-width: 120px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.65rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-dim);">exp</span>
+                        <span id="exp-text">0 / 100</span>
+                    </div>
+                    <div class="progress-bar" style="height: 6px;">
+                        <div class="progress-fill" id="exp-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
         </header>
         
         <div class="nav-tabs">
             <div class="tab active" data-tab="checklist">checklist</div>
             <div class="tab" data-tab="documents">documents</div>
             <div class="tab" data-tab="habits">habits</div>
+            <div class="tab" data-tab="tracking">tracking</div>
             <div class="tab" data-tab="shop">shop</div>
             <div class="tab" data-tab="inventory">inventory</div>
+            <div class="tab" data-tab="quests">quests</div>
+            <div class="tab" data-tab="memories">memories</div>
             <div class="tab" data-tab="stats">stats</div>
         </div>
         
@@ -979,6 +1782,58 @@
             </div>
         </section>
         
+        <section id="tracking" class="section">
+            <div class="card">
+                <h2 class="card-title">> habit tracking</h2>
+                
+                <div class="tracking-section">
+                    <div class="tracking-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim);">daily habits</span>
+                    </div>
+                    <div class="chart-container" style="background: var(--bg-tertiary); border: 1px solid var(--border); padding: 20px; height: 200px; position: relative;">
+                        <div class="percentage-chart" id="daily-percentage" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="chart-circle" style="position: relative; width: 140px; height: 140px;">
+                                <svg viewBox="0 0 100 100" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--border)" stroke-width="8"/>
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" id="daily-circle" style="transition: stroke-dashoffset 0.5s ease;"/>
+                                </svg>
+                                <div class="percentage-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <div class="percentage-value" id="daily-percent" style="font-size: 1.5rem; font-weight: 700;">0%</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;">completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-details" style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 0.75rem; color: var(--text-dim);">
+                        <span id="daily-completed-count">0 / 0 completed</span>
+                    </div>
+                </div>
+                
+                <div class="tracking-section">
+                    <div class="tracking-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim);">monthly habits</span>
+                    </div>
+                    <div class="chart-container" style="background: var(--bg-tertiary); border: 1px solid var(--border); padding: 20px; height: 200px; position: relative;">
+                        <div class="percentage-chart" id="monthly-percentage" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="chart-circle" style="position: relative; width: 140px; height: 140px;">
+                                <svg viewBox="0 0 100 100" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--border)" stroke-width="8"/>
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" id="monthly-circle" style="transition: stroke-dashoffset 0.5s ease;"/>
+                                </svg>
+                                <div class="percentage-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <div class="percentage-value" id="monthly-percent" style="font-size: 1.5rem; font-weight: 700;">0%</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;">completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-details" style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 0.75rem; color: var(--text-dim);">
+                        <span id="monthly-completed-count">0 / 0 completed</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section id="shop" class="section">
             <div class="credits-display">
                 <div class="credits-label">your credits</div>
@@ -1027,7 +1882,66 @@
             </div>
         </section>
         
+        <section id="quests" class="section">
+            <div class="card">
+                <h2 class="card-title">> quest generator</h2>
+                <div class="quest-generator">
+                    <div class="quest-type-selector">
+                        <button class="quest-type-btn active" data-type="physical">physical</button>
+                        <button class="quest-type-btn" data-type="creative">creative</button>
+                        <button class="quest-type-btn" data-type="social">social</button>
+                    </div>
+                    <div class="quest-difficulty-selector">
+                        <button class="quest-difficulty-btn" data-difficulty="easy">easy</button>
+                        <button class="quest-difficulty-btn active" data-difficulty="medium">medium</button>
+                        <button class="quest-difficulty-btn" data-difficulty="hard">hard</button>
+                    </div>
+                    <button class="quest-generate-btn" id="quest-generate-btn">generate quest</button>
+                </div>
+                <div class="quest-preview" id="quest-preview" style="display: none;">
+                    <div class="quest-preview-content">
+                        <div class="quest-preview-header">
+                            <span class="quest-type-badge" id="quest-type-badge"></span>
+                            <span class="quest-difficulty-badge" id="quest-difficulty-badge"></span>
+                        </div>
+                        <div class="quest-preview-text" id="quest-preview-text"></div>
+                        <div class="quest-preview-reward">
+                            <span class="reward-label">reward:</span>
+                            <span class="reward-value" id="quest-reward"></span>
+                        </div>
+                    </div>
+                    <div class="quest-preview-actions">
+                        <button class="quest-accept-btn" id="quest-accept-btn">accept</button>
+                        <button class="quest-refuse-btn" id="quest-refuse-btn">refuse</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">> active quests</h2>
+                <div class="active-quests-list" id="active-quests-list"></div>
+            </div>
+        </section>
+        
+        <section id="memories" class="section">
+            <div class="card">
+                <h2 class="card-title">> your memories</h2>
+                <div class="memories-grid" id="memories-grid"></div>
+                <div class="empty-state" id="memories-empty">
+                    <div class="empty-icon">[o]</div>
+                    <div class="empty-text">no memories yet</div>
+                </div>
+            </div>
+        </section>
+        
         <section id="stats" class="section">
+            <div class="boss-quest-container" id="boss-quest-container"></div>
+            
+            <div class="card medals-section">
+                <h2 class="card-title">> medaglie</h2>
+                <div class="medals-grid" id="medals-container"></div>
+            </div>
+            
             <div class="stats-summary">
                 <div class="stat">
                     <span class="stat-value-inline" id="total-tasks">0</span>
@@ -1060,6 +1974,15 @@
                         <div class="progress-fill" id="progress-streak" style="width: 0%"></div>
                     </div>
                     <div class="stat-note">days</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">experience</div>
+                    <div class="stat-value" id="stat-exp">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-exp" style="width: 0%"></div>
+                    </div>
+                    <div class="stat-note">total XP</div>
                 </div>
                 
                 <div class="stat-card">
@@ -1152,6 +2075,571 @@
         let currentTheme = JSON.parse(localStorage.getItem('currentTheme'));
         let xpMultiplier = 1;
         let bonusSlots = 0;
+        
+        let level = parseInt(localStorage.getItem('level')) || 1;
+        let exp = parseInt(localStorage.getItem('exp')) || 0;
+        let expHistory = JSON.parse(localStorage.getItem('expHistory')) || {};
+        let bossQuestActive = JSON.parse(localStorage.getItem('bossQuestActive')) || null;
+        let medals = JSON.parse(localStorage.getItem('medals')) || [];
+        
+        const medalTiers = [
+            { level: 1, name: 'Principiante', icon: '[I]', color: '#9ca3af', rarity: 'Comune' },
+            { level: 10, name: 'Apprendista', icon: '[II]', color: '#9ca3af', rarity: 'Comune' },
+            { level: 100, name: 'Competente', icon: '[III]', color: '#4ade80', rarity: 'Non comune' },
+            { level: 1000, name: 'Esperto', icon: '[IV]', color: '#58a6ff', rarity: 'Raro' },
+            { level: 10000, name: 'Maestro', icon: '[V]', color: '#c084fc', rarity: 'Epico' },
+            { level: 100000, name: 'Leggendario', icon: '[VI]', color: '#fb923c', rarity: 'Leggendario' },
+            { level: 1000000, name: 'Ultra Leggendario', icon: '[VII]', color: '#fbbf24', rarity: 'Ultra Leggendario' }
+        ];
+        
+        function checkAndAwardMedal(newLevel) {
+            for (const tier of medalTiers) {
+                if (newLevel >= tier.level && !medals.some(m => m.level === tier.level)) {
+                    medals.push({
+                        level: tier.level,
+                        name: tier.name,
+                        icon: tier.icon,
+                        color: tier.color,
+                        rarity: tier.rarity,
+                        awardedAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('medals', JSON.stringify(medals));
+                    showMedalAwarded(tier);
+                    addActivity('MEDAL EARNED: ' + tier.name + ' at level ' + tier.level);
+                }
+            }
+        }
+        
+        function showMedalAwarded(tier) {
+            const overlay = document.createElement('div');
+            overlay.className = 'level-up-overlay';
+            overlay.innerHTML = `
+                <div class="level-up-content" style="border-color: ${tier.color};">
+                    <div class="level-up-title" style="color: ${tier.color};">MEDAGLIA GUADAGNATA!</div>
+                    <div style="font-size: 3rem; margin: 20px 0; color: ${tier.color};">${tier.icon}</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: ${tier.color}; margin-bottom: 8px;">${tier.name}</div>
+                    <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 16px;">Rarità: ${tier.rarity}</div>
+                    <div class="level-up-message">Hai raggiunto il livello ${tier.level}!</div>
+                    <button class="quest-generate-btn" style="background: ${tier.color}; border-color: ${tier.color};" onclick="this.closest('.level-up-overlay').remove();">fantastico!</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+        
+        function renderMedals() {
+            const container = document.getElementById('medals-container');
+            if (!container) return;
+            
+            if (medals.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">[^]</div>
+                        <div class="empty-text">nessuna medaglia ancora</div>
+                        <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 8px;">raggiungi i livelli 1, 10, 100, 1000...</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = medals.map(medal => `
+                <div class="medal-item" style="border-color: ${medal.color};">
+                    <div class="medal-icon" style="color: ${medal.color};">${medal.icon}</div>
+                    <div class="medal-info">
+                        <div class="medal-name" style="color: ${medal.color};">${medal.name}</div>
+                        <div class="medal-rarity" style="color: var(--text-dim);">${medal.rarity}</div>
+                        <div class="medal-level" style="color: var(--text-dim);">livello ${medal.level}+</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const nextMedal = medalTiers.find(t => !medals.some(m => m.level === t.level));
+            if (nextMedal) {
+                container.innerHTML += `
+                    <div class="medal-next" style="margin-top: 20px; padding: 16px; background: var(--bg-tertiary); border: 1px dashed var(--border); text-align: center;">
+                        <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Prossima medaglia</div>
+                        <div style="font-size: 1.5rem; color: ${nextMedal.color}; margin-bottom: 4px;">${nextMedal.icon}</div>
+                        <div style="font-size: 0.9rem; color: ${nextMedal.color};">${nextMedal.name}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-dim);">al livello ${nextMedal.level}</div>
+                        <div class="progress-bar" style="margin-top: 12px;">
+                            <div class="progress-fill" id="medal-progress-fill" style="width: ${Math.min(100, (level / nextMedal.level) * 100)}%;"></div>
+                        </div>
+                        <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">${level} / ${nextMedal.level}</div>
+                    </div>
+                `;
+            }
+        }
+        
+        function getExpForLevel(lvl) {
+            return Math.floor(100 * Math.pow(1.5, lvl - 1));
+        }
+        
+        function addExp(amount) {
+            if (bossQuestActive) {
+                showExpBlockedPopup();
+                return;
+            }
+            
+            exp += amount;
+            let currentNeeded = getExpForLevel(level);
+            
+            while (exp >= currentNeeded) {
+                exp -= currentNeeded;
+                level++;
+                currentNeeded = getExpForLevel(level);
+                
+                if (bossQuestActive) {
+                    exp = 0;
+                    showBossQuestRequired();
+                    return;
+                }
+                
+                showLevelUp();
+                checkAndAwardMedal(level);
+            }
+            
+            localStorage.setItem('exp', exp);
+            localStorage.setItem('level', level);
+            updateLevelDisplay();
+        }
+        
+        function showExpBlockedPopup() {
+            const popup = document.createElement('div');
+            popup.className = 'exp-gain-popup';
+            popup.style.background = 'var(--bg-secondary)';
+            popup.style.borderColor = '#f87171';
+            popup.style.color = '#f87171';
+            popup.textContent = 'BOSS QUEST ATTIVA - EXP BLOCCATA';
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 2000);
+        }
+        
+        function updateLevelDisplay() {
+            document.getElementById('level-display').textContent = level;
+            const currentNeeded = getExpForLevel(level);
+            const expText = document.getElementById('exp-text');
+            
+            if (bossQuestActive) {
+                expText.textContent = 'BOSS QUEST ATTIVA';
+                document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '0.5';
+            } else {
+                expText.textContent = `${exp} / ${currentNeeded}`;
+                const percentage = (exp / currentNeeded) * 100;
+                document.getElementById('exp-bar').style.width = percentage + '%';
+                document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '1';
+            }
+        }
+        
+        function showExpGainPopup(amount) {
+            const popup = document.createElement('div');
+            popup.className = 'exp-gain-popup';
+            popup.textContent = `+${amount} EXP`;
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 2000);
+        }
+        
+        function updateExpHistory(type) {
+            const monthKey = new Date().toISOString().slice(0, 7);
+            if (!expHistory[monthKey]) {
+                expHistory[monthKey] = { tasksCompleted: 0, habitsCompleted: 0 };
+            }
+            if (type === 'tasks') {
+                expHistory[monthKey].tasksCompleted++;
+            } else if (type === 'habits') {
+                expHistory[monthKey].habitsCompleted++;
+            }
+        }
+        
+        function showLevelUp() {
+            const overlay = document.createElement('div');
+            overlay.className = 'level-up-overlay';
+            overlay.innerHTML = `
+                <div class="level-up-content">
+                    <div class="level-up-title">LEVEL UP!</div>
+                    <div class="level-up-level">${level}</div>
+                    <div class="level-up-message">A boss quest has appeared! Complete it to advance to the next level.</div>
+                    <button class="quest-generate-btn" onclick="generateBossQuest(); this.closest('.level-up-overlay').remove();">view boss quest</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+        
+        function showBossQuestRequired() {
+            const overlay = document.createElement('div');
+            overlay.className = 'level-up-overlay';
+            overlay.innerHTML = `
+                <div class="level-up-content">
+                    <div class="level-up-title" style="color: #f87171;">LEVEL UP BLOCKED!</div>
+                    <div class="level-up-level" style="color: #f87171;">${level}</div>
+                    <div class="level-up-message">You must complete the current boss quest to continue advancing!</div>
+                    <button class="quest-generate-btn" onclick="this.closest('.level-up-overlay').remove(); document.querySelector('[data-tab=stats]').click();">go to boss quest</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+        
+        const bossQuestDatabase = {
+            1: {
+                title: "The Morning Beast",
+                quests: [
+                    { text: "Complete 5 daily habits", type: "challenge", difficulty: "easy", requirement: "5daily" },
+                    { text: "Finish 3 tasks before noon", type: "challenge", difficulty: "easy", requirement: "3tasks" }
+                ]
+            },
+            2: {
+                title: "The Focus Guardian",
+                quests: [
+                    { text: "Maintain a 3-day streak", type: "challenge", difficulty: "medium", requirement: "3streak" },
+                    { text: "Complete 10 daily habits this week", type: "challenge", difficulty: "medium", requirement: "10weekly" }
+                ]
+            },
+            3: {
+                title: "The Productivity Titan",
+                quests: [
+                    { text: "Complete 20 tasks total", type: "challenge", difficulty: "medium", requirement: "20tasks" },
+                    { text: "Achieve a 7-day streak", type: "challenge", difficulty: "hard", requirement: "7streak" }
+                ]
+            },
+            4: {
+                title: "The Habit Master",
+                quests: [
+                    { text: "Complete all daily habits for 5 consecutive days", type: "challenge", difficulty: "hard", requirement: "5alldaily" },
+                    { text: "Finish 30 tasks", type: "challenge", difficulty: "hard", requirement: "30tasks" }
+                ]
+            },
+            5: {
+                title: "The Time Lord",
+                quests: [
+                    { text: "Maintain a 14-day streak", type: "challenge", difficulty: "hard", requirement: "14streak" },
+                    { text: "Complete 50 tasks", type: "challenge", difficulty: "hard", requirement: "50tasks" }
+                ]
+            }
+        };
+        
+        function generateBossQuest() {
+            const tier = Math.min(level, 5);
+            const bossData = bossQuestDatabase[tier];
+            const quest = bossData.quests[Math.floor(Math.random() * bossData.quests.length)];
+            
+            const rewardExp = getExpForLevel(level) * 2;
+            const rewardCredits = level * 50;
+            
+            const previousLevel = level - 1;
+            
+            bossQuestActive = {
+                id: Date.now(),
+                title: bossData.title,
+                ...quest,
+                rewardExp: rewardExp,
+                rewardCredits: rewardCredits,
+                progress: getBossProgress(quest.requirement),
+                generatedAt: new Date().toISOString(),
+                previousLevel: previousLevel
+            };
+            
+            localStorage.setItem('bossQuestActive', JSON.stringify(bossQuestActive));
+            showBossQuestCard();
+            addActivity('Boss quest appeared: ' + quest.text);
+        }
+        
+        function getBossProgress(requirement) {
+            const today = new Date().toLocaleDateString();
+            const monthKey = new Date().toISOString().slice(0, 7);
+            
+            switch(requirement) {
+                case '5daily':
+                    const dailyToday = habits.filter(h => h.category === 'daily' && h.completed).length;
+                    return { current: dailyToday, target: 5 };
+                case '3tasks':
+                    return { current: 0, target: 3, note: 'resets daily' };
+                case '3streak':
+                    const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
+                    return { current: maxStreak, target: 3 };
+                case '10weekly':
+                    return { current: expHistory[monthKey]?.habitsCompleted || 0, target: 10 };
+                case '20tasks':
+                    return { current: tasks.filter(t => t.done).length, target: 20 };
+                case '7streak':
+                    const maxStreak7 = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
+                    return { current: maxStreak7, target: 7 };
+                case '5alldaily':
+                    return { current: 0, target: 5, note: 'track in background' };
+                case '30tasks':
+                    return { current: tasks.filter(t => t.done).length, target: 30 };
+                case '14streak':
+                    const maxStreak14 = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
+                    return { current: maxStreak14, target: 14 };
+                case '50tasks':
+                    return { current: tasks.filter(t => t.done).length, target: 50 };
+                default:
+                    return { current: 0, target: 1 };
+            }
+        }
+        
+        function updateBossProgress() {
+            if (!bossQuestActive) return;
+            bossQuestActive.progress = getBossProgress(bossQuestActive.requirement);
+            localStorage.setItem('bossQuestActive', JSON.stringify(bossQuestActive));
+            
+            const progressBar = document.getElementById('boss-progress-fill');
+            if (progressBar) {
+                const pct = Math.min(100, (bossQuestActive.progress.current / bossQuestActive.progress.target) * 100);
+                progressBar.style.width = pct + '%';
+            }
+            
+            const progressText = document.getElementById('boss-progress-text');
+            if (progressText) {
+                progressText.textContent = `${bossQuestActive.progress.current} / ${bossQuestActive.progress.target}`;
+            }
+        }
+        
+        function checkBossCompletion() {
+            if (!bossQuestActive) return false;
+            
+            const req = bossQuestActive.requirement;
+            const today = new Date().toLocaleDateString();
+            
+            if (req === '5daily') {
+                const dailyToday = habits.filter(h => h.category === 'daily' && h.completed).length;
+                return dailyToday >= 5;
+            }
+            if (req === '3tasks') {
+                const todayCompleted = tasks.filter(t => t.done && t.completedDate === today).length;
+                return todayCompleted >= 3;
+            }
+            if (req === '3streak' || req === '7streak' || req === '14streak') {
+                const target = parseInt(req.replace('streak', ''));
+                const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
+                return maxStreak >= target;
+            }
+            if (req === '20tasks' || req === '30tasks' || req === '50tasks') {
+                const target = parseInt(req.replace('tasks', ''));
+                return tasks.filter(t => t.done).length >= target;
+            }
+            if (req === '10weekly') {
+                return (expHistory[new Date().toISOString().slice(0, 7)]?.habitsCompleted || 0) >= 10;
+            }
+            if (req === '5alldaily') {
+                return false;
+            }
+            
+            return false;
+        }
+        
+        function completeBossQuest() {
+            if (!bossQuestActive) return;
+            
+            if (!checkBossCompletion()) {
+                alert('Boss quest requirements not yet met!');
+                return;
+            }
+            
+            const rewardExp = bossQuestActive.rewardExp;
+            const rewardCredits = bossQuestActive.rewardCredits;
+            
+            credits += rewardCredits;
+            
+            addActivity(`BOSS DEFEATED! +${rewardExp} EXP, +${rewardCredits} credits`);
+            
+            bossQuestActive = null;
+            localStorage.setItem('bossQuestActive', JSON.stringify(null));
+            
+            addExp(rewardExp);
+            
+            save();
+            renderBossQuest();
+            renderTasks();
+            updateLevelDisplay();
+            updateTracking();
+            renderMedals();
+        }
+        
+        function showBossQuestCard() {
+            const container = document.getElementById('boss-quest-container');
+            if (!container) return;
+            
+            container.innerHTML = `
+                <div class="boss-quest-card">
+                    <div class="boss-quest-header">
+                        <div class="boss-quest-title">⚔️ ${bossQuestActive.title}</div>
+                        <div class="boss-quest-type">BOSS QUEST</div>
+                    </div>
+                    <div class="boss-quest-desc">${bossQuestActive.text}</div>
+                    <div class="boss-quest-reqs">
+                        <div style="margin-bottom: 8px;">Requisito:</div>
+                        <div id="boss-progress-text" style="font-weight: 700; color: var(--accent);">${bossQuestActive.progress.current} / ${bossQuestActive.progress.target}</div>
+                        <div class="progress-bar" style="margin-top: 8px;">
+                            <div class="progress-fill" id="boss-progress-fill" style="width: ${Math.min(100, (bossQuestActive.progress.current / bossQuestActive.progress.target) * 100)}%;"></div>
+                        </div>
+                        ${bossQuestActive.progress.note ? `<div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">${bossQuestActive.progress.note}</div>` : ''}
+                    </div>
+                    <div class="boss-quest-rewards">
+                        <div>exp: <span class="boss-reward-item">+${bossQuestActive.rewardExp}</span></div>
+                        <div>credits: <span class="boss-reward-item">+${bossQuestActive.rewardCredits}</span></div>
+                    </div>
+                    <div class="quest-preview-actions">
+                        <button class="quest-accept-btn" onclick="completeBossQuest()">completa boss quest</button>
+                        <button class="quest-refuse-btn" onclick="abandonBossQuest()">abbandona</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '0.5';
+            document.getElementById('exp-text').textContent = 'BOSS QUEST ATTIVA';
+        }
+        
+        function abandonBossQuest() {
+            if (confirm('Abbandonare la boss quest? Tornerai al livello precedente e dovrai guadagnare di nuovo l\'EXP per salire.')) {
+                const prevLevel = bossQuestActive.previousLevel || (level - 1);
+                
+                level = prevLevel;
+                exp = getExpForLevel(level);
+                
+                localStorage.setItem('level', level);
+                localStorage.setItem('exp', exp);
+                
+                bossQuestActive = null;
+                localStorage.setItem('bossQuestActive', JSON.stringify(null));
+                
+                renderBossQuest();
+                updateLevelDisplay();
+                addActivity('Boss quest abbandonata - ritorno al livello ' + level);
+            }
+        }
+        
+        function renderBossQuest() {
+            const container = document.getElementById('boss-quest-container');
+            if (!container) return;
+            
+            if (bossQuestActive) {
+                showBossQuestCard();
+            } else {
+                container.innerHTML = '';
+                document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '1';
+            }
+        }
+        
+        let activeQuests = JSON.parse(localStorage.getItem('activeQuests')) || [];
+        let memories = JSON.parse(localStorage.getItem('memories')) || [];
+        let selectedQuestType = 'physical';
+        let selectedQuestDifficulty = 'medium';
+        let currentGeneratedQuest = null;
+        
+        const questDatabase = {
+            physical: {
+                easy: [
+                    "Take a 10-minute walk outside",
+                    "Do 10 jumping jacks",
+                    "Stretch for 5 minutes",
+                    "Walk 1000 steps today",
+                    "Do 5 push-ups",
+                    "Stand up and move for 2 minutes",
+                    "Do 10 squats",
+                    "Take the stairs instead of the elevator",
+                    "Dance to one song you love",
+                    "Do 5 minutes of light exercises"
+                ],
+                medium: [
+                    "Go for a 30-minute run or jog",
+                    "Do a 20-minute workout session",
+                    "Take a bike ride for at least 3km",
+                    "Swim for 15 minutes",
+                    "Do 30 minutes of yoga",
+                    "Hike a trail or walk in nature",
+                    "Play a sport for 30 minutes",
+                    "Do a full body workout",
+                    "Go climbing or do wall exercises",
+                    "Take a long walk (5km+) and explore"
+                ],
+                hard: [
+                    "Run a 5km race or equivalent distance",
+                    "Complete a 45-minute intense workout",
+                    "Do a marathon session of your favorite sport",
+                    "Complete an extreme outdoor activity",
+                    "Swim for 30+ minutes non-stop",
+                    "Do a multi-sport triathlon mini (bike, run, swim)",
+                    "Climb a mountain or hill summit",
+                    "Complete an athletic challenge with friends",
+                    "Do a 1-hour intensive training session",
+                    "Complete a physical endurance challenge"
+                ]
+            },
+            creative: {
+                easy: [
+                    "Draw something with your non-dominant hand",
+                    "Write a short poem (5 lines max)",
+                    "Take a creative photo of your coffee",
+                    "Sketch a random object in 5 minutes",
+                    "Create a playlist with 5 songs",
+                    "Design a simple logo for fun",
+                    "Write a haiku about your day",
+                    "Make a paper airplane and fly it",
+                    "Create an ASCII art piece",
+                    "Take 3 artistic photos of nature"
+                ],
+                medium: [
+                    "Write a short story (500 words)",
+                    "Create a piece of digital art",
+                    "Compose a short melody or beat",
+                    "Build something with recycled materials",
+                    "Write and perform a 1-minute monologue",
+                    "Create a mini comic strip",
+                    "Make a short video (30 seconds)",
+                    "Design a simple website page",
+                    "Create a photo collage of your week",
+                    "Write a song with at least 2 verses"
+                ],
+                hard: [
+                    "Create a complete short film (2-5 min)",
+                    "Write a full song with music and lyrics",
+                    "Complete a painting or artwork",
+                    "Build a functional prototype or model",
+                    "Write and illustrate a short book",
+                    "Create a multimedia art project",
+                    "Produce a podcast episode",
+                    "Develop a small game or app prototype",
+                    "Create a complete photo series with story",
+                    "Compose a piece of music with multiple tracks"
+                ]
+            },
+            social: {
+                easy: [
+                    "Compliment a stranger genuinely",
+                    "Send a voice message to a friend",
+                    "Say hello to your neighbor",
+                    "Share a funny meme with someone",
+                    "Ask someone how their day is going",
+                    "Give someone a high-five",
+                    "Wave and smile at someone passing by",
+                    "Send a nice text to a family member",
+                    "Like and comment on a friend's post",
+                    "Introduce yourself to someone new"
+                ],
+                medium: [
+                    "Have a 15-minute phone call with someone",
+                    "Organize a small game night",
+                    "Help a stranger with something",
+                    "Invite someone for coffee or lunch",
+                    "Have a meaningful conversation with a friend",
+                    "Join a local group or community event",
+                    "Spend quality time with family",
+                    "Plan a surprise for someone you care",
+                    "Share your skills by teaching someone",
+                    "Organize a virtual meetup with friends"
+                ],
+                hard: [
+                    "Organize a gathering with 5+ people",
+                    "Volunteer for a community service",
+                    "Make a speech or presentation for others",
+                    "Lead a group activity or project",
+                    "Reconnect with an old friend you lost touch",
+                    "Host a cultural or learning event",
+                    "Participate in a public event or competition",
+                    "Mentor someone who needs guidance",
+                    "Organize a charity event or fundraiser",
+                    "Build and maintain new meaningful relationships"
+                ]
+            }
+        };
         
         const shopItems = [
             { id: 'custom_theme', name: 'Custom Theme', icon: '[_]', price: 100, description: 'random color theme' },
@@ -1292,6 +2780,9 @@
             localStorage.setItem('credits', credits);
             localStorage.setItem('inventory', JSON.stringify(inventory));
             localStorage.setItem('currentTheme', JSON.stringify(currentTheme));
+            localStorage.setItem('activeQuests', JSON.stringify(activeQuests));
+            localStorage.setItem('memories', JSON.stringify(memories));
+            localStorage.setItem('expHistory', JSON.stringify(expHistory));
         }
         
         if (currentTheme) {
@@ -1329,6 +2820,7 @@
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab).classList.add('active');
                 if (tab.dataset.tab === 'stats') updateStats();
+                if (tab.dataset.tab === 'tracking') updateTracking();
             });
         });
         
@@ -1392,9 +2884,15 @@
             const index = parseInt(e.target.dataset.index);
             if (e.target.classList.contains('checkbox')) {
                 tasks[index].done = true;
+                tasks[index].completedDate = new Date().toLocaleDateString();
                 credits += 10;
+                const taskExp = Math.floor(10 * xpMultiplier);
+                addExp(taskExp);
+                showExpGainPopup(taskExp);
+                updateExpHistory('tasks');
                 save();
                 renderTasks();
+                updateTracking();
                 addActivity('Completed: ' + tasks[index].text);
             } else if (e.target.classList.contains('delete-btn')) {
                 tasks.splice(index, 1);
@@ -1556,9 +3054,13 @@
                     habits[idx].completed = this.checked;
                     if (this.checked) {
                         habits[idx].streak++;
+                        const habitExp = getXpForDifficulty(habits[idx].difficulty);
+                        addExp(habitExp);
+                        showExpGainPopup(habitExp);
                         credits += getXpForDifficulty(habits[idx].difficulty);
                         this.nextElementSibling.textContent = 'completed';
                         addActivity('Completed habit: ' + habits[idx].name);
+                        updateExpHistory('habits');
                     } else {
                         habits[idx].streak = Math.max(0, habits[idx].streak - 1);
                         credits -= getXpForDifficulty(habits[idx].difficulty);
@@ -1567,6 +3069,7 @@
                     save();
                     renderHabits();
                     renderTasks();
+                    updateTracking();
                 });
             });
             
@@ -1621,17 +3124,51 @@
             }
         });
         
+        function updateTracking() {
+            const dailyHabits = habits.filter(h => h.category === 'daily');
+            const monthlyHabits = habits.filter(h => h.category === 'monthly');
+            
+            const dailyCompleted = dailyHabits.filter(h => h.completed).length;
+            const dailyTotal = dailyHabits.length || 1;
+            const dailyPercent = dailyTotal > 0 ? Math.round((dailyCompleted / dailyTotal) * 100) : 0;
+            
+            document.getElementById('daily-percent').textContent = dailyPercent + '%';
+            document.getElementById('daily-completed-count').textContent = `${dailyCompleted} / ${dailyTotal} completed`;
+            
+            const dailyCircle = document.getElementById('daily-circle');
+            const dailyCircumference = 251.2;
+            const dailyOffset = dailyCircumference - (dailyPercent / 100) * dailyCircumference;
+            dailyCircle.style.strokeDashoffset = dailyOffset;
+            
+            const monthlyCompleted = monthlyHabits.filter(h => h.completed).length;
+            const monthlyTotal = monthlyHabits.length || 1;
+            const monthlyPercent = monthlyTotal > 0 ? Math.round((monthlyCompleted / monthlyTotal) * 100) : 0;
+            
+            document.getElementById('monthly-percent').textContent = monthlyPercent + '%';
+            document.getElementById('monthly-completed-count').textContent = `${monthlyCompleted} / ${monthlyTotal} completed`;
+            
+            const monthlyCircle = document.getElementById('monthly-circle');
+            const monthlyOffset = dailyCircumference - (monthlyPercent / 100) * dailyCircumference;
+            monthlyCircle.style.strokeDashoffset = monthlyOffset;
+            
+            if (bossQuestActive) {
+                updateBossProgress();
+            }
+        }
+        
         function updateStats() {
             document.getElementById('stat-completed').textContent = tasks.filter(t => t.done).length;
             document.getElementById('stat-streak').textContent = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
             document.getElementById('stat-credits').textContent = credits;
             document.getElementById('stat-habits').textContent = habits.length;
+            document.getElementById('stat-exp').textContent = exp;
             
             const total = tasks.length || 1;
             document.getElementById('progress-tasks').style.width = (tasks.filter(t => t.done).length / total * 100) + '%';
             document.getElementById('progress-streak').style.width = Math.min(100, habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0) + '%';
             document.getElementById('progress-credits').style.width = Math.min(100, (credits / 1000 * 100)) + '%';
             document.getElementById('progress-habits').style.width = (habits.length / 10 * 100) + '%';
+            document.getElementById('progress-exp').style.width = Math.min(100, (exp / getExpForLevel(level) * 100)) + '%';
             
             document.getElementById('current-streak').textContent = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
             
@@ -1641,6 +3178,7 @@
             document.getElementById('stat-used').textContent = inventory.filter(i => i.used).length;
             
             applyInventoryEffects();
+            renderMedals();
         }
         
         document.querySelectorAll('.buy-btn').forEach((btn, index) => {
@@ -1751,10 +3289,296 @@
         renderActivity();
         renderDocuments();
         renderInventory();
+        renderBossQuest();
+        renderMedals();
         document.getElementById('doc-content').textContent = documents[currentDoc] || '';
         document.getElementById('credits-display').textContent = credits;
+        updateLevelDisplay();
+        updateTracking();
         
         document.getElementById('reset-theme-btn').addEventListener('click', resetTheme);
+        
+        document.querySelectorAll('.quest-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.quest-type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedQuestType = this.dataset.type;
+            });
+        });
+        
+        document.querySelectorAll('.quest-difficulty-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.quest-difficulty-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedQuestDifficulty = this.dataset.difficulty;
+            });
+        });
+        
+        function getQuestReward(difficulty) {
+            switch(difficulty) {
+                case 'easy': return 25;
+                case 'medium': return 50;
+                case 'hard': return 100;
+                default: return 50;
+            }
+        }
+        
+        function generateQuest() {
+            const quests = questDatabase[selectedQuestType][selectedQuestDifficulty];
+            const questText = quests[Math.floor(Math.random() * quests.length)];
+            
+            currentGeneratedQuest = {
+                text: questText,
+                type: selectedQuestType,
+                difficulty: selectedQuestDifficulty,
+                reward: getQuestReward(selectedQuestDifficulty)
+            };
+            
+            const preview = document.getElementById('quest-preview');
+            const typeBadge = document.getElementById('quest-type-badge');
+            const diffBadge = document.getElementById('quest-difficulty-badge');
+            
+            typeBadge.textContent = selectedQuestType;
+            typeBadge.className = 'quest-type-badge ' + selectedQuestType;
+            
+            diffBadge.textContent = selectedQuestDifficulty;
+            diffBadge.className = 'quest-difficulty-badge ' + selectedQuestDifficulty;
+            
+            document.getElementById('quest-preview-text').textContent = currentGeneratedQuest.text;
+            document.getElementById('quest-reward').textContent = currentGeneratedQuest.reward + ' credits';
+            
+            preview.style.display = 'block';
+        }
+        
+        document.getElementById('quest-generate-btn').addEventListener('click', generateQuest);
+        
+        document.getElementById('quest-accept-btn').addEventListener('click', function() {
+            if (currentGeneratedQuest) {
+                activeQuests.push({
+                    id: Date.now(),
+                    ...currentGeneratedQuest,
+                    acceptedAt: new Date().toLocaleDateString()
+                });
+                save();
+                renderActiveQuests();
+                document.getElementById('quest-preview').style.display = 'none';
+                currentGeneratedQuest = null;
+                addActivity('Accepted quest: ' + selectedQuestType + ' ' + selectedQuestDifficulty);
+            }
+        });
+        
+        document.getElementById('quest-refuse-btn').addEventListener('click', function() {
+            document.getElementById('quest-preview').style.display = 'none';
+            currentGeneratedQuest = null;
+        });
+        
+        function renderActiveQuests() {
+            const list = document.getElementById('active-quests-list');
+            
+            if (activeQuests.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-icon">[^]</div><div class="empty-text">no active quests</div></div>';
+                return;
+            }
+            
+            list.innerHTML = activeQuests.map((quest, index) => {
+                return `
+                <div class="quest-card" data-quest-id="${quest.id}">
+                    <div class="quest-card-header">
+                        <div class="quest-card-badges">
+                            <span class="quest-type-badge ${quest.type}">${quest.type}</span>
+                            <span class="quest-difficulty-badge ${quest.difficulty}">${quest.difficulty}</span>
+                        </div>
+                        <span class="quest-card-reward">${quest.reward} credits</span>
+                    </div>
+                    <div class="quest-card-text">${quest.text}</div>
+                    <div class="quest-card-actions">
+                        <button class="quest-complete-btn" data-index="${index}">complete</button>
+                        <button class="quest-abandon-btn" data-index="${index}">abandon</button>
+                    </div>
+                </div>
+            `;
+            }).join('');
+            
+            document.querySelectorAll('.quest-complete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    showUploadArea(idx);
+                });
+            });
+            
+            document.querySelectorAll('.quest-abandon-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    const quest = activeQuests[idx];
+                    activeQuests.splice(idx, 1);
+                    save();
+                    renderActiveQuests();
+                    addActivity('Abandoned quest: ' + quest.text);
+                });
+            });
+        }
+        
+        let questToComplete = null;
+        
+        function showUploadArea(questIndex) {
+            questToComplete = questIndex;
+            const uploadHtml = `
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">[+]</div>
+                    <div class="upload-text">drag photo or video here<br>or click to upload</div>
+                    <input type="file" id="file-input" accept="image/*,video/*" style="display: none;">
+                </div>
+            `;
+            
+            const questCard = document.querySelector(`.quest-card[data-quest-id="${activeQuests[questIndex].id}"]`);
+            const actionsDiv = questCard.querySelector('.quest-card-actions');
+            
+            if (document.getElementById('upload-area')) {
+                return;
+            }
+            
+            const uploadDiv = document.createElement('div');
+            uploadDiv.id = 'upload-container';
+            uploadDiv.innerHTML = uploadHtml;
+            actionsDiv.parentNode.insertBefore(uploadDiv, actionsDiv.nextSibling);
+            
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFile(e.target.files[0]);
+                }
+            });
+        }
+        
+        function handleFile(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const container = document.getElementById('upload-container');
+                const isVideo = file.type.startsWith('video/');
+                
+                let previewHtml = `<div class="upload-preview"><div class="upload-preview-content">`;
+                if (isVideo) {
+                    previewHtml += `<video src="${e.target.result}" controls></video>`;
+                } else {
+                    previewHtml += `<img src="${e.target.result}" alt="proof">`;
+                }
+                previewHtml += `</div><div class="upload-preview-actions">`;
+                previewHtml += `<button class="upload-confirm-btn" id="confirm-upload">confirm proof</button>`;
+                previewHtml += `<button class="upload-cancel-btn" id="cancel-upload">cancel</button>`;
+                previewHtml += `</div></div>`;
+                
+                container.innerHTML = previewHtml;
+                
+                const confirmBtn = document.getElementById('confirm-upload');
+                const cancelBtn = document.getElementById('cancel-upload');
+                
+                confirmBtn.addEventListener('click', () => {
+                    completeQuest(e.target.result, isVideo);
+                });
+                
+                cancelBtn.addEventListener('click', () => {
+                    const questCard = document.querySelector(`.quest-card[data-quest-id="${activeQuests[questToComplete].id}"]`);
+                    const uploadContainer = document.getElementById('upload-container');
+                    if (uploadContainer) {
+                        uploadContainer.remove();
+                    }
+                    questToComplete = null;
+                });
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        function completeQuest(dataUrl, isVideo) {
+            const quest = activeQuests[questToComplete];
+            
+            memories.push({
+                id: Date.now(),
+                questName: quest.text,
+                questType: quest.type,
+                dataUrl: dataUrl,
+                isVideo: isVideo,
+                completedAt: new Date().toLocaleDateString(),
+                timestamp: new Date().toISOString()
+            });
+            
+            credits += quest.reward;
+            activeQuests.splice(questToComplete, 1);
+            questToComplete = null;
+            
+            save();
+            renderActiveQuests();
+            renderMemories();
+            renderTasks();
+            addActivity('Completed quest: ' + quest.text + ' (+' + quest.reward + ' credits)');
+        }
+        
+        function renderMemories() {
+            const grid = document.getElementById('memories-grid');
+            const empty = document.getElementById('memories-empty');
+            
+            if (memories.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            
+            empty.style.display = 'none';
+            
+            grid.innerHTML = memories.map((memory, index) => {
+                const typeIcon = memory.isVideo ? '[v]' : '[i]';
+                return `
+                <div class="memory-item">
+                    <span class="memory-type-icon">${typeIcon}</span>
+                    <button class="memory-delete" data-index="${index}">x</button>
+                    ${memory.isVideo ? 
+                        `<video src="${memory.dataUrl}" muted></video>` : 
+                        `<img src="${memory.dataUrl}" alt="memory">`
+                    }
+                    <div class="memory-info">
+                        <div class="memory-quest-name">${memory.questName.substring(0, 30)}${memory.questName.length > 30 ? '...' : ''}</div>
+                        <div class="memory-date">${memory.completedAt}</div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+            
+            document.querySelectorAll('.memory-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    memories.splice(idx, 1);
+                    save();
+                    renderMemories();
+                    addActivity('Deleted a memory');
+                });
+            });
+        }
+        
+        renderActiveQuests();
+        renderMemories();
     </script>
 </body>
 </html>

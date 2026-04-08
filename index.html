@@ -1812,6 +1812,63 @@
             flex-shrink: 0;
         }
         
+        .ai-image-upload {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .ai-image-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        
+        .ai-image-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        
+        .ai-image-icon {
+            font-size: 1rem;
+        }
+        
+        .ai-image-preview {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .ai-image-preview img {
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        
+        .ai-image-remove {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid #f87171;
+            color: #f87171;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        
+        .ai-image-remove:hover {
+            background: #f87171;
+            color: var(--bg);
+        }
+        
         .ai-form {
             display: flex;
             gap: 0;
@@ -2281,6 +2338,7 @@
                             <option value="chemistry">Chimica</option>
                             <option value="informatics">Informatica</option>
                             <option value="mechanics">Meccanica</option>
+                            <option value="telecom">Telecomunicazioni</option>
                             <option value="custom">Personalizzato</option>
                         </select>
                     </div>
@@ -2305,6 +2363,15 @@
                     <div class="ai-system-prompt">
                         <label class="ai-label">Istruzioni personalizzate:</label>
                         <textarea id="ai-system-prompt" class="ai-system-input" rows="3" placeholder="Scrivi istruzioni personalizzate per Peter..."></textarea>
+                    </div>
+                    <div class="ai-image-upload" id="ai-image-upload">
+                        <input type="file" id="ai-image-input" accept="image/*" style="display: none;">
+                        <button type="button" class="ai-image-btn" id="ai-image-btn">
+                            <span class="ai-image-icon">📷</span>
+                            <span>Allega immagine</span>
+                        </button>
+                        <div class="ai-image-preview" id="ai-image-preview"></div>
+                        <button type="button" class="ai-image-remove" id="ai-image-remove" style="display: none;">✕</button>
                     </div>
                     <form class="ai-form" id="ai-form">
                         <input type="text" id="ai-input" class="ai-text-input" placeholder="Scrivi un messaggio..." autocomplete="off">
@@ -3992,6 +4059,7 @@
             chemistry: 'Sei un esperto di chimica. Puoi aiutare con: chimica generale, chimica organica, chimica inorganica, biochimica, termochimica, cinetica chimica, equilibri, elettrochimica e stechiometria. Fornisci spiegazioni chiare e aiuta a bilanciare equazioni.',
             informatics: 'Sei un esperto di informatica. Puoi aiutare con: programmazione (molti linguaggi), algoritmi e strutture dati, intelligenza artificiale, cybersecurity, reti, basi di dati, sviluppo web, sistemi operativi, calcolo numerico e molto altro. Usa esempi di codice quando utile.',
             mechanics: 'Sei un esperto di meccanica. Puoi aiutare con: meccanica classica, meccanica dei materiali, termodinamica applicata, fluidodinamica, macchine utensili, progettazione meccanica, CNC, CAD/CAM, manutenzione industriale e automotive. Usa calcoli e diagrammi quando utile.',
+            telecom: 'Sei un esperto di telecomunicazioni ed elettronica. Puoi analizzare e risolvere circuiti elettrici in corrente continua (DC) e alternata (AC). COMPONENTI: resistenze (R), generatori di tensione (V), generatori di corrente (I), condensatori (C), induttanze (L), diodi, transistor. LEGGI FONDAMENTALI: Legge di Ohm (V=IR), Leggi di Kirchhoff (nodi e maglie), Principio di sovrapposizione, Teorema di Thevenin/Norton, Equazioni di Maxwell base. RICONOSCIMENTO CIRCUITI: Riesci ad analizzare circuiti da descrizioni testuali, schemi o immagini. Identifica nodi, maglie, connessioni serie/parallelo. RISOLUZIONE: Quando vedi "V=?" o "I=?" o "R=?" significa che devi calcolare quel valore. Procedi passo passo: 1) Identifica il tipo di circuito e i componenti, 2) Scrivi le equazioni appropriate, 3) Risolvi il sistema, 4) Fornisci il risultato con unità di misura. Spiega ogni passaggio matematico in dettaglio, indica le formule usate e il motivo. Se mancano dati, chiedi all\'utente di fornirli.',
             custom: ''
         };
         
@@ -4034,8 +4102,8 @@
             container.scrollTop = container.scrollHeight;
         }
         
-        function addAIMessage(role, content) {
-            aiMessages.push({ role, content });
+        function addAIMessage(role, content, hasImage = false) {
+            aiMessages.push({ role, content, hasImage });
             localStorage.setItem('aiMessages', JSON.stringify(aiMessages));
             renderAIMessages();
         }
@@ -4046,8 +4114,67 @@
             return div.innerHTML;
         }
         
+        let selectedImage = null;
+        let selectedImageBase64 = null;
+        
+        function renderAIMessages() {
+            const container = document.getElementById('ai-messages');
+            container.innerHTML = '';
+            
+            aiMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = `ai-message ${msg.role}`;
+                
+                let content = `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
+                if (msg.hasImage && msg.imageData) {
+                    content = `<div class="ai-message-content"><img src="${msg.imageData}" style="max-width: 200px; max-height: 200px; border-radius: 4px; margin-bottom: 8px; display: block;"><div>${escapeHtml(msg.content)}</div></div>`;
+                }
+                div.innerHTML = content;
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        document.getElementById('ai-image-btn').addEventListener('click', () => {
+            document.getElementById('ai-image-input').click();
+        });
+        
+        document.getElementById('ai-image-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    selectedImage = file;
+                    selectedImageBase64 = event.target.result;
+                    
+                    const preview = document.getElementById('ai-image-preview');
+                    preview.innerHTML = `<img src="${selectedImageBase64}" alt="Immagine selezionata">`;
+                    
+                    document.getElementById('ai-image-remove').style.display = 'block';
+                    document.getElementById('ai-image-btn').innerHTML = '<span class="ai-image-icon">📷</span><span>Cambia</span>';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        document.getElementById('ai-image-remove').addEventListener('click', () => {
+            selectedImage = null;
+            selectedImageBase64 = null;
+            document.getElementById('ai-image-input').value = '';
+            document.getElementById('ai-image-preview').innerHTML = '';
+            document.getElementById('ai-image-remove').style.display = 'none';
+            document.getElementById('ai-image-btn').innerHTML = '<span class="ai-image-icon">📷</span><span>Allega immagine</span>';
+        });
+        
         async function sendAIMessage(message) {
-            addAIMessage('user', message);
+            const hasImage = !!selectedImageBase64;
+            const imageDataForRequest = selectedImageBase64;
+            
+            addAIMessage('user', message, hasImage);
+            if (hasImage) {
+                aiMessages[aiMessages.length - 1].imageData = imageDataForRequest;
+            }
             
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'ai-message bot loading';
@@ -4060,21 +4187,52 @@
             sendBtn.disabled = true;
             input.disabled = true;
             
+            selectedImage = null;
+            selectedImageBase64 = null;
+            document.getElementById('ai-image-input').value = '';
+            document.getElementById('ai-image-preview').innerHTML = '';
+            document.getElementById('ai-image-remove').style.display = 'none';
+            document.getElementById('ai-image-btn').innerHTML = '<span class="ai-image-icon">📷</span><span>Allega immagine</span>';
+            
             try {
                 const conversation = [
                     { role: 'system', content: getFullPrompt() },
-                    ...aiMessages.slice(0, -1),
+                    ...aiMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
                     { role: 'user', content: message }
                 ];
+                
+                let requestBody;
+                
+                if (hasImage && imageDataForRequest) {
+                    // Formatta l'immagine correttamente per Cloudflare AI
+                    const imageContent = imageDataForRequest.split(',')[1] || imageDataForRequest;
+                    const imageUrl = `data:image/jpeg;base64,${imageContent}`;
+                    
+                    requestBody = {
+                        messages: [
+                            { role: 'system', content: getFullPrompt() },
+                            ...aiMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
+                            { 
+                                role: 'user', 
+                                content: [
+                                    { type: 'text', text: message },
+                                    { type: 'image_url', image_url: { url: imageUrl } }
+                                ]
+                            }
+                        ]
+                    };
+                } else {
+                    requestBody = {
+                        messages: conversation
+                    };
+                }
                 
                 const response = await fetch(aiWorkerUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        messages: conversation
-                    })
+                    body: JSON.stringify(requestBody)
                 });
                 
                 loadingDiv.remove();

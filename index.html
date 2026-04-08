@@ -1856,6 +1856,15 @@
             object-fit: cover;
         }
         
+        .ai-ocr-preview {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
         .ai-form {
             display: flex;
             gap: 0;
@@ -4100,39 +4109,41 @@
         }
         
         let selectedImageData = null;
+        let extractedText = null;
+        let isProcessingOcr = false;
         
-        function convertToJpegBase64(file) {
+        function loadTesseract() {
             return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
+                if (window.Tesseract) {
+                    resolve(window.Tesseract);
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+                script.onload = () => resolve(window.Tesseract);
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+        
+        function extractTextFromImage(file) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const Tesseract = await loadTesseract();
                     
-                    // Ridimensiona se troppo grande (max 1024px)
-                    let width = img.width;
-                    let height = img.height;
-                    const maxSize = 1024;
-                    
-                    if (width > maxSize || height > maxSize) {
-                        if (width > height) {
-                            height = (height / width) * maxSize;
-                            width = maxSize;
-                        } else {
-                            width = (width / height) * maxSize;
-                            height = maxSize;
+                    const result = await Tesseract.recognize(file, 'eng+ita', {
+                        logger: m => {
+                            if (m.status === 'recognizing text') {
+                                document.getElementById('ai-image-text').textContent = `OCR: ${Math.round(m.progress * 100)}%`;
+                            }
                         }
-                    }
+                    });
                     
-                    canvas.width = width;
-                    canvas.height = height;
-                    ctx.drawImage(img, 0, 0, width, height);
-                    
-                    // Esporta come JPEG puro
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-                    resolve(dataUrl);
-                };
-                img.onerror = reject;
-                img.src = URL.createObjectURL(file);
+                    resolve(result.data.text);
+                } catch (err) {
+                    reject(err);
+                }
             });
         }
         
@@ -4140,25 +4151,44 @@
             document.getElementById('ai-image-input').click();
         });
         
-        document.getElementById('ai-image-input').addEventListener('change', (e) => {
+        document.getElementById('ai-image-input').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-                // Mostra caricamento
-                document.getElementById('ai-image-text').textContent = 'Elaborazione...';
+                document.getElementById('ai-image-text').textContent = 'OCR in corso...';
+                isProcessingOcr = true;
                 
-                convertToJpegBase64(file).then(dataUrl => {
-                    selectedImageData = dataUrl;
+                try {
+                    const text = await extractTextFromImage(file);
+                    extractedText = text.trim();
                     
-                    const preview = document.getElementById('ai-image-preview');
-                    preview.innerHTML = `<img src="${selectedImageData}" alt="Immagine">`;
+                    // Mostra anteprima
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        selectedImageData = event.target.result;
+                        
+                        const preview = document.getElementById('ai-image-preview');
+                        if (extractedText) {
+                            preview.innerHTML = `
+                                <img src="${selectedImageData}" alt="Immagine">
+                                <div class="ai-ocr-preview">📝: ${extractedText.substring(0, 50)}...</div>
+                            `;
+                        } else {
+                            preview.innerHTML = `<img src="${selectedImageData}" alt="Immagine">`;
+                        }
+                    };
+                    reader.readAsDataURL(file);
                     
                     document.getElementById('ai-image-btn').classList.add('has-image');
-                    document.getElementById('ai-image-text').textContent = 'Immagine selezionata ✓';
-                }).catch(err => {
-                    console.error('Errore conversione:', err);
-                    alert('Errore nel caricare l\'immagine');
+                    document.getElementById('ai-image-text').textContent = 'Immagine caricata ✓';
+                    isProcessingOcr = false;
+                    
+                } catch (err) {
+                    console.error('OCR Error:', err);
+                    alert('Errore nell\'analisi dell\'immagine');
                     document.getElementById('ai-image-text').textContent = 'Allega immagine';
-                });
+                    document.getElementById('ai-image-input').value = '';
+                    isProcessingOcr = false;
+                }
             }
         });
         
@@ -4178,12 +4208,14 @@
         
         async function sendAIMessage(message) {
             const hasImage = selectedImageData !== null;
+            const ocrText = extractedText;
             
-            if (hasImage) {
-                addAIMessage('user', message + ' [Immagine allegata]');
-            } else {
-                addAIMessage('user', message);
+            let fullMessage = message;
+            if (hasImage && ocrText) {
+                fullMessage = `[Immagine caricata. Testo estratto dall'immagine]:\n${ocrText}\n\n[Domanda dell'utente]: ${message}`;
             }
+            
+            addAIMessage('user', fullMessage);
             
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'ai-message bot loading';
@@ -4196,12 +4228,14 @@
             sendBtn.disabled = true;
             input.disabled = true;
             
-            // Resetta l'immagine
+            // Resetta l'immagine e OCR
             const imagePreview = document.getElementById('ai-image-preview');
             imagePreview.innerHTML = '';
             document.getElementById('ai-image-btn').classList.remove('has-image');
             document.getElementById('ai-image-text').textContent = 'Allega immagine';
             document.getElementById('ai-image-input').value = '';
+            selectedImageData = null;
+            extractedText = null;
             
             try {
                 // Limita la cronologia agli ultimi 10 messaggi per evitare errori
@@ -4210,21 +4244,12 @@
                 const conversation = [
                     { role: 'system', content: getFullPrompt() },
                     ...recentMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
-                    { role: 'user', content: message }
+                    { role: 'user', content: fullMessage }
                 ];
                 
-                let requestBody;
-                
-                if (hasImage) {
-                    // Estrai solo il base64 puro (senza prefisso data:)
-                    const base64Pure = selectedImageData.replace(/^data:image\/\w+;base64,/, '');
-                    
-                    requestBody = {
-                        messages: conversation,
-                        image: base64Pure
-                    };
-                } else {
-                    requestBody = {
+                const requestBody = {
+                    messages: conversation
+                };
                         messages: conversation
                     };
                 }

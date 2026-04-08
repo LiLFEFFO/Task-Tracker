@@ -1812,19 +1812,18 @@
             flex-shrink: 0;
         }
         
-        .ai-image-upload {
+        .ai-image-section {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 8px;
-            flex-wrap: wrap;
         }
         
         .ai-image-btn {
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 12px;
+            padding: 6px 12px;
             background: var(--bg-tertiary);
             border: 1px solid var(--border);
             color: var(--text-dim);
@@ -1838,8 +1837,9 @@
             color: var(--text);
         }
         
-        .ai-image-icon {
-            font-size: 1rem;
+        .ai-image-btn.has-image {
+            border-color: #4ade80;
+            color: #4ade80;
         }
         
         .ai-image-preview {
@@ -1849,24 +1849,11 @@
         }
         
         .ai-image-preview img {
-            max-width: 80px;
-            max-height: 80px;
+            max-width: 60px;
+            max-height: 60px;
             border-radius: 4px;
             border: 1px solid var(--border);
-        }
-        
-        .ai-image-remove {
-            padding: 4px 8px;
-            background: transparent;
-            border: 1px solid #f87171;
-            color: #f87171;
-            font-size: 0.7rem;
-            cursor: pointer;
-        }
-        
-        .ai-image-remove:hover {
-            background: #f87171;
-            color: var(--bg);
+            object-fit: cover;
         }
         
         .ai-form {
@@ -2362,16 +2349,14 @@
                 <div class="ai-input-container">
                     <div class="ai-system-prompt">
                         <label class="ai-label">Istruzioni personalizzate:</label>
-                        <textarea id="ai-system-prompt" class="ai-system-input" rows="3" placeholder="Scrivi istruzioni personalizzate per Peter..."></textarea>
+                        <textarea id="ai-system-prompt" class="ai-system-input" rows="2" placeholder="Scrivi istruzioni personalizzate per Peter..."></textarea>
                     </div>
-                    <div class="ai-image-upload" id="ai-image-upload">
+                    <div class="ai-image-section">
                         <input type="file" id="ai-image-input" accept="image/*" style="display: none;">
                         <button type="button" class="ai-image-btn" id="ai-image-btn">
-                            <span class="ai-image-icon">📷</span>
-                            <span>Allega immagine</span>
+                            📷 <span id="ai-image-text">Allega immagine</span>
                         </button>
                         <div class="ai-image-preview" id="ai-image-preview"></div>
-                        <button type="button" class="ai-image-remove" id="ai-image-remove" style="display: none;">✕</button>
                     </div>
                     <form class="ai-form" id="ai-form">
                         <input type="text" id="ai-input" class="ai-text-input" placeholder="Scrivi un messaggio..." autocomplete="off">
@@ -4114,27 +4099,7 @@
             return div.innerHTML;
         }
         
-        let selectedImage = null;
-        let selectedImageBase64 = null;
-        
-        function renderAIMessages() {
-            const container = document.getElementById('ai-messages');
-            container.innerHTML = '';
-            
-            aiMessages.forEach(msg => {
-                const div = document.createElement('div');
-                div.className = `ai-message ${msg.role}`;
-                
-                let content = `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
-                if (msg.hasImage && msg.imageData) {
-                    content = `<div class="ai-message-content"><img src="${msg.imageData}" style="max-width: 200px; max-height: 200px; border-radius: 4px; margin-bottom: 8px; display: block;"><div>${escapeHtml(msg.content)}</div></div>`;
-                }
-                div.innerHTML = content;
-                container.appendChild(div);
-            });
-            
-            container.scrollTop = container.scrollHeight;
-        }
+        let selectedImageData = null;
         
         document.getElementById('ai-image-btn').addEventListener('click', () => {
             document.getElementById('ai-image-input').click();
@@ -4145,35 +4110,39 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    selectedImage = file;
-                    selectedImageBase64 = event.target.result;
+                    selectedImageData = event.target.result;
                     
                     const preview = document.getElementById('ai-image-preview');
-                    preview.innerHTML = `<img src="${selectedImageBase64}" alt="Immagine selezionata">`;
+                    preview.innerHTML = `<img src="${selectedImageData}" alt="Immagine">`;
                     
-                    document.getElementById('ai-image-remove').style.display = 'block';
-                    document.getElementById('ai-image-btn').innerHTML = '<span class="ai-image-icon">📷</span><span>Cambia</span>';
+                    document.getElementById('ai-image-btn').classList.add('has-image');
+                    document.getElementById('ai-image-text').textContent = 'Immagine selezionata ✓';
                 };
                 reader.readAsDataURL(file);
             }
         });
         
-        document.getElementById('ai-image-remove').addEventListener('click', () => {
-            selectedImage = null;
-            selectedImageBase64 = null;
-            document.getElementById('ai-image-input').value = '';
-            document.getElementById('ai-image-preview').innerHTML = '';
-            document.getElementById('ai-image-remove').style.display = 'none';
-            document.getElementById('ai-image-btn').innerHTML = '<span class="ai-image-icon">📷</span><span>Allega immagine</span>';
-        });
+        function renderAIMessages() {
+            const container = document.getElementById('ai-messages');
+            container.innerHTML = '';
+            
+            aiMessages.forEach(msg => {
+                const div = document.createElement('div');
+                div.className = `ai-message ${msg.role}`;
+                div.innerHTML = `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
+                container.appendChild(div);
+            });
+            
+            container.scrollTop = container.scrollHeight;
+        }
         
         async function sendAIMessage(message) {
-            const hasImage = !!selectedImageBase64;
-            const imageDataForRequest = selectedImageBase64;
+            const hasImage = selectedImageData !== null;
             
-            addAIMessage('user', message, hasImage);
             if (hasImage) {
-                aiMessages[aiMessages.length - 1].imageData = imageDataForRequest;
+                addAIMessage('user', message + ' [Immagine allegata]');
+            } else {
+                addAIMessage('user', message);
             }
             
             const loadingDiv = document.createElement('div');
@@ -4187,39 +4156,31 @@
             sendBtn.disabled = true;
             input.disabled = true;
             
-            selectedImage = null;
-            selectedImageBase64 = null;
+            // Resetta l'immagine
+            const imagePreview = document.getElementById('ai-image-preview');
+            imagePreview.innerHTML = '';
+            document.getElementById('ai-image-btn').classList.remove('has-image');
+            document.getElementById('ai-image-text').textContent = 'Allega immagine';
             document.getElementById('ai-image-input').value = '';
-            document.getElementById('ai-image-preview').innerHTML = '';
-            document.getElementById('ai-image-remove').style.display = 'none';
-            document.getElementById('ai-image-btn').innerHTML = '<span class="ai-image-icon">📷</span><span>Allega immagine</span>';
             
             try {
+                // Limita la cronologia agli ultimi 10 messaggi per evitare errori
+                const recentMessages = aiMessages.slice(-10);
+                
                 const conversation = [
                     { role: 'system', content: getFullPrompt() },
-                    ...aiMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
+                    ...recentMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
                     { role: 'user', content: message }
                 ];
                 
                 let requestBody;
                 
-                if (hasImage && imageDataForRequest) {
-                    // Formatta l'immagine correttamente per Cloudflare AI
-                    const imageContent = imageDataForRequest.split(',')[1] || imageDataForRequest;
-                    const imageUrl = `data:image/jpeg;base64,${imageContent}`;
-                    
+                if (hasImage) {
+                    // Estrai solo il base64 senza prefisso
+                    const base64Data = selectedImageData.split(',')[1] || selectedImageData;
                     requestBody = {
-                        messages: [
-                            { role: 'system', content: getFullPrompt() },
-                            ...aiMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
-                            { 
-                                role: 'user', 
-                                content: [
-                                    { type: 'text', text: message },
-                                    { type: 'image_url', image_url: { url: imageUrl } }
-                                ]
-                            }
-                        ]
+                        messages: conversation,
+                        image: base64Data
                     };
                 } else {
                     requestBody = {
@@ -4269,6 +4230,7 @@
                 document.getElementById('ai-messages').appendChild(errorDiv);
             }
             
+            selectedImageData = null;
             sendBtn.disabled = false;
             input.disabled = false;
             input.value = '';

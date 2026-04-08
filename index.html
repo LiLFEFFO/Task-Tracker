@@ -2352,7 +2352,7 @@
                         <textarea id="ai-system-prompt" class="ai-system-input" rows="2" placeholder="Scrivi istruzioni personalizzate per Peter..."></textarea>
                     </div>
                     <div class="ai-image-section">
-                        <input type="file" id="ai-image-input" accept="image/*" style="display: none;">
+                        <input type="file" id="ai-image-input" accept="image/jpeg" style="display: none;">
                         <button type="button" class="ai-image-btn" id="ai-image-btn">
                             📷 <span id="ai-image-text">Allega immagine</span>
                         </button>
@@ -4101,6 +4101,41 @@
         
         let selectedImageData = null;
         
+        function convertToJpegBase64(file) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Ridimensiona se troppo grande (max 1024px)
+                    let width = img.width;
+                    let height = img.height;
+                    const maxSize = 1024;
+                    
+                    if (width > maxSize || height > maxSize) {
+                        if (width > height) {
+                            height = (height / width) * maxSize;
+                            width = maxSize;
+                        } else {
+                            width = (width / height) * maxSize;
+                            height = maxSize;
+                        }
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Esporta come JPEG puro
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    resolve(dataUrl);
+                };
+                img.onerror = reject;
+                img.src = URL.createObjectURL(file);
+            });
+        }
+        
         document.getElementById('ai-image-btn').addEventListener('click', () => {
             document.getElementById('ai-image-input').click();
         });
@@ -4108,17 +4143,22 @@
         document.getElementById('ai-image-input').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    selectedImageData = event.target.result;
+                // Mostra caricamento
+                document.getElementById('ai-image-text').textContent = 'Elaborazione...';
+                
+                convertToJpegBase64(file).then(dataUrl => {
+                    selectedImageData = dataUrl;
                     
                     const preview = document.getElementById('ai-image-preview');
                     preview.innerHTML = `<img src="${selectedImageData}" alt="Immagine">`;
                     
                     document.getElementById('ai-image-btn').classList.add('has-image');
                     document.getElementById('ai-image-text').textContent = 'Immagine selezionata ✓';
-                };
-                reader.readAsDataURL(file);
+                }).catch(err => {
+                    console.error('Errore conversione:', err);
+                    alert('Errore nel caricare l\'immagine');
+                    document.getElementById('ai-image-text').textContent = 'Allega immagine';
+                });
             }
         });
         
@@ -4176,11 +4216,12 @@
                 let requestBody;
                 
                 if (hasImage) {
-                    // Estrai solo il base64 senza prefisso
-                    const base64Data = selectedImageData.split(',')[1] || selectedImageData;
+                    // Estrai solo il base64 puro (senza prefisso data:)
+                    const base64Pure = selectedImageData.replace(/^data:image\/\w+;base64,/, '');
+                    
                     requestBody = {
                         messages: conversation,
-                        image: base64Data
+                        image: base64Pure
                     };
                 } else {
                     requestBody = {

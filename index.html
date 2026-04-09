@@ -1812,59 +1812,6 @@
             flex-shrink: 0;
         }
         
-        .ai-image-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        
-        .ai-image-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            color: var(--text-dim);
-            font-family: inherit;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-        
-        .ai-image-btn:hover {
-            border-color: var(--accent);
-            color: var(--text);
-        }
-        
-        .ai-image-btn.has-image {
-            border-color: #4ade80;
-            color: #4ade80;
-        }
-        
-        .ai-image-preview {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .ai-image-preview img {
-            max-width: 60px;
-            max-height: 60px;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            object-fit: cover;
-        }
-        
-        .ai-ocr-preview {
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            max-width: 150px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
         .ai-form {
             display: flex;
             gap: 0;
@@ -2359,13 +2306,6 @@
                     <div class="ai-system-prompt">
                         <label class="ai-label">Istruzioni personalizzate:</label>
                         <textarea id="ai-system-prompt" class="ai-system-input" rows="2" placeholder="Scrivi istruzioni personalizzate per Peter..."></textarea>
-                    </div>
-                    <div class="ai-image-section">
-                        <input type="file" id="ai-image-input" accept="image/jpeg" style="display: none;">
-                        <button type="button" class="ai-image-btn" id="ai-image-btn">
-                            📷 <span id="ai-image-text">Allega immagine</span>
-                        </button>
-                        <div class="ai-image-preview" id="ai-image-preview"></div>
                     </div>
                     <form class="ai-form" id="ai-form">
                         <input type="text" id="ai-input" class="ai-text-input" placeholder="Scrivi un messaggio..." autocomplete="off">
@@ -4108,90 +4048,6 @@
             return div.innerHTML;
         }
         
-        let selectedImageData = null;
-        let extractedText = null;
-        let isProcessingOcr = false;
-        
-        function loadTesseract() {
-            return new Promise((resolve, reject) => {
-                if (window.Tesseract) {
-                    resolve(window.Tesseract);
-                    return;
-                }
-                
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-                script.onload = () => resolve(window.Tesseract);
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
-        }
-        
-        function extractTextFromImage(file) {
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const Tesseract = await loadTesseract();
-                    
-                    const result = await Tesseract.recognize(file, 'eng+ita', {
-                        logger: m => {
-                            if (m.status === 'recognizing text') {
-                                document.getElementById('ai-image-text').textContent = `OCR: ${Math.round(m.progress * 100)}%`;
-                            }
-                        }
-                    });
-                    
-                    resolve(result.data.text);
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        }
-        
-        document.getElementById('ai-image-btn').addEventListener('click', () => {
-            document.getElementById('ai-image-input').click();
-        });
-        
-        document.getElementById('ai-image-input').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                document.getElementById('ai-image-text').textContent = 'OCR in corso...';
-                isProcessingOcr = true;
-                
-                try {
-                    const text = await extractTextFromImage(file);
-                    extractedText = text.trim();
-                    
-                    // Mostra anteprima
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        selectedImageData = event.target.result;
-                        
-                        const preview = document.getElementById('ai-image-preview');
-                        if (extractedText) {
-                            preview.innerHTML = `
-                                <img src="${selectedImageData}" alt="Immagine">
-                                <div class="ai-ocr-preview">📝: ${extractedText.substring(0, 50)}...</div>
-                            `;
-                        } else {
-                            preview.innerHTML = `<img src="${selectedImageData}" alt="Immagine">`;
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                    
-                    document.getElementById('ai-image-btn').classList.add('has-image');
-                    document.getElementById('ai-image-text').textContent = 'Immagine caricata ✓';
-                    isProcessingOcr = false;
-                    
-                } catch (err) {
-                    console.error('OCR Error:', err);
-                    alert('Errore nell\'analisi dell\'immagine');
-                    document.getElementById('ai-image-text').textContent = 'Allega immagine';
-                    document.getElementById('ai-image-input').value = '';
-                    isProcessingOcr = false;
-                }
-            }
-        });
-        
         function renderAIMessages() {
             const container = document.getElementById('ai-messages');
             container.innerHTML = '';
@@ -4207,15 +4063,7 @@
         }
         
         async function sendAIMessage(message) {
-            const hasImage = selectedImageData !== null;
-            const ocrText = extractedText;
-            
-            let fullMessage = message;
-            if (hasImage && ocrText) {
-                fullMessage = `[Immagine caricata. Testo estratto dall'immagine]:\n${ocrText}\n\n[Domanda dell'utente]: ${message}`;
-            }
-            
-            addAIMessage('user', fullMessage);
+            addAIMessage('user', message);
             
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'ai-message bot loading';
@@ -4228,28 +4076,14 @@
             sendBtn.disabled = true;
             input.disabled = true;
             
-            // Resetta l'immagine e OCR
-            const imagePreview = document.getElementById('ai-image-preview');
-            imagePreview.innerHTML = '';
-            document.getElementById('ai-image-btn').classList.remove('has-image');
-            document.getElementById('ai-image-text').textContent = 'Allega immagine';
-            document.getElementById('ai-image-input').value = '';
-            selectedImageData = null;
-            extractedText = null;
-            
             try {
-                // Limita la cronologia agli ultimi 10 messaggi per evitare errori
                 const recentMessages = aiMessages.slice(-10);
                 
                 const conversation = [
                     { role: 'system', content: getFullPrompt() },
                     ...recentMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
-                    { role: 'user', content: fullMessage }
+                    { role: 'user', content: message }
                 ];
-                
-                const requestBody = {
-                    messages: conversation
-                };
                 
                 const response = await fetch(aiWorkerUrl, {
                     method: 'POST',

@@ -4115,7 +4115,9 @@
                     botResponse = JSON.stringify(data);
                 }
                 
-                botResponse = botResponse.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+                if (botResponse) {
+                    botResponse = botResponse.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+                }
                 
                 addAIMessage('bot', botResponse);
                 
@@ -4127,7 +4129,6 @@
                 document.getElementById('ai-messages').appendChild(errorDiv);
             }
             
-            selectedImageData = null;
             sendBtn.disabled = false;
             input.disabled = false;
             input.value = '';

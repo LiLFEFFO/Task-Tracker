@@ -132,19 +132,10 @@
             color: var(--text-dim);
         }
         
-.task-input:focus {
+        .task-input:focus {
             border-color: var(--text-dim);
         }
-
-        .task-input[type="date"] {
-            color-scheme: dark;
-        }
-
-        .task-input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
-        }
-
+        
         .add-btn {
             background: var(--accent);
             color: var(--bg);
@@ -207,24 +198,11 @@
             transform: rotate(45deg);
         }
         
-.task-text {
+        .task-text {
             flex: 1;
             font-size: 0.875rem;
         }
-
-        .task-deadline {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            padding: 2px 8px;
-            border: 1px solid var(--border);
-            margin-right: 8px;
-        }
-
-        .task-deadline.overdue {
-            color: #f87171;
-            border-color: #f87171;
-        }
-
+        
         .task-item.completed .task-text {
             color: var(--text-dim);
             text-decoration: line-through;
@@ -2075,10 +2053,8 @@
         <section id="checklist" class="section active">
             <div class="card">
                 <h2 class="card-title">> tasks</h2>
-                <button id="enable-push-btn" style="margin-bottom: 16px; padding: 8px 12px; background: transparent; border: 1px solid var(--border); color: var(--text-dim); font-family: inherit; font-size: 0.7rem; cursor: pointer; display: none;">🔔 Enable notifications</button>
                 <form class="task-form" id="task-form">
                     <input type="text" class="task-input" id="task-input" placeholder="> new task..." autocomplete="off">
-                    <input type="date" class="task-input" id="task-deadline" style="width: 140px; border-right: 1px solid var(--border);">
                     <button type="submit" class="add-btn">add</button>
                 </form>
                 <ul class="task-list" id="task-list"></ul>
@@ -3217,131 +3193,6 @@
             localStorage.setItem('lastVisit', today);
             save();
         }
-
-        function showInAppNotification(message) {
-            const existing = document.getElementById('in-app-notification');
-            if (existing) existing.remove();
-            
-            const notif = document.createElement('div');
-            notif.id = 'in-app-notification';
-            notif.style.cssText = `
-                position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-                background: #f87171; color: #0a0a0a; padding: 12px 20px;
-                font-size: 0.85rem; font-weight: 600; z-index: 10000;
-                display: flex; align-items: center; gap: 12px; cursor: pointer;
-            `;
-            notif.innerHTML = `<span>⚠️</span><span>${message}</span>`;
-            notif.onclick = () => notif.remove();
-            document.body.appendChild(notif);
-            setTimeout(() => notif.remove(), 8000);
-        }
-
-        function checkDeadlineNotifications() {
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
-            
-            const overdueTasks = tasks.filter(t => !t.done && t.deadline).filter(task => {
-                const deadline = new Date(task.deadline);
-                deadline.setHours(0, 0, 0, 0);
-                return deadline <= now;
-            });
-            
-            if (overdueTasks.length > 0) {
-                showInAppNotification(`${overdueTasks.length} task${overdueTasks.length > 1 ? 's' : ''} overdue!`);
-            }
-            
-            registerPushForDeadlines();
-        }
-
-        function urlBase64ToUint8Array(base64String) {
-            const padding = '='.repeat((4 - base64String.length % 4) % 4);
-            const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-            const rawData = window.atob(base64);
-            const outputArray = new Uint8Array(rawData.length);
-            for (let i = 0; i < rawData.length; ++i) {
-                outputArray[i] = rawData.charCodeAt(i);
-            }
-            return outputArray;
-        }
-        
-        function registerPushForDeadlines() {
-            if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
-            
-            const savedSub = localStorage.getItem('pushSubscription');
-            
-            navigator.serviceWorker.register('sw.js').then(reg => {
-                reg.pushManager.getSubscription().then(sub => {
-                    if (!sub) {
-                        reg.pushManager.subscribe({
-                            userVisibleOnly: true,
-                            applicationServerKey: urlBase64ToUint8Array('BCv_W6NLAlsrlx6edHeMPGuqam0hf4rA5Gt497DaJtqUjAGwgsYCd0ETp2IEYKy4tdjL58RayxazM5GysNSnr0M')
-                        }).then(newSub => {
-                            localStorage.setItem('pushSubscription', JSON.stringify(newSub));
-                        }).catch(err => console.log('Subscribe error:', err));
-                    }
-                });
-            }).catch(err => console.log('SW registration failed:', err));
-        }
-        
-        function sendPushNotification(title, body) {
-            const subData = localStorage.getItem('pushSubscription');
-            if (!subData) return;
-            
-            const sub = JSON.parse(subData);
-            
-            fetch('https://tadpole.federicofongaro370.workers.dev/send', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    subscription: sub,
-                    title: title,
-                    body: body
-                })
-            }).catch(err => console.log('Push error:', err));
-        }
-        
-        checkDeadlineNotifications();
-        
-        const enablePushBtn = document.getElementById('enable-push-btn');
-        
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-            navigator.serviceWorker.register('sw.js').then(reg => {
-                reg.pushManager.getSubscription().then(sub => {
-                    if (!sub) {
-                        enablePushBtn.style.display = 'block';
-                    }
-                });
-            }).catch(err => console.log('SW registration failed:', err));
-        }
-        
-        enablePushBtn.addEventListener('click', () => {
-            navigator.serviceWorker.ready.then(reg => {
-                reg.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: urlBase64ToUint8Array('BCv_W6NLAlsrlx6edHeMPGuqam0hf4rA5Gt497DaJtqUjAGwgsYCd0ETp2IEYKy4tdjL58RayxazM5GysNSnr0M')
-                }).then(sub => {
-                    localStorage.setItem('pushSubscription', JSON.stringify(sub));
-                    enablePushBtn.style.display = 'none';
-                    alert('Notifications enabled!');
-                }).catch(err => {
-                    console.log('Subscribe error:', err);
-                    alert('Failed to enable notifications. Please check browser permissions.');
-                });
-            });
-        });
-        
-        setInterval(() => {
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
-            const overdue = tasks.filter(t => !t.done && t.deadline).filter(task => {
-                const deadline = new Date(task.deadline);
-                deadline.setHours(0, 0, 0, 0);
-                return deadline <= now;
-            });
-            if (overdue.length > 0) {
-                sendPushNotification('Task Overdue!', `${overdue.length} task${overdue.length > 1 ? 's' : ''} expired`);
-            }
-        }, 60000);
         
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -3356,7 +3207,6 @@
         
         const taskForm = document.getElementById('task-form');
         const taskInput = document.getElementById('task-input');
-        const taskDeadlineInput = document.getElementById('task-deadline');
         const taskList = document.getElementById('task-list');
         const taskEmpty = document.getElementById('task-empty');
         const completedList = document.getElementById('completed-list');
@@ -3364,30 +3214,14 @@
         function renderTasks() {
             const pending = tasks.filter(t => !t.done);
             const completed = tasks.filter(t => t.done);
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
             
             taskList.innerHTML = '';
             pending.forEach((task) => {
                 const li = document.createElement('li');
                 li.className = 'task-item';
-                let deadlineDisplay = '';
-                if (task.deadline) {
-                    const deadline = new Date(task.deadline);
-                    deadline.setHours(0, 0, 0, 0);
-                    const isOverdue = deadline < now;
-                    const daysDiff = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
-                    let deadlineText = '';
-                    if (daysDiff < 0) deadlineText = `${Math.abs(daysDiff)}d overdue`;
-                    else if (daysDiff === 0) deadlineText = 'today';
-                    else if (daysDiff === 1) deadlineText = 'tomorrow';
-                    else deadlineText = `${daysDiff}d left`;
-                    deadlineDisplay = `<span class="task-deadline ${isOverdue ? 'overdue' : ''}">${deadlineText}</span>`;
-                }
                 li.innerHTML = `
                     <input type="checkbox" class="checkbox" data-index="${tasks.indexOf(task)}">
                     <span class="task-text">${task.text}</span>
-                    ${deadlineDisplay}
                     <button class="delete-btn" data-index="${tasks.indexOf(task)}">x</button>
                 `;
                 taskList.appendChild(li);
@@ -3418,11 +3252,9 @@
         taskForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const text = taskInput.value.trim();
-            const deadline = taskDeadlineInput.value || null;
             if (text) {
-                tasks.push({ text, done: false, deadline });
+                tasks.push({ text, done: false });
                 taskInput.value = '';
-                taskDeadlineInput.value = '';
                 save();
                 renderTasks();
                 addActivity('Added: ' + text);
@@ -4373,7 +4205,6 @@
         
         renderActiveQuests();
         renderMemories();
-    
     </script>
 </body>
 </html>

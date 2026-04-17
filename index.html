@@ -2055,6 +2055,7 @@
                 <h2 class="card-title">> tasks</h2>
                 <form class="task-form" id="task-form">
                     <input type="text" class="task-input" id="task-input" placeholder="> new task..." autocomplete="off">
+                    <input type="date" class="task-input" id="task-deadline" style="width: 140px; border-right: 1px solid var(--border);">
                     <button type="submit" class="add-btn">add</button>
                 </form>
                 <ul class="task-list" id="task-list"></ul>
@@ -3165,7 +3166,186 @@
             localStorage.setItem('memories', JSON.stringify(memories));
             localStorage.setItem('expHistory', JSON.stringify(expHistory));
         }
-        
+
+        // EMAIL NOTIFICATIONS
+        const peterWorkerUrl = 'https://peter.federicofongaro370.workers.dev/';
+
+        async function sendEmail(subject, text) {
+            try {
+                await fetch(peterWorkerUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'sendEmail', subject, text })
+                });
+            } catch (err) {
+                console.log('Email error:', err);
+            }
+        }
+
+        function getPendingTasks() {
+            return tasks.filter(t => !t.done);
+        }
+
+        function getExpiringTomorrowTasks() {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            return tasks.filter(t => !t.done && t.deadline === tomorrowStr);
+        }
+
+        function getActiveBossQuest() {
+            return bossQuestActive;
+        }
+
+        function getHabitsCompletionCount() {
+            const counts = {};
+            habits.forEach(h => {
+                counts[h.name] = h.completedCount || 0;
+            });
+            return counts;
+        }
+
+        function getWeekActivity() {
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            return activityLog.filter(a => {
+                const actDate = new Date(a.date);
+                return actDate >= weekAgo;
+            });
+        }
+
+async function sendDailyEmail() {
+            const pendingTasks = getPendingTasks();
+            const expiringTasks = getExpiringTomorrowTasks();
+            const bossQuest = getActiveBossQuest();
+
+            let subject = 'Task Tracker - Daily Briefing';
+            let text = 'Ciao! Ecco il tuo briefing giornaliero:\n\n';
+
+            if (pendingTasks.length > 0) {
+                text += 'TASK DA COMPLETARE:\n';
+                pendingTasks.forEach(t => {
+                    const deadlineInfo = t.deadline ? ' (scadenza: ' + t.deadline + ')' : '';
+                    text += '- ' + t.text + deadlineInfo + '\n';
+                });
+                text += '\n';
+            } else {
+                text += 'Nessuna task in sospeso!\n\n';
+            }
+
+            if (expiringTasks.length > 0) {
+                text += 'TASK IN SCADENZA DOMANI:\n';
+                expiringTasks.forEach(t => {
+                    text += '- ' + t.text + '\n';
+                });
+                text += '\n';
+            }
+
+            if (bossQuest) {
+                text += 'BOSS QUEST ATTIVA:\n';
+                text += '- ' + bossQuest.title + ': ' + bossQuest.description + '\n';
+                text += '- Reward: ' + bossQuest.expReward + ' XP, ' + bossQuest.creditsReward + ' credits\n\n';
+            } else {
+                text += 'Nessuna Boss Quest attiva\n\n';
+            }
+
+            text += 'Buona giornata!';
+
+            await sendEmail(subject, text);
+}
+
+        async function sendDeadlineReminderEmail() {
+            const expiringTasks = getExpiringTomorrowTasks();
+
+            if (expiringTasks.length === 0) return;
+
+            const subject = 'Task Tracker - Promemoria Scadenza';
+            let text = 'Ciao! Hai task in scadenza domani:\n\n';
+
+            expiringTasks.forEach(t => {
+                text += '- ' + t.text + '\n';
+            });
+
+            text += '\nNon dimenticartene!';
+
+            await sendEmail(subject, text);
+        }
+
+        async function sendWeeklyReportEmail() {
+            const weekActivity = getWeekActivity();
+            const habitsCount = getHabitsCompletionCount();
+            const completedTasks = weekActivity.filter(a => a.text.startsWith('Completed:'));
+
+            const subject = 'Task Tracker - Report Settimanale';
+            let text = 'Ciao! Ecco il tuo report settimanale:\n\n';
+
+            text += 'TASK COMPLETATE:\n';
+            text += 'Totale: ' + completedTasks.length + '\n';
+            completedTasks.forEach(a => {
+                const taskName = a.text.replace('Completed: ', '');
+                text += '- ' + taskName + '\n';
+            });
+            text += '\n';
+
+            text += 'HABITS COMPLETATI:\n';
+            Object.entries(habitsCount).forEach(([name, count]) => {
+                text += '- ' + name + ': ' + count + ' volte\n';
+            });
+            text += '\n';
+
+            text += 'Attivita totali: ' + weekActivity.length + '\n';
+            text += '\n Alla prossima settimana!';
+
+            await sendEmail(subject, text);
+        }
+
+        function checkAndSendEmails() {
+            const now = new Date();
+            const currentDay = now.getDay();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+
+            // Daily email at 6:00
+            if (currentHour === 6 && currentMinute === 0) {
+                const lastDailyEmail = localStorage.getItem('lastDailyEmail');
+                const todayStr = new Date().toDateString();
+                if (lastDailyEmail !== todayStr) {
+                    sendDailyEmail();
+                    localStorage.setItem('lastDailyEmail', todayStr);
+                }
+            }
+
+            // Deadline reminder at 18:00
+            if (currentHour === 18 && currentMinute === 0) {
+                const lastDeadlineReminder = localStorage.getItem('lastDeadlineReminder');
+                const todayStr = new Date().toDateString();
+                if (lastDeadlineReminder !== todayStr) {
+                    sendDeadlineReminderEmail();
+                    localStorage.setItem('lastDeadlineReminder', todayStr);
+                }
+            }
+
+            // Weekly report on Sunday at 19:00
+            if (currentDay === 0 && currentHour === 19 && currentMinute === 0) {
+                const lastWeeklyReport = localStorage.getItem('lastWeeklyReport');
+                const weekNumber = getWeekNumber(now);
+                if (lastWeeklyReport !== weekNumber) {
+                    sendWeeklyReportEmail();
+                    localStorage.setItem('lastWeeklyReport', weekNumber);
+                }
+            }
+        }
+
+        function getWeekNumber(d) {
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+            return `${d.getUTCFullYear()}-W${weekNo}`;
+        }
+
+        setInterval(checkAndSendEmails, 60000);
+
         if (currentTheme) {
             applyTheme(currentTheme);
         }
@@ -3207,6 +3387,7 @@
         
         const taskForm = document.getElementById('task-form');
         const taskInput = document.getElementById('task-input');
+        const taskDeadlineInput = document.getElementById('task-deadline');
         const taskList = document.getElementById('task-list');
         const taskEmpty = document.getElementById('task-empty');
         const completedList = document.getElementById('completed-list');
@@ -3252,9 +3433,11 @@
         taskForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const text = taskInput.value.trim();
+            const deadline = taskDeadlineInput.value || null;
             if (text) {
-                tasks.push({ text, done: false });
+                tasks.push({ text, done: false, deadline });
                 taskInput.value = '';
+                taskDeadlineInput.value = '';
                 save();
                 renderTasks();
                 addActivity('Added: ' + text);
@@ -3988,12 +4171,12 @@
         
         const aiFocusPrompts = {
             general: 'Conoscenza ampia su qualsiasi argomento. Risposte brevi e incisive.',
-            math: 'MATEMATICA - Ricorda sempre:\n1) Disequazioni con x²: x² < n significa -√n < x < √n (entrambi i segni!)\n2) Equazioni quadratiche: due soluzioni (anche negative)\n3) Risposte brevi ma COMPLETE. Niente passaggi inutili, ma NON omettere soluzioni.',
+            math: 'MATEMATICA - Ricorda sempre. 1: Disequazioni con x2: x2 minore di n significa meno radice di n minore di x minore di radice di n. 2: Equazioni quadratiche: due soluzioni. 3: Risposte brevi ma complete.',
             physics: 'Esperto fisica. Spiegazioni concise con formule essenziali.',
             chemistry: 'Esperto chimica. Risposte rapide, formule chiave.',
             informatics: 'Esperto informatica. Codice pulito e spiegazioni minime.',
             mechanics: 'Esperto meccanica. Calcoli diretti, risultati precisi.',
-            telecom: 'Esperto circuiti elettrici. Risolvi con passaggi minimi: 1) identifica componenti, 2) applica formule (Ohm, Kirchhoff), 3) risultato con unità.',
+            telecom: 'Esperto circuiti elettrici. Risolvi con passaggi minimi: 1 identifica componenti, 2 applica formule Ohm Kirchhoff, 3 risultato con unita.',
             custom: ''
         };
         

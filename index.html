@@ -3217,29 +3217,71 @@
             save();
         }
 
+        function showInAppNotification(message) {
+            const existing = document.getElementById('in-app-notification');
+            if (existing) existing.remove();
+            
+            const notif = document.createElement('div');
+            notif.id = 'in-app-notification';
+            notif.style.cssText = `
+                position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+                background: #f87171; color: #0a0a0a; padding: 12px 20px;
+                font-size: 0.85rem; font-weight: 600; z-index: 10000;
+                display: flex; align-items: center; gap: 12px; cursor: pointer;
+            `;
+            notif.innerHTML = `<span>⚠️</span><span>${message}</span>`;
+            notif.onclick = () => notif.remove();
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 8000);
+        }
+
         function checkDeadlineNotifications() {
-            if (!('Notification' in window)) return;
-            
-            if (Notification.permission === 'default') {
-                Notification.requestPermission();
-            }
-            
-            if (Notification.permission !== 'granted') return;
-            
             const now = new Date();
             now.setHours(0, 0, 0, 0);
             
-            tasks.filter(t => !t.done && t.deadline).forEach(task => {
+            const overdueTasks = tasks.filter(t => !t.done && t.deadline).filter(task => {
                 const deadline = new Date(task.deadline);
                 deadline.setHours(0, 0, 0, 0);
-                
-                if (deadline <= now) {
-                    new Notification('Task Overdue!', {
-                        body: `"${task.text}" is overdue`,
-                        icon: '⚠️'
-                    });
-                }
+                return deadline <= now;
             });
+            
+            if (overdueTasks.length > 0) {
+                showInAppNotification(`${overdueTasks.length} task${overdueTasks.length > 1 ? 's' : ''} overdue!`);
+                
+                if ('serviceWorker' in navigator && 'PushManager' in window) {
+                    navigator.serviceWorker.register('sw.js').then(reg => {
+                        return reg.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array('BCv_W6NLAlsrlx6edHeMPGuqam0hf4rA5Gt497DaJtqUjAGwgsYCd0ETp2IEYKy4tdjL58RayxazM5GysNSnr0M')
+                        }).then(sub => {
+                            const savedSub = localStorage.getItem('pushSubscription');
+                            if (!savedSub) {
+                                localStorage.setItem('pushSubscription', JSON.stringify(sub));
+                            }
+                            fetch('https://tadpole.federicofongaro370.workers.dev/send', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    subscription: sub,
+                                    title: 'Task Overdue!',
+                                    body: `${overdueTasks.length} task${overdueTasks.length > 1 ? 's' : ''} expired`
+                                })
+                            }).catch(err => console.log('Push error:', err));
+                        });
+                    }).catch(err => console.log('SW registration failed:', err));
+                }
+            }
+        }
+
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
         }
         
         checkDeadlineNotifications();

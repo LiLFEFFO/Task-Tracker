@@ -132,10 +132,19 @@
             color: var(--text-dim);
         }
         
-        .task-input:focus {
+.task-input:focus {
             border-color: var(--text-dim);
         }
-        
+
+        .task-input[type="date"] {
+            color-scheme: dark;
+        }
+
+        .task-input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
         .add-btn {
             background: var(--accent);
             color: var(--bg);
@@ -198,11 +207,24 @@
             transform: rotate(45deg);
         }
         
-        .task-text {
+.task-text {
             flex: 1;
             font-size: 0.875rem;
         }
-        
+
+        .task-deadline {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            padding: 2px 8px;
+            border: 1px solid var(--border);
+            margin-right: 8px;
+        }
+
+        .task-deadline.overdue {
+            color: #f87171;
+            border-color: #f87171;
+        }
+
         .task-item.completed .task-text {
             color: var(--text-dim);
             text-decoration: line-through;
@@ -2055,6 +2077,7 @@
                 <h2 class="card-title">> tasks</h2>
                 <form class="task-form" id="task-form">
                     <input type="text" class="task-input" id="task-input" placeholder="> new task..." autocomplete="off">
+                    <input type="date" class="task-input" id="task-deadline" style="width: 140px; border-right: 1px solid var(--border);">
                     <button type="submit" class="add-btn">add</button>
                 </form>
                 <ul class="task-list" id="task-list"></ul>
@@ -3193,6 +3216,33 @@
             localStorage.setItem('lastVisit', today);
             save();
         }
+
+        function checkDeadlineNotifications() {
+            if (!('Notification' in window)) return;
+            
+            if (Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+            
+            if (Notification.permission !== 'granted') return;
+            
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+            
+            tasks.filter(t => !t.done && t.deadline).forEach(task => {
+                const deadline = new Date(task.deadline);
+                deadline.setHours(0, 0, 0, 0);
+                
+                if (deadline <= now) {
+                    new Notification('Task Overdue!', {
+                        body: `"${task.text}" is overdue`,
+                        icon: '⚠️'
+                    });
+                }
+            });
+        }
+        
+        checkDeadlineNotifications();
         
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -3207,6 +3257,7 @@
         
         const taskForm = document.getElementById('task-form');
         const taskInput = document.getElementById('task-input');
+        const taskDeadlineInput = document.getElementById('task-deadline');
         const taskList = document.getElementById('task-list');
         const taskEmpty = document.getElementById('task-empty');
         const completedList = document.getElementById('completed-list');
@@ -3214,14 +3265,30 @@
         function renderTasks() {
             const pending = tasks.filter(t => !t.done);
             const completed = tasks.filter(t => t.done);
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
             
             taskList.innerHTML = '';
             pending.forEach((task) => {
                 const li = document.createElement('li');
                 li.className = 'task-item';
+                let deadlineDisplay = '';
+                if (task.deadline) {
+                    const deadline = new Date(task.deadline);
+                    deadline.setHours(0, 0, 0, 0);
+                    const isOverdue = deadline < now;
+                    const daysDiff = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+                    let deadlineText = '';
+                    if (daysDiff < 0) deadlineText = `${Math.abs(daysDiff)}d overdue`;
+                    else if (daysDiff === 0) deadlineText = 'today';
+                    else if (daysDiff === 1) deadlineText = 'tomorrow';
+                    else deadlineText = `${daysDiff}d left`;
+                    deadlineDisplay = `<span class="task-deadline ${isOverdue ? 'overdue' : ''}">${deadlineText}</span>`;
+                }
                 li.innerHTML = `
                     <input type="checkbox" class="checkbox" data-index="${tasks.indexOf(task)}">
                     <span class="task-text">${task.text}</span>
+                    ${deadlineDisplay}
                     <button class="delete-btn" data-index="${tasks.indexOf(task)}">x</button>
                 `;
                 taskList.appendChild(li);
@@ -3252,9 +3319,11 @@
         taskForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const text = taskInput.value.trim();
+            const deadline = taskDeadlineInput.value || null;
             if (text) {
-                tasks.push({ text, done: false });
+                tasks.push({ text, done: false, deadline });
                 taskInput.value = '';
+                taskDeadlineInput.value = '';
                 save();
                 renderTasks();
                 addActivity('Added: ' + text);

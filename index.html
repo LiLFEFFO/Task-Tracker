@@ -2475,6 +2475,7 @@
         ];
         
         function checkAndAwardMedal(newLevel) {
+            let medalEarned = false;
             for (const tier of medalTiers) {
                 if (newLevel >= tier.level && !medals.some(m => m.level === tier.level)) {
                     medals.push({
@@ -2488,7 +2489,11 @@
                     localStorage.setItem('medals', JSON.stringify(medals));
                     showMedalAwarded(tier);
                     addActivity('MEDAL EARNED: ' + tier.name + ' at level ' + tier.level);
+                    medalEarned = true;
                 }
+            }
+            if (medalEarned && !bossQuestActive) {
+                generateBossQuest();
             }
         }
         
@@ -3041,18 +3046,24 @@
         };
         
         const accentPresets = [
-            { accent: '#58a6ff', name: 'Blue' },
-            { accent: '#4ade80', name: 'Green' },
-            { accent: '#f87171', name: 'Red' },
-            { accent: '#818cf8', name: 'Indigo' },
-            { accent: '#c084fc', name: 'Purple' },
-            { accent: '#fbbf24', name: 'Yellow' },
-            { accent: '#22d3ee', name: 'Cyan' },
-            { accent: '#fb7185', name: 'Pink' },
-            { accent: '#fb923c', name: 'Orange' },
-            { accent: '#a3e635', name: 'Lime' },
-            { accent: '#e879f9', name: 'Fuchsia' },
-            { accent: '#38bdf8', name: 'Sky' }
+            { accent: '#67e8f9', name: 'Sky Blue' },
+            { accent: '#86efac', name: 'Light Green' },
+            { accent: '#fde047', name: 'Bright Yellow' },
+            { accent: '#fca5a5', name: 'Light Coral' },
+            { accent: '#c4b5fd', name: 'Light Lavender' },
+            { accent: '#93c5fd', name: 'Light Blue' },
+            { accent: '#a7f3d0', name: 'Mint' },
+            { accent: '#fecaca', name: 'Light Pink' },
+            { accent: '#fed7aa', name: 'Peach' },
+            { accent: '#bef264', name: 'Lime' },
+            { accent: '#d8b4fe', name: 'Lilac' },
+            { accent: '#7dd3fc', name: 'Cyan' },
+            { accent: '#a5f3fc', name: 'Aqua' },
+            { accent: '#bbf7d0', name: 'Honeydew' },
+            { accent: '#fdba74', name: 'Apricot' },
+            { accent: '#e9d5ff', name: 'Mauve' },
+            { accent: '#c7d2fe', name: 'Periwinkle' },
+            { accent: '#fecdd3', name: 'Blush' }
         ];
         
         function applyTheme(theme) {
@@ -3097,10 +3108,10 @@
                 bgTertiary = '#222222';
             }
             
-            const brightness = 0.7 + Math.random() * 0.3;
-            const textColor = adjustBrightness(preset.accent, -120 * brightness);
-            const textDimColor = adjustBrightness(preset.accent, -160 * brightness);
-            const borderColor = adjustBrightness(preset.accent, -180 * brightness);
+            const brightness = 0.85 + Math.random() * 0.15;
+            const textColor = adjustBrightness(preset.accent, -80 * brightness);
+            const textDimColor = adjustBrightness(preset.accent, -120 * brightness);
+            const borderColor = adjustBrightness(preset.accent, -140 * brightness);
             
             return {
                 bg: bg,

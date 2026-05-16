@@ -1235,6 +1235,93 @@
             background: var(--bg);
             display: block;
         }
+
+        using System.Dynamic;
+using System.Runtime.InteropServices;
+
+static void Main()
+{
+    CLibro[] libri = new CLibro[3];
+
+    libri[0] = new CLibro("Ciao!", "Feffo", 2018, false);
+    libri[1] = new CLibro("Buonasera!", "Feffo", 2019, false);
+    libri[2] = new CLibro("Buongiorno!", "Feffo", 2020, false);
+
+    libri[0].MostraInformazioni();
+    libri[0].PrestaLibro();
+    libri[1].RestituisciLibro();
+}
+
+class CLibro
+{
+    private string _Titolo;
+    private string _Autore;
+    private int _AnnoPubblicazione;
+    private bool _Prestato;
+
+    public string Titolo
+    {
+        get => _Titolo;
+        set => _Titolo = value;
+    }
+
+    public string Autore
+    {
+        get => _Autore;
+        set => _Autore = value;
+    }
+
+    public int AnnoPubblicazione
+    {
+        get => _AnnoPubblicazione;
+        set => _AnnoPubblicazione = value;
+    }
+
+    public bool Prestato
+    {
+        get => _Prestato;
+        set => _Prestato = value;
+    }
+
+    public CLibro(string Titolo, string Autore, int AnnoPubblicazione, bool Prestato)
+    {
+        _Titolo = Titolo;
+        _Autore = Autore;
+        _AnnoPubblicazione = AnnoPubblicazione;
+        _Prestato = Prestato;
+    }
+
+    public void MostraInformazioni()
+    {
+        Console.WriteLine($"Titolo: {_Titolo}");
+        Console.WriteLine($"Autore: {_Autore}");
+        Console.WriteLine($"Anno di pubblicazione: {_AnnoPubblicazione}");
+        Console.WriteLine($"Prestato: {_Prestato}");
+    }
+
+    public void PrestaLibro()
+    {
+        if(_Prestato == true)
+        {
+            Console.WriteLine("Libro già in prestito");
+        } else
+        {
+            _Prestato = true;
+            Console.WriteLine("Libro prestato con successo!");
+        }
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        MessageBox.Show("Hai cliccato il bottone!"); // quando clicco il bottone succede qualcosa
+    }
+
+    public void RestituisciLibro()
+    {
+        _Prestato = false;
+        Console.WriteLine("Libro nuovamente disponibile!");
+    }
+}
         
         .memory-item video {
             height: 150px;

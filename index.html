@@ -3777,7 +3777,7 @@ async function sendDailyEmail() {
                 
                 const conversation = [
                     { role: 'system', content: getFullPrompt() },
-                    ...recentMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content })),
+                    ...recentMessages.slice(0, -1).map(m => ({ role: m.role === 'bot' ? 'assistant' : m.role, content: m.content })),
                     { role: 'user', content: message }
                 ];
                 

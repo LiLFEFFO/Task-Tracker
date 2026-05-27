@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1918,11 +1918,11 @@
         <header>
             <div>
                 <h1>> task_tracker</h1>
-                <div class="subtitle">// your productivity terminal</div>
+                <div class="subtitle">// il tuo terminale di produttività</div>
             </div>
             <div class="level-display" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 8px 16px; display: flex; align-items: center; gap: 16px;">
                 <div style="text-align: center;">
-                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;">level</div>
+                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;">livello</div>
                     <div class="level-number" id="level-display" style="font-size: 1.2rem; font-weight: 700;">1</div>
                 </div>
                 <div style="flex: 1; min-width: 120px;">
@@ -1939,36 +1939,36 @@
         
         <div class="nav-tabs">
             <div class="tab active" data-tab="checklist">checklist</div>
-            <div class="tab" data-tab="documents">documents</div>
-            <div class="tab" data-tab="habits">habits</div>
-            <div class="tab" data-tab="tracking">tracking</div>
-            <div class="tab" data-tab="shop">shop</div>
-            <div class="tab" data-tab="inventory">inventory</div>
-            <div class="tab" data-tab="quests">quests</div>
-            <div class="tab" data-tab="memories">memories</div>
+            <div class="tab" data-tab="documents">documenti</div>
+            <div class="tab" data-tab="habits">abitudini</div>
+            <div class="tab" data-tab="tracking">monitoraggio</div>
+            <div class="tab" data-tab="shop">negozio</div>
+            <div class="tab" data-tab="inventory">inventario</div>
+            <div class="tab" data-tab="quests">quest</div>
+            <div class="tab" data-tab="memories">ricordi</div>
             <div class="tab" data-tab="ai">AI</div>
-            <div class="tab" data-tab="stats">stats</div>
+            <div class="tab" data-tab="stats">statistiche</div>
         </div>
         
         <section id="checklist" class="section active">
             <div class="card">
-                <h2 class="card-title">> tasks</h2>
+                <h2 class="card-title">> task</h2>
                 <form class="task-form" id="task-form">
-                    <input type="text" class="task-input" id="task-input" placeholder="> new task..." autocomplete="off">
+                    <input type="text" class="task-input" id="task-input" placeholder="> nuovo task..." autocomplete="off">
                     <input type="date" class="task-input" id="task-deadline" style="width: 140px; border-right: 1px solid var(--border);">
-                    <button type="submit" class="add-btn">add</button>
+                    <button type="submit" class="add-btn">aggiungi</button>
                 </form>
                 <ul class="task-list" id="task-list"></ul>
                 <div class="empty-state" id="task-empty">
                     <div class="empty-icon">[_]</div>
-                    <div class="empty-text">no tasks</div>
+                    <div class="empty-text">nessun task</div>
                 </div>
             </div>
             
             <div class="card">
-                <h2 class="card-title">> completed</h2>
+                <h2 class="card-title">> completati</h2>
                 <ul class="completed-list" id="completed-list">
-                    <li style="color: var(--text-dim); cursor: default;">completed tasks will appear here</li>
+                    <li style="color: var(--text-dim); cursor: default;">i task completati appariranno qui</li>
                 </ul>
             </div>
         </section>
@@ -1983,7 +1983,7 @@
                             <div class="editor-title">
                                 <input type="text" value="notes.txt" id="doc-title">
                             </div>
-                            <button class="save-btn">save</button>
+                            <button class="save-btn">salva</button>
                         </div>
                         <div class="editor-content" id="doc-content" contenteditable="true"></div>
                     </div>
@@ -1994,27 +1994,27 @@
         <section id="habits" class="section">
             <div class="card">
                 <div class="habit-categories" id="habit-categories">
-                    <button class="category-btn active" data-category="daily">daily</button>
-                    <button class="category-btn" data-category="weekly">weekly</button>
-                    <button class="category-btn" data-category="monthly">monthly</button>
+                    <button class="category-btn active" data-category="daily">giornaliere</button>
+                    <button class="category-btn" data-category="weekly">settimanali</button>
+                    <button class="category-btn" data-category="monthly">mensili</button>
                 </div>
                 
                 <div class="habits-grid" id="habits-grid"></div>
                 
                 <form class="add-habit-form" id="habit-form">
-                    <input type="text" id="habit-name-input" placeholder="> new habit..." autocomplete="off">
-                    <button type="submit" class="add-btn">add</button>
+                    <input type="text" id="habit-name-input" placeholder="> nuova abitudine..." autocomplete="off">
+                    <button type="submit" class="add-btn">aggiungi</button>
                 </form>
             </div>
         </section>
         
         <section id="tracking" class="section">
             <div class="card">
-                <h2 class="card-title">> habit tracking</h2>
+                <h2 class="card-title">> monitoraggio abitudini</h2>
                 
                 <div class="tracking-section">
                     <div class="tracking-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim);">daily habits</span>
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim);">abitudini giornaliere</span>
                     </div>
                     <div class="chart-container" style="background: var(--bg-tertiary); border: 1px solid var(--border); padding: 20px; height: 200px; position: relative;">
                         <div class="percentage-chart" id="daily-percentage" style="display: flex; align-items: center; justify-content: center; height: 100%;">
@@ -2025,19 +2025,19 @@
                                 </svg>
                                 <div class="percentage-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                                     <div class="percentage-value" id="daily-percent" style="font-size: 1.5rem; font-weight: 700;">0%</div>
-                                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;">completed</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;">completato</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="progress-details" style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 0.75rem; color: var(--text-dim);">
-                        <span id="daily-completed-count">0 / 0 completed</span>
+                        <span id="daily-completed-count">0 / 0 completati</span>
                     </div>
                 </div>
                 
                 <div class="tracking-section">
                     <div class="tracking-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim);">monthly habits</span>
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim);">abitudini mensili</span>
                     </div>
                     <div class="chart-container" style="background: var(--bg-tertiary); border: 1px solid var(--border); padding: 20px; height: 200px; position: relative;">
                         <div class="percentage-chart" id="monthly-percentage" style="display: flex; align-items: center; justify-content: center; height: 100%;">
@@ -2048,32 +2048,32 @@
                                 </svg>
                                 <div class="percentage-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                                     <div class="percentage-value" id="monthly-percent" style="font-size: 1.5rem; font-weight: 700;">0%</div>
-                                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;">completed</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;">completato</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="progress-details" style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 0.75rem; color: var(--text-dim);">
-                        <span id="monthly-completed-count">0 / 0 completed</span>
+                        <span id="monthly-completed-count">0 / 0 completati</span>
                     </div>
                 </div>
             </div>
             
             <div class="card">
-                <h2 class="card-title">> activity log</h2>
+                <h2 class="card-title">> registro attività</h2>
                 <table class="activity-table">
                     <thead>
                         <tr>
-                            <th>activity</th>
-                            <th>date</th>
-                            <th>status</th>
+                            <th>attività</th>
+                            <th>data</th>
+                            <th>stato</th>
                         </tr>
                     </thead>
                     <tbody id="activity-table">
                         <tr>
-                            <td style="color: var(--text-dim);">start tracking your progress</td>
+                            <td style="color: var(--text-dim);">inizia a monitorare i tuoi progressi</td>
                             <td style="color: var(--text-dim);">-</td>
-                            <td style="color: var(--text-dim);">pending</td>
+                            <td style="color: var(--text-dim);">in attesa</td>
                         </tr>
                     </tbody>
                 </table>
@@ -2082,7 +2082,7 @@
         
         <section id="shop" class="section">
             <div class="credits-display">
-                <div class="credits-label">your credits</div>
+                <div class="credits-label">i tuoi crediti</div>
                 <div class="credits-amount" id="credits-display">0</div>
             </div>
             
@@ -2090,59 +2090,59 @@
                 <div class="shop-item">
                     <div class="item-icon">[_]</div>
                     <div class="item-name">Custom Theme</div>
-                    <div class="item-price">100 credits</div>
-                    <div class="item-desc">random color theme</div>
-                    <button class="buy-btn">buy</button>
+                    <div class="item-price">100 crediti</div>
+                    <div class="item-desc">tema colore casuale</div>
+                    <button class="buy-btn">acquista</button>
                 </div>
                 
                 <div class="shop-item">
                     <div class="item-icon">[*]</div>
                     <div class="item-name">Extra Slots</div>
-                    <div class="item-price">200 credits</div>
-                    <div class="item-desc">+5 max tasks/habits</div>
-                    <button class="buy-btn">buy</button>
+                    <div class="item-price">200 crediti</div>
+                    <div class="item-desc">+5 max task/abitudini</div>
+                    <button class="buy-btn">acquista</button>
                 </div>
                 
                 <div class="shop-item">
                     <div class="item-icon">[~]</div>
                     <div class="item-name">Stats Pack</div>
-                    <div class="item-price">150 credits</div>
-                    <div class="item-desc">show extra stats</div>
-                    <button class="buy-btn">buy</button>
+                    <div class="item-price">150 crediti</div>
+                    <div class="item-desc">mostra statistiche extra</div>
+                    <button class="buy-btn">acquista</button>
                 </div>
                 
                 <div class="shop-item">
                     <div class="item-icon">[x]</div>
                     <div class="item-name">XP Boost</div>
-                    <div class="item-price">500 credits</div>
-                    <div class="item-desc">+50% XP bonus</div>
-                    <button class="buy-btn">buy</button>
+                    <div class="item-price">500 crediti</div>
+                    <div class="item-desc">+50% bonus XP</div>
+                    <button class="buy-btn">acquista</button>
                 </div>
             </div>
         </section>
         
         <section id="inventory" class="section">
             <div class="card">
-                <h2 class="card-title">> your items</h2>
+                <h2 class="card-title">> i tuoi oggetti</h2>
                 <div class="inventory-grid" id="inventory-grid"></div>
             </div>
         </section>
         
         <section id="quests" class="section">
             <div class="card">
-                <h2 class="card-title">> quest generator</h2>
+                <h2 class="card-title">> generatore quest</h2>
                 <div class="quest-generator">
                     <div class="quest-type-selector">
-                        <button class="quest-type-btn active" data-type="physical">physical</button>
+                        <button class="quest-type-btn active" data-type="physical">fisiche</button>
                         <button class="quest-type-btn" data-type="creative">creative</button>
-                        <button class="quest-type-btn" data-type="social">social</button>
+                        <button class="quest-type-btn" data-type="social">sociali</button>
                     </div>
                     <div class="quest-difficulty-selector">
-                        <button class="quest-difficulty-btn" data-difficulty="easy">easy</button>
-                        <button class="quest-difficulty-btn active" data-difficulty="medium">medium</button>
-                        <button class="quest-difficulty-btn" data-difficulty="hard">hard</button>
+                        <button class="quest-difficulty-btn" data-difficulty="easy">facile</button>
+                        <button class="quest-difficulty-btn active" data-difficulty="medium">media</button>
+                        <button class="quest-difficulty-btn" data-difficulty="hard">difficile</button>
                     </div>
-                    <button class="quest-generate-btn" id="quest-generate-btn">generate quest</button>
+                    <button class="quest-generate-btn" id="quest-generate-btn">genera quest</button>
                 </div>
                 <div class="quest-preview" id="quest-preview" style="display: none;">
                     <div class="quest-preview-content">
@@ -2152,30 +2152,30 @@
                         </div>
                         <div class="quest-preview-text" id="quest-preview-text"></div>
                         <div class="quest-preview-reward">
-                            <span class="reward-label">reward:</span>
+                            <span class="reward-label">ricompensa:</span>
                             <span class="reward-value" id="quest-reward"></span>
                         </div>
                     </div>
                     <div class="quest-preview-actions">
-                        <button class="quest-accept-btn" id="quest-accept-btn">accept</button>
-                        <button class="quest-refuse-btn" id="quest-refuse-btn">refuse</button>
+                        <button class="quest-accept-btn" id="quest-accept-btn">accetta</button>
+                        <button class="quest-refuse-btn" id="quest-refuse-btn">rifiuta</button>
                     </div>
                 </div>
             </div>
             
             <div class="card">
-                <h2 class="card-title">> active quests</h2>
+                <h2 class="card-title">> quest attive</h2>
                 <div class="active-quests-list" id="active-quests-list"></div>
             </div>
         </section>
         
         <section id="memories" class="section">
             <div class="card">
-                <h2 class="card-title">> your memories</h2>
+                <h2 class="card-title">> i tuoi ricordi</h2>
                 <div class="memories-grid" id="memories-grid"></div>
                 <div class="empty-state" id="memories-empty">
                     <div class="empty-icon">[o]</div>
-                    <div class="empty-text">no memories yet</div>
+                    <div class="empty-text">nessun ricordo ancora</div>
                 </div>
             </div>
         </section>
@@ -2240,95 +2240,95 @@
             <div class="stats-summary">
                 <div class="stat">
                     <span class="stat-value-inline" id="total-tasks">0</span>
-                    <span class="stat-label-inline"> total tasks</span>
+                    <span class="stat-label-inline"> task totali</span>
                 </div>
                 <div class="stat">
                     <span class="stat-value-inline" id="done-tasks">0</span>
-                    <span class="stat-label-inline"> done</span>
+                    <span class="stat-label-inline"> completati</span>
                 </div>
                 <div class="stat">
                     <span class="stat-value-inline" id="current-streak">0</span>
-                    <span class="stat-label-inline"> day streak</span>
+                    <span class="stat-label-inline"> giorni streak</span>
                 </div>
             </div>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-label">tasks completed</div>
+                    <div class="stat-label">task completati</div>
                     <div class="stat-value" id="stat-completed">0</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-tasks" style="width: 0%"></div>
                     </div>
-                    <div class="stat-note">keep going</div>
+                    <div class="stat-note">continua così</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">current streak</div>
+                    <div class="stat-label">serie attuale</div>
                     <div class="stat-value" id="stat-streak">0</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-streak" style="width: 0%"></div>
                     </div>
-                    <div class="stat-note">days</div>
+                    <div class="stat-note">giorni</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">experience</div>
+                    <div class="stat-label">esperienza</div>
                     <div class="stat-value" id="stat-exp">0</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-exp" style="width: 0%"></div>
                     </div>
-                    <div class="stat-note">total XP</div>
+                    <div class="stat-note">XP totale</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">credits earned</div>
+                    <div class="stat-label">crediti guadagnati</div>
                     <div class="stat-value" id="stat-credits">0</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-credits" style="width: 0%"></div>
                     </div>
-                    <div class="stat-note">total</div>
+                    <div class="stat-note">totale</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">habits tracked</div>
+                    <div class="stat-label">abitudini tracciate</div>
                     <div class="stat-value" id="stat-habits">0</div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-habits" style="width: 0%"></div>
                     </div>
-                    <div class="stat-note">active</div>
+                    <div class="stat-note">attive</div>
                 </div>
             </div>
             
             <div class="stats-grid" id="extra-stats" style="display: none;">
                 <div class="stat-card">
-                    <div class="stat-label">xp multiplier</div>
+                    <div class="stat-label">moltiplicatore XP</div>
                     <div class="stat-value" id="stat-xp-mult">x1.0</div>
-                    <div class="stat-note">bonus active</div>
+                    <div class="stat-note">bonus attivo</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">bonus slots</div>
+                    <div class="stat-label">slot bonus</div>
                     <div class="stat-value" id="stat-slots">+0</div>
-                    <div class="stat-note">extra capacity</div>
+                    <div class="stat-note">capacità extra</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">inventory items</div>
+                    <div class="stat-label">oggetti inventario</div>
                     <div class="stat-value" id="stat-inventory">0</div>
-                    <div class="stat-note">owned</div>
+                    <div class="stat-note">posseduti</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-label">items used</div>
+                    <div class="stat-label">oggetti usati</div>
                     <div class="stat-value" id="stat-used">0</div>
-                    <div class="stat-note">active effects</div>
+                    <div class="stat-note">effetti attivi</div>
                 </div>
             </div>
             
             <div class="card">
                 <h2 class="card-title">> settings</h2>
                 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                    <button class="reset-theme-btn" id="reset-theme-btn">reset theme to default</button>
+                    <button class="reset-theme-btn" id="reset-theme-btn">reimposta tema predefinito</button>
                 </div>
             </div>
             
@@ -2351,13 +2351,13 @@
                         <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Checklist</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; margin-left: 28px;">
-                        <strong style="color: var(--text);">Aggiungere un task:</strong> Scrivi il nome nel campo di testo e clicca "add". 
-                        Puoi anche impostare una scadenza cliccando sull'input date.<br>
+                        <strong style="color: var(--text);">Aggiungere un task:</strong> Scrivi il nome nel campo di testo e clicca "aggiungi". 
+                        Puoi anche impostare una scadenza cliccando sull'input data.<br>
                         <strong style="color: var(--text);">Completare un task:</strong> Spunta la checkbox a sinistra del task. 
                         Riceverai <strong style="color: var(--accent);">10 XP</strong> (modificati dal moltiplicatore) e 
                         <strong style="color: var(--accent);">10 crediti</strong>.<br>
                         <strong style="color: var(--text);">Eliminare un task:</strong> Passa col mouse sul task e clicca la "x" che appare.<br>
-                        <strong style="color: var(--text);">Task completati:</strong> Vengono spostati automaticamente nella sezione "completed".
+                        <strong style="color: var(--text);">Task completati:</strong> Vengono spostati automaticamente nella sezione "completati".
                         Puoi eliminarli definitivamente con la "x".
                     </div>
                 </div>
@@ -2368,11 +2368,11 @@
                         <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Documenti</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; margin-left: 28px;">
-                        <strong style="color: var(--text);">Creare un documento:</strong> Clicca "+ new" nella barra laterale sinistra, 
+                        <strong style="color: var(--text);">Creare un documento:</strong> Clicca "+ nuovo" nella barra laterale sinistra, 
                         inserisci un nome e premi OK. I file vengono salvati automaticamente con estensione .txt.<br>
                         <strong style="color: var(--text);">Modificare:</strong> Clicca su un documento per selezionarlo, 
                         poi scrivi direttamente nell'editor a destra. Il contenuto è modificabile liberamente.<br>
-                        <strong style="color: var(--text);">Salvare:</strong> Clicca il pulsante "save" in alto a destra per salvare le modifiche.<br>
+                        <strong style="color: var(--text);">Salvare:</strong> Clicca il pulsante "salva" in alto a destra per salvare le modifiche.<br>
                         <strong style="color: var(--text);">Eliminare:</strong> Passa col mouse sul nome del documento e clicca la "x".
                     </div>
                 </div>
@@ -2383,18 +2383,18 @@
                         <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Habits</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; margin-left: 28px;">
-                        <strong style="color: var(--text);;">Categorie:</strong> Puoi creare abitudini daily, weekly o monthly cliccando 
+                        <strong style="color: var(--text);;">Categorie:</strong> Puoi creare abitudini giornaliere, settimanali o mensili cliccando 
                         sulle relative schede in alto.<br>
-                        <strong style="color: var(--text);">Aggiungere:</strong> Scrivi il nome dell'abitudine e clicca "add".<br>
+                        <strong style="color: var(--text);">Aggiungere:</strong> Scrivi il nome dell'abitudine e clicca "aggiungi".<br>
                         <strong style="color: var(--text);">Difficolt&agrave;:</strong> Prima di completare una abitudine per la prima volta, 
-                        puoi scegliere tra easy (5 XP), medium (10 XP) o hard (20 XP). Dopo il primo completamento la difficolt&agrave; 
+                        puoi scegliere tra facile (5 XP), media (10 XP) o difficile (20 XP). Dopo il primo completamento la difficolt&agrave; 
                         viene bloccata.<br>
                         <strong style="color: var(--text);">Completare:</strong> Spunta la checkbox. La streak aumenta di 1 e ricevi 
                         XP (moltiplicati per eventuali bonus) e crediti pari al valore XP dell'abitudine.<br>
                         <strong style="color: var(--text);">Streak:</strong> Pi&ugrave; giorni consecutivi completi, pi&ugrave; alta 
                         &egrave; la tua serie. Se togli la spunta, la streak diminuisce di 1.<br>
                         <strong style="color: var(--text);">Reset giornaliero:</strong> Ogni giorno le abitudini vengono resettate 
-                        (completed = false) cos&igrave; da poterle ricompletare.
+                        (completato = falso) cos&igrave; da poterle ricompletare.
                     </div>
                 </div>
                 
@@ -2405,8 +2405,8 @@
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; margin-left: 28px;">
                         <strong style="color: var(--text);">Percentuali:</strong> Mostra la percentuale di completamento delle tue 
-                        abitudini daily e monthly tramite grafici circolari animati.<br>
-                        <strong style="color: var(--text);">Activity Log:</strong> Nella tabella in basso viene registrata ogni attivit&agrave; 
+                        abitudini giornaliere e mensili tramite grafici circolari animati.<br>
+                        <strong style="color: var(--text);">Registro Attivit&agrave;:</strong> Nella tabella in basso viene registrata ogni attivit&agrave; 
                         completata (task e abitudini) con data e ora. Le ultime 10 attivit&agrave; sono visibili.
                     </div>
                 </div>
@@ -2424,7 +2424,7 @@
                         &bull; <strong style="color: var(--accent);">Extra Slots</strong> (200 crediti): Aggiunge 5 slot extra per task e abitudini.<br>
                         &bull; <strong style="color: var(--accent);">Stats Pack</strong> (150 crediti): Sblocca statistiche aggiuntive nella sezione stats.<br>
                         &bull; <strong style="color: var(--accent);">XP Boost</strong> (500 crediti): Moltiplica gli XP guadagnati per 1.5.<br>
-                        <strong style="color: var(--text);">Acquistare:</strong> Clicca "buy" su un articolo. Se hai abbastanza crediti, 
+                        <strong style="color: var(--text);">Acquistare:</strong> Clicca "acquista" su un articolo. Se hai abbastanza crediti, 
                         l'articolo viene aggiunto al tuo inventario.
                     </div>
                 </div>
@@ -2439,7 +2439,7 @@
                         <strong style="color: var(--text);">Attivare/disattivare:</strong> Usa la checkbox per attivare o disattivare 
                         gli effetti di un oggetto (es. Extra Slots, XP Boost, Stats Pack).<br>
                         <strong style="color: var(--text);">Temi:</strong> I Custom Theme acquistati vengono applicati automaticamente 
-                        e mostrano "theme applied".<br>
+                        e mostrano "tema applicato".<br>
                         <strong style="color: var(--text);">Eliminare:</strong> Passa col mouse e clicca la "x".
                     </div>
                 </div>
@@ -2450,14 +2450,14 @@
                         <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Quests</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; margin-left: 28px;">
-                        <strong style="color: var(--text);">Generare una quest:</strong> Scegli il tipo (physical, creative, social) 
-                        e la difficolt&agrave; (easy = 25 crediti, medium = 50, hard = 100). Clicca "generate quest".<br>
+                        <strong style="color: var(--text);">Generare una quest:</strong> Scegli il tipo (fisiche, creative, sociali) 
+                        e la difficolt&agrave; (facile = 25 crediti, media = 50, difficile = 100). Clicca "genera quest".<br>
                         <strong style="color: var(--text);">Accettare/rifiutare:</strong> Puoi accettare la quest generata o rifiutarla 
                         per generararne un'altra.<br>
-                        <strong style="color: var(--text);">Completare:</strong> Clicca "complete" sulla quest attiva. Dovrai caricare 
+                        <strong style="color: var(--text);">Completare:</strong> Clicca "completa" sulla quest attiva. Dovrai caricare 
                         una foto o un video come prova del completamento. Dopo la conferma, riceverai i crediti e la quest 
                         verr&agrave; salvata nei tuoi ricordi.<br>
-                        <strong style="color: var(--text);">Abbandonare:</strong> Clicca "abandon" per rimuovere la quest senza ricompensa.
+                        <strong style="color: var(--text);">Abbandonare:</strong> Clicca "abbandona" per rimuovere la quest senza ricompensa.
                     </div>
                 </div>
                 
@@ -2494,17 +2494,17 @@
                 <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border);">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
                         <span style="font-size: 1.2rem;">[!]</span>
-                        <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Stats &amp; Level</span>
+                        <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Statistiche e Livello</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; margin-left: 28px;">
-                        <strong style="color: var(--text);">Statistiche:</strong> Nella sezione stats trovi il riepilogo di task completati, 
+                        <strong style="color: var(--text);">Statistiche:</strong> Nella sezione statistiche trovi il riepilogo di task completati, 
                         streak attuale, esperienza totale, crediti guadagnati e abitudini attive, con barre di progresso.<br>
-                        <strong style="color: var(--text);">Level &amp; XP:</strong> Ogni attivit&agrave; completata ti fa guadagnare XP. 
+                        <strong style="color: var(--text);">Livello e XP:</strong> Ogni attivit&agrave; completata ti fa guadagnare XP. 
                         La barra EXP nell'header mostra il progresso verso il prossimo livello. 
                         La formula per il livello &egrave;: 100 &times; 1.5<sup>livello-1</sup>.<br>
-                        <strong style="color: var(--text);">Level Up:</strong> Quando raggiungi abbastanza XP, sali di livello 
+                        <strong style="color: var(--text);">Livello Su:</strong> Quando raggiungi abbastanza XP, sali di livello 
                         e un overlay celebrativo appare.<br>
-                        <strong style="color: var(--text);">Multiplicatore XP:</strong> Se possiedi l'XP Boost attivo, tutti gli XP 
+                        <strong style="color: var(--text);">Moltiplicatore XP:</strong> Se possiedi l'XP Boost attivo, tutti gli XP 
                         guadagnati vengono moltiplicati per 1.5.
                     </div>
                 </div>
@@ -2514,7 +2514,7 @@
     </div>
     
     <footer>
-        <p>task_tracker v1.0 // start building</p>
+        <p>task_tracker v1.0 // inizia a costruire</p>
     </footer>
 
     <script>
@@ -2592,7 +2592,7 @@
                 <div class="level-up-content">
                     <div class="level-up-title">LEVEL UP!</div>
                     <div class="level-up-level">${level}</div>
-                    <div class="level-up-message">Keep going, you're doing great!</div>
+                    <div class="level-up-message">Continua cos&igrave;, stai andando alla grande!</div>
                     <button class="quest-generate-btn" onclick="this.closest('.level-up-overlay').remove();">fantastico!</button>
                 </div>
             `;
@@ -2608,125 +2608,125 @@
         const questDatabase = {
             physical: {
                 easy: [
-                    "Take a 10-minute walk outside",
-                    "Do 10 jumping jacks",
-                    "Stretch for 5 minutes",
-                    "Walk 1000 steps today",
-                    "Do 5 push-ups",
-                    "Stand up and move for 2 minutes",
-                    "Do 10 squats",
-                    "Take the stairs instead of the elevator",
-                    "Dance to one song you love",
-                    "Do 5 minutes of light exercises"
+                    "Fai una passeggiata di 10 minuti fuori",
+                    "Fai 10 jumping jack",
+                    "Fai stretching per 5 minuti",
+                    "Cammina 1000 passi oggi",
+                    "Fai 5 flessioni",
+                    "Alzati e muoviti per 2 minuti",
+                    "Fai 10 squat",
+                    "Prendi le scale invece dell'ascensore",
+                    "Balla su una canzone che ami",
+                    "Fai 5 minuti di esercizi leggeri"
                 ],
                 medium: [
-                    "Go for a 30-minute run or jog",
-                    "Do a 20-minute workout session",
-                    "Take a bike ride for at least 3km",
-                    "Swim for 15 minutes",
-                    "Do 30 minutes of yoga",
-                    "Hike a trail or walk in nature",
-                    "Play a sport for 30 minutes",
-                    "Do a full body workout",
-                    "Go climbing or do wall exercises",
-                    "Take a long walk (5km+) and explore"
+                    "Fai una corsa di 30 minuti",
+                    "Fai un allenamento di 20 minuti",
+                    "Fai un giro in bici di almeno 3km",
+                    "Nuota per 15 minuti",
+                    "Fai 30 minuti di yoga",
+                    "Fai un'escursione o cammina nella natura",
+                    "Fai sport per 30 minuti",
+                    "Fai un allenamento completo",
+                    "Vai ad arrampicare o fai esercizi a muro",
+                    "Fai una lunga camminata (5km+) ed esplora"
                 ],
                 hard: [
-                    "Run a 5km race or equivalent distance",
-                    "Complete a 45-minute intense workout",
-                    "Do a marathon session of your favorite sport",
-                    "Complete an extreme outdoor activity",
-                    "Swim for 30+ minutes non-stop",
-                    "Do a multi-sport triathlon mini (bike, run, swim)",
-                    "Climb a mountain or hill summit",
-                    "Complete an athletic challenge with friends",
-                    "Do a 1-hour intensive training session",
-                    "Complete a physical endurance challenge"
+                    "Corri 5km o distanza equivalente",
+                    "Completa un allenamento intenso di 45 minuti",
+                    "Fai una sessione marathon del tuo sport preferito",
+                    "Completa un'attivit&agrave; estrema all'aperto",
+                    "Nuota per 30+ minuti senza fermarti",
+                    "Fai un mini triathlon (bici, corsa, nuoto)",
+                    "Scala una montagna o raggiungi una vetta",
+                    "Completa una sfida atletica con amici",
+                    "Fai una sessione intensiva di 1 ora",
+                    "Completa una sfida di resistenza fisica"
                 ]
             },
             creative: {
                 easy: [
-                    "Draw something with your non-dominant hand",
-                    "Write a short poem (5 lines max)",
-                    "Take a creative photo of your coffee",
-                    "Sketch a random object in 5 minutes",
-                    "Create a playlist with 5 songs",
-                    "Design a simple logo for fun",
-                    "Write a haiku about your day",
-                    "Make a paper airplane and fly it",
-                    "Create an ASCII art piece",
-                    "Take 3 artistic photos of nature"
+                    "Disegna qualcosa con la mano non dominante",
+                    "Scrivi una breve poesia (max 5 versi)",
+                    "Scatta una foto creativa del tuo caff&egrave;",
+                    "Disegna un oggetto casuale in 5 minuti",
+                    "Crea una playlist con 5 canzoni",
+                    "Disegna un logo semplice per divertimento",
+                    "Scrivi un haiku sulla tua giornata",
+                    "Costruisci un aeroplanino di carta e fallo volare",
+                    "Crea un pezzo di ASCII art",
+                    "Scatta 3 foto artistiche della natura"
                 ],
                 medium: [
-                    "Write a short story (500 words)",
-                    "Create a piece of digital art",
-                    "Compose a short melody or beat",
-                    "Build something with recycled materials",
-                    "Write and perform a 1-minute monologue",
-                    "Create a mini comic strip",
-                    "Make a short video (30 seconds)",
-                    "Design a simple website page",
-                    "Create a photo collage of your week",
-                    "Write a song with at least 2 verses"
+                    "Scrivi un racconto breve (500 parole)",
+                    "Crea un'opera d'arte digitale",
+                    "Componi una breve melodia o beat",
+                    "Costruisci qualcosa con materiali riciclati",
+                    "Scrivi e interpreta un monologo di 1 minuto",
+                    "Crea un mini fumetto",
+                    "Realizza un breve video (30 secondi)",
+                    "Progetta una semplice pagina web",
+                    "Crea un collage fotografico della tua settimana",
+                    "Scrivi una canzone con almeno 2 strofe"
                 ],
                 hard: [
-                    "Create a complete short film (2-5 min)",
-                    "Write a full song with music and lyrics",
-                    "Complete a painting or artwork",
-                    "Build a functional prototype or model",
-                    "Write and illustrate a short book",
-                    "Create a multimedia art project",
-                    "Produce a podcast episode",
-                    "Develop a small game or app prototype",
-                    "Create a complete photo series with story",
-                    "Compose a piece of music with multiple tracks"
+                    "Crea un cortometraggio completo (2-5 min)",
+                    "Scrivi una canzone completa con musica e testo",
+                    "Completa un dipinto o opera d'arte",
+                    "Costruisci un prototipo o modello funzionante",
+                    "Scrivi e illustra un breve libro",
+                    "Crea un progetto artistico multimediale",
+                    "Produci un episodio podcast",
+                    "Sviluppa un piccolo gioco o prototipo di app",
+                    "Crea una serie fotografica completa con storia",
+                    "Componi un brano musicale con tracce multiple"
                 ]
             },
             social: {
                 easy: [
-                    "Compliment a stranger genuinely",
-                    "Send a voice message to a friend",
-                    "Say hello to your neighbor",
-                    "Share a funny meme with someone",
-                    "Ask someone how their day is going",
-                    "Give someone a high-five",
-                    "Wave and smile at someone passing by",
-                    "Send a nice text to a family member",
-                    "Like and comment on a friend's post",
-                    "Introduce yourself to someone new"
+                    "Fai un complimento sincero a uno sconosciuto",
+                    "Invia un messaggio vocale a un amico",
+                    "Saluta il tuo vicino di casa",
+                    "Condividi un meme divertente con qualcuno",
+                    "Chiedi a qualcuno come sta",
+                    "Dai un cinque a qualcuno",
+                    "Saluta e sorridi a qualcuno che passa",
+                    "Invia un bel messaggio a un familiare",
+                    "Metti like e commenta un post di un amico",
+                    "Presentati a qualcuno di nuovo"
                 ],
                 medium: [
-                    "Have a 15-minute phone call with someone",
-                    "Organize a small game night",
-                    "Help a stranger with something",
-                    "Invite someone for coffee or lunch",
-                    "Have a meaningful conversation with a friend",
-                    "Join a local group or community event",
-                    "Spend quality time with family",
-                    "Plan a surprise for someone you care",
-                    "Share your skills by teaching someone",
-                    "Organize a virtual meetup with friends"
+                    "Fai una chiamata di 15 minuti con qualcuno",
+                    "Organizza una serata giochi con amici",
+                    "Aiuta uno sconosciuto con qualcosa",
+                    "Invita qualcuno per un caff&egrave; o pranzo",
+                    "Fai una conversazione significativa con un amico",
+                    "Unisciti a un gruppo locale o evento comunitario",
+                    "Passa del tempo di qualit&agrave; con la famiglia",
+                    "Organizza una sorpresa per qualcuno a cui tieni",
+                    "Condividi le tue abilit&agrave; insegnando a qualcuno",
+                    "Organizza un incontro virtuale con amici"
                 ],
                 hard: [
-                    "Organize a gathering with 5+ people",
-                    "Volunteer for a community service",
-                    "Make a speech or presentation for others",
-                    "Lead a group activity or project",
-                    "Reconnect with an old friend you lost touch",
-                    "Host a cultural or learning event",
-                    "Participate in a public event or competition",
-                    "Mentor someone who needs guidance",
-                    "Organize a charity event or fundraiser",
-                    "Build and maintain new meaningful relationships"
+                    "Organizza un raduno con 5+ persone",
+                    "Fai volontariato per un servizio comunitario",
+                    "Fai un discorso o presentazione per altri",
+                    "Guida un'attivit&agrave; o progetto di gruppo",
+                    "Riallaccia i contatti con un vecchio amico perso",
+                    "Ospita un evento culturale o di apprendimento",
+                    "Partecipa a un evento pubblico o competizione",
+                    "Fai da mentore a qualcuno che ha bisogno di guida",
+                    "Organizza un evento di beneficenza o raccolta fondi",
+                    "Costruisci e mantieni nuove relazioni significative"
                 ]
             }
         };
         
         const shopItems = [
-            { id: 'custom_theme', name: 'Custom Theme', icon: '[_]', price: 100, description: 'random color theme' },
-            { id: 'extra_slots', name: 'Extra Slots', icon: '[*]', price: 200, description: '+5 max tasks/habits' },
-            { id: 'stats_pack', name: 'Stats Pack', icon: '[~]', price: 150, description: 'show extra stats' },
-            { id: 'priority_support', name: 'XP Boost', icon: '[x]', price: 500, description: '+50% XP bonus' }
+            { id: 'custom_theme', name: 'Custom Theme', icon: '[_]', price: 100, description: 'tema colore casuale' },
+            { id: 'extra_slots', name: 'Extra Slots', icon: '[*]', price: 200, description: '+5 max task/abitudini' },
+            { id: 'stats_pack', name: 'Stats Pack', icon: '[~]', price: 150, description: 'mostra statistiche extra' },
+            { id: 'priority_support', name: 'XP Boost', icon: '[x]', price: 500, description: '+50% bonus XP' }
         ];
         
         const defaultTheme = {
@@ -2965,7 +2965,7 @@ async function sendDailyEmail() {
         async function sendWeeklyReportEmail() {
             const weekActivity = getWeekActivity();
             const habitsCount = getHabitsCompletionCount();
-            const completedTasks = weekActivity.filter(a => a.text.startsWith('Completed:'));
+            const completedTasks = weekActivity.filter(a => a.text.startsWith('Completato:'));
 
             const subject = 'Task Tracker - Report Settimanale';
             let text = 'Ciao! Ecco il tuo report settimanale:\n\n';
@@ -2973,7 +2973,7 @@ async function sendDailyEmail() {
             text += 'TASK COMPLETATE:\n';
             text += 'Totale: ' + completedTasks.length + '\n';
             completedTasks.forEach(a => {
-                const taskName = a.text.replace('Completed: ', '');
+                    const taskName = a.text.replace('Completato: ', '');
                 text += '- ' + taskName + '\n';
             });
             text += '\n';
@@ -3045,14 +3045,14 @@ async function sendDailyEmail() {
         
         if (habits.length === 0) {
             habits = [
-                { name: 'meditation', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null },
-                { name: 'reading', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null }
+                { name: 'meditazione', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null },
+                { name: 'lettura', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null }
             ];
             save();
         }
         
         if (!documents || Object.keys(documents).length === 0) {
-            documents = { 'notes.txt': '', 'ideas.txt': '' };
+            documents = { 'appunti.txt': '', 'idee.txt': '' };
             save();
         }
         
@@ -3107,7 +3107,7 @@ async function sendDailyEmail() {
                 const li = document.createElement('li');
                 li.style.color = 'var(--text-dim)';
                 li.style.cursor = 'default';
-                li.textContent = 'completed tasks will appear here';
+                li.textContent = 'i task completati appariranno qui';
                 completedList.appendChild(li);
             } else {
                 completed.forEach((task) => {
@@ -3150,7 +3150,7 @@ async function sendDailyEmail() {
                 save();
                 renderTasks();
                 updateTracking();
-                addActivity('Completed: ' + tasks[index].text);
+                addActivity('Completato: ' + tasks[index].text);
             } else if (e.target.classList.contains('delete-btn')) {
                 tasks.splice(index, 1);
                 save();
@@ -3182,14 +3182,14 @@ async function sendDailyEmail() {
         function renderActivity() {
             const tbody = document.getElementById('activity-table');
             if (activityLog.length === 0) {
-                tbody.innerHTML = '<tr><td style="color: var(--text-dim);">no activity yet</td><td style="color: var(--text-dim);">-</td><td style="color: var(--text-dim);">-</td></tr>';
+                tbody.innerHTML = '<tr><td style="color: var(--text-dim);">nessuna attivita ancora</td><td style="color: var(--text-dim);">-</td><td style="color: var(--text-dim);">-</td></tr>';
                 return;
             }
             tbody.innerHTML = activityLog.map(a => 
                 `<tr>
                     <td>${a.text}</td>
                     <td style="color: var(--text-dim);">${a.date}</td>
-                    <td style="color: var(--text-dim);">done</td>
+                    <td style="color: var(--text-dim);">fatto</td>
                 </tr>`
             ).join('');
         }
@@ -3213,7 +3213,7 @@ async function sendDailyEmail() {
             });
             const newDoc = document.createElement('div');
             newDoc.className = 'doc-item new-doc';
-            newDoc.textContent = '+ new';
+            newDoc.textContent = '+ nuovo';
             docList.appendChild(newDoc);
             
             document.querySelectorAll('.doc-delete').forEach(btn => {
@@ -3234,7 +3234,7 @@ async function sendDailyEmail() {
             });
             
             newDoc.addEventListener('click', () => {
-                const name = prompt('Document name:');
+                const name = prompt('Nome documento:');
                 if (name) {
                     const fullName = name.endsWith('.txt') ? name : name + '.txt';
                     if (!documents[fullName]) {
@@ -3252,8 +3252,8 @@ async function sendDailyEmail() {
         document.querySelector('.save-btn').addEventListener('click', () => {
             documents[currentDoc] = document.getElementById('doc-content').textContent;
             save();
-            document.querySelector('.save-btn').textContent = 'saved';
-            setTimeout(() => document.querySelector('.save-btn').textContent = 'save', 1000);
+            document.querySelector('.save-btn').textContent = 'salvato';
+            setTimeout(() => document.querySelector('.save-btn').textContent = 'salva', 1000);
         });
         
         const habitForm = document.getElementById('habit-form');
@@ -3274,7 +3274,8 @@ async function sendDailyEmail() {
             const filtered = habits.filter(h => h.category === selectedCategory);
             
             if (filtered.length === 0) {
-                habitsGrid.innerHTML = '<div class="empty-state"><div class="empty-icon">[_]</div><div class="empty-text">no ' + selectedCategory + ' habits</div></div>';
+                const categoryLabels = { daily: 'giornaliere', weekly: 'settimanali', monthly: 'mensili' };
+                habitsGrid.innerHTML = '<div class="empty-state"><div class="empty-icon">[_]</div><div class="empty-text">nessuna abitudine ' + (categoryLabels[selectedCategory] || selectedCategory) + '</div></div>';
                 return;
             }
             
@@ -3287,9 +3288,9 @@ async function sendDailyEmail() {
                     </div>
                 ` : `
                     <div class="difficulty-selector">
-                        <button class="difficulty-btn ${h.difficulty === 'easy' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="easy">easy</button>
-                        <button class="difficulty-btn ${h.difficulty === 'medium' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="medium">medium</button>
-                        <button class="difficulty-btn ${h.difficulty === 'hard' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="hard">hard</button>
+                        <button class="difficulty-btn ${h.difficulty === 'easy' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="easy">facile</button>
+                        <button class="difficulty-btn ${h.difficulty === 'medium' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="medium">media</button>
+                        <button class="difficulty-btn ${h.difficulty === 'hard' ? 'active' : ''}" data-index="${realIndex}" data-difficulty="hard">difficile</button>
                     </div>
                 `;
                 return `
@@ -3297,16 +3298,16 @@ async function sendDailyEmail() {
                     <button class="habit-delete" data-index="${realIndex}">x</button>
                     <div class="habit-header">
                         <div class="habit-name">${h.name}</div>
-                        <div class="streak-counter">${h.streak} days</div>
+                        <div class="streak-counter">${h.streak} giorni</div>
                     </div>
                     <div style="margin-bottom: 12px;">
                         <input type="checkbox" class="habit-checkbox" data-index="${realIndex}" ${h.completed ? 'checked' : ''}>
-                        <span class="habit-completed-label">${h.completed ? 'completed' : 'mark done'}</span>
+                        <span class="habit-completed-label">${h.completed ? 'completato' : 'segna fatto'}</span>
                     </div>
                     ${difficultyHtml}
                     <div class="habit-stats">
                         <span>${getXpForDifficulty(h.difficulty)}xp</span>
-                        <span style="color: var(--accent);">${h.completedCount || 0}x completed</span>
+                        <span style="color: var(--accent);">${h.completedCount || 0}x completato</span>
                     </div>
                 </div>
             `;
@@ -3331,14 +3332,14 @@ async function sendDailyEmail() {
                             addExp(habitExp);
                             showExpGainPopup(habitExp);
                             credits += getXpForDifficulty(habit.difficulty);
-                            addActivity('Completed habit: ' + habit.name);
+                            addActivity('Completata abitudine: ' + habit.name);
                             updateExpHistory('habits');
                         }
                         
-                        this.nextElementSibling.textContent = 'completed';
+                        this.nextElementSibling.textContent = 'completato';
                     } else {
                         habit.streak = Math.max(0, habit.streak - 1);
-                        this.nextElementSibling.textContent = 'mark done';
+                        this.nextElementSibling.textContent = 'segna fatto';
                     }
                     save();
                     renderHabits();
@@ -3407,7 +3408,7 @@ async function sendDailyEmail() {
             const dailyPercent = dailyTotal > 0 ? Math.round((dailyCompleted / dailyTotal) * 100) : 0;
             
             document.getElementById('daily-percent').textContent = dailyPercent + '%';
-            document.getElementById('daily-completed-count').textContent = `${dailyCompleted} / ${dailyTotal} completed`;
+            document.getElementById('daily-completed-count').textContent = `${dailyCompleted} / ${dailyTotal} completati`;
             
             const dailyCircle = document.getElementById('daily-circle');
             const dailyCircumference = 251.2;
@@ -3419,7 +3420,7 @@ async function sendDailyEmail() {
             const monthlyPercent = monthlyTotal > 0 ? Math.round((monthlyCompleted / monthlyTotal) * 100) : 0;
             
             document.getElementById('monthly-percent').textContent = monthlyPercent + '%';
-            document.getElementById('monthly-completed-count').textContent = `${monthlyCompleted} / ${monthlyTotal} completed`;
+            document.getElementById('monthly-completed-count').textContent = `${monthlyCompleted} / ${monthlyTotal} completati`;
             
             const monthlyCircle = document.getElementById('monthly-circle');
             const monthlyOffset = dailyCircumference - (monthlyPercent / 100) * dailyCircumference;
@@ -3484,11 +3485,11 @@ async function sendDailyEmail() {
                     renderTasks();
                     renderInventory();
                     updateStats();
-                    this.textContent = 'purchased';
-                    setTimeout(() => this.textContent = 'buy', 1500);
+                    this.textContent = 'acquistato';
+                    setTimeout(() => this.textContent = 'acquista', 1500);
                 } else {
-                    this.textContent = 'not enough';
-                    setTimeout(() => this.textContent = 'buy', 1500);
+                    this.textContent = 'non basta';
+                    setTimeout(() => this.textContent = 'acquista', 1500);
                 }
             });
         });
@@ -3496,7 +3497,7 @@ async function sendDailyEmail() {
         function renderInventory() {
             const grid = document.getElementById('inventory-grid');
             if (inventory.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><div class="empty-icon">[*]</div><div class="empty-text">no items yet</div></div>';
+                grid.innerHTML = '<div class="empty-state"><div class="empty-icon">[*]</div><div class="empty-text">nessun oggetto ancora</div></div>';
                 return;
             }
             
@@ -3504,11 +3505,11 @@ async function sendDailyEmail() {
                 let statusHtml = '';
                 
                 if (item.id === 'custom_theme') {
-                    statusHtml = `<span class="theme-used-label">theme applied</span>`;
+                    statusHtml = `<span class="theme-used-label">tema applicato</span>`;
                 } else {
                     statusHtml = `
                         <input type="checkbox" class="inventory-checkbox" data-index="${index}" ${item.used ? 'checked' : ''}>
-                        <span>${item.used ? 'active' : 'inactive'}</span>
+                        <span>${item.used ? 'attivo' : 'inattivo'}</span>
                     `;
                 }
                 
@@ -3607,7 +3608,7 @@ async function sendDailyEmail() {
             diffBadge.className = 'quest-difficulty-badge ' + selectedQuestDifficulty;
             
             document.getElementById('quest-preview-text').textContent = currentGeneratedQuest.text;
-            document.getElementById('quest-reward').textContent = currentGeneratedQuest.reward + ' credits';
+            document.getElementById('quest-reward').textContent = currentGeneratedQuest.reward + ' crediti';
             
             preview.style.display = 'block';
         }
@@ -3637,7 +3638,7 @@ async function sendDailyEmail() {
             const list = document.getElementById('active-quests-list');
             
             if (activeQuests.length === 0) {
-                list.innerHTML = '<div class="empty-state"><div class="empty-icon">[^]</div><div class="empty-text">no active quests</div></div>';
+                list.innerHTML = '<div class="empty-state"><div class="empty-icon">[^]</div><div class="empty-text">nessuna quest attiva</div></div>';
                 return;
             }
             
@@ -3649,12 +3650,12 @@ async function sendDailyEmail() {
                             <span class="quest-type-badge ${quest.type}">${quest.type}</span>
                             <span class="quest-difficulty-badge ${quest.difficulty}">${quest.difficulty}</span>
                         </div>
-                        <span class="quest-card-reward">${quest.reward} credits</span>
+                        <span class="quest-card-reward">${quest.reward} crediti</span>
                     </div>
                     <div class="quest-card-text">${quest.text}</div>
                     <div class="quest-card-actions">
-                        <button class="quest-complete-btn" data-index="${index}">complete</button>
-                        <button class="quest-abandon-btn" data-index="${index}">abandon</button>
+                        <button class="quest-complete-btn" data-index="${index}">completa</button>
+                        <button class="quest-abandon-btn" data-index="${index}">abbandona</button>
                     </div>
                 </div>
             `;
@@ -3685,7 +3686,7 @@ async function sendDailyEmail() {
             const uploadHtml = `
                 <div class="upload-area" id="upload-area">
                     <div class="upload-icon">[+]</div>
-                    <div class="upload-text">drag photo or video here<br>or click to upload</div>
+                    <div class="upload-text">trascina foto o video qui<br>o clicca per caricare</div>
                     <input type="file" id="file-input" accept="image/*,video/*" style="display: none;">
                 </div>
             `;
@@ -3746,8 +3747,8 @@ async function sendDailyEmail() {
                     previewHtml += `<img src="${e.target.result}" alt="proof">`;
                 }
                 previewHtml += `</div><div class="upload-preview-actions">`;
-                previewHtml += `<button class="upload-confirm-btn" id="confirm-upload">confirm proof</button>`;
-                previewHtml += `<button class="upload-cancel-btn" id="cancel-upload">cancel</button>`;
+                previewHtml += `<button class="upload-confirm-btn" id="confirm-upload">conferma prova</button>`;
+                previewHtml += `<button class="upload-cancel-btn" id="cancel-upload">annulla</button>`;
                 previewHtml += `</div></div>`;
                 
                 container.innerHTML = previewHtml;

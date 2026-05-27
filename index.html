@@ -1235,95 +1235,6 @@
             background: var(--bg);
             display: block;
         }
-
-        using System.Dynamic;
-using System.Runtime.InteropServices;
-
-static void Main()
-{
-    CLibro[] libri = new CLibro[3];
-
-    libri[0] = new CLibro("Ciao!", "Feffo", 2018, false);
-    libri[1] = new CLibro("Buonasera!", "Feffo", 2019, false);
-    libri[2] = new CLibro("Buongiorno!", "Feffo", 2020, false);
-
-    libri[0].MostraInformazioni();
-    libri[0].PrestaLibro();
-    libri[1].RestituisciLibro();
-}
-
-class CLibro
-{
-    private string _Titolo;
-    private string _Autore;
-    private int _AnnoPubblicazione;
-    private bool _Prestato;
-
-    public string Titolo
-    {
-        get => _Titolo;
-        set => _Titolo = value;
-    }
-
-    public string Autore
-    {
-        get => _Autore;
-        set => _Autore = value;
-    }
-
-    public int AnnoPubblicazione
-    {
-        get => _AnnoPubblicazione;
-        set => _AnnoPubblicazione = value;
-    }
-
-    public bool Prestato
-    {
-        get => _Prestato;
-        set => _Prestato = value;
-    }
-
-    public CLibro(string Titolo, string Autore, int AnnoPubblicazione, bool Prestato)
-    {
-        _Titolo = Titolo;
-        _Autore = Autore;
-        _AnnoPubblicazione = AnnoPubblicazione;
-        _Prestato = Prestato;
-    }
-
-    public void MostraInformazioni()
-    {
-        Console.WriteLine($"Titolo: {_Titolo}");
-        Console.WriteLine($"Autore: {_Autore}");
-        Console.WriteLine($"Anno di pubblicazione: {_AnnoPubblicazione}");
-        Console.WriteLine($"Prestato: {_Prestato}");
-    }
-
-    public void PrestaLibro()
-    {
-        if(_Prestato == true)
-        {
-            Console.WriteLine("Libro già in prestito");
-        } else
-        {
-            _Prestato = true;
-            Console.WriteLine("Libro prestato con successo!");
-        }
-    }
-
-    private void button1_Click(object sender, EventArgs e)
-    {
-        MessageBox.Show("Hai cliccato il bottone!"); // quando clicco il bottone succede qualcosa
-        // Classe.cs (Explorer a destra --> <nome_progetto> --> add --> class)
-        // Form1.cs (Explorer a destra --> Form1.cs)
-    }
-
-    public void RestituisciLibro()
-    {
-        _Prestato = false;
-        Console.WriteLine("Libro nuovamente disponibile!");
-    }
-}
         
         .memory-item video {
             height: 150px;
@@ -1365,209 +1276,88 @@ class CLibro
             color: var(--text);
         }
         
-            .memory-type-icon {
-                position: absolute;
-                top: 8px;
-                left: 8px;
-                background: var(--bg);
-                border: 1px solid var(--border);
-                padding: 4px 6px;
-                font-size: 0.65rem;
-                color: var(--text-dim);
-            }
-            
-            .level-display {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-            }
-            
-            .level-number {
-                font-size: 1.5rem;
-                font-weight: 700;
-            }
-            
-            .exp-gain-popup {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--bg-secondary);
-                border: 1px solid var(--accent);
-                padding: 12px 20px;
-                font-size: 0.9rem;
-                font-weight: 700;
-                color: var(--accent);
-                animation: fadeOut 2s ease forwards;
-                z-index: 1000;
-            }
-            
-            @keyframes fadeOut {
-                0% { opacity: 1; transform: translateY(0); }
-                80% { opacity: 1; }
-                100% { opacity: 0; transform: translateY(-20px); }
-            }
-            
-            .level-up-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-            }
-            
-            .level-up-content {
-                background: var(--bg-secondary);
-                border: 1px solid var(--accent);
-                padding: 40px;
-                text-align: center;
-                max-width: 400px;
-            }
-            
-            .level-up-title {
-                font-size: 2rem;
-                font-weight: 700;
-                color: var(--accent);
-                margin-bottom: 16px;
-            }
-            
-            .level-up-level {
-                font-size: 4rem;
-                font-weight: 700;
-                color: var(--accent);
-                margin-bottom: 24px;
-            }
-            
-            .level-up-message {
-                font-size: 0.9rem;
-                color: var(--text-dim);
-                margin-bottom: 24px;
-            }
-            
-            .boss-quest-card {
-                background: var(--bg-tertiary);
-                border: 2px solid var(--accent);
-                padding: 24px;
-                margin-bottom: 20px;
-            }
-            
-            .boss-quest-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 16px;
-            }
-            
-            .boss-quest-title {
-                font-size: 1.1rem;
-                font-weight: 700;
-                color: var(--accent);
-            }
-            
-            .boss-quest-type {
-                font-size: 0.65rem;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                padding: 4px 10px;
-                background: var(--bg);
-                border: 1px solid var(--accent);
-                color: var(--accent);
-            }
-            
-            .boss-quest-desc {
-                font-size: 0.9rem;
-                margin-bottom: 16px;
-                line-height: 1.6;
-            }
-            
-            .boss-quest-reqs {
-                font-size: 0.75rem;
-                color: var(--text-dim);
-                margin-bottom: 16px;
-                padding: 12px;
-                background: var(--bg);
-                border: 1px solid var(--border);
-            }
-            
-            .boss-quest-rewards {
-                display: flex;
-                gap: 20px;
-                margin-bottom: 20px;
-                font-size: 0.8rem;
-            }
-            
-            .boss-reward-item {
-                color: var(--accent);
-                font-weight: 700;
-            }
-            
-            .boss-quest-container {
-                margin-bottom: 24px;
-            }
-            
-            .medals-section {
-                margin-bottom: 24px;
-            }
-            
-            .medals-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 12px;
-            }
-            
-            .medal-item {
-                background: var(--bg-secondary);
-                border: 2px solid;
-                padding: 16px;
-                text-align: center;
-            }
-            
-            .medal-icon {
-                font-size: 1.8rem;
-                margin-bottom: 8px;
-            }
-            
-            .medal-name {
-                font-size: 0.8rem;
-                font-weight: 700;
-                margin-bottom: 4px;
-            }
-            
-            .medal-rarity {
-                font-size: 0.65rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-            }
-            
-            .medal-level {
-                font-size: 0.6rem;
-                margin-top: 4px;
-            }
-            
-            .boss-quest-warning {
-                background: var(--bg-tertiary);
-                border: 1px solid #f87171;
-                padding: 16px;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-            
-            .boss-quest-warning-title {
-                color: #f87171;
-                font-size: 0.9rem;
-                font-weight: 700;
-                margin-bottom: 8px;
-            }
-            
-            .boss-quest-warning-text {
-                color: var(--text-dim);
-                font-size: 0.75rem;
-            }
+        .memory-type-icon {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 4px 6px;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
         
+        .level-display {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .level-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .exp-gain-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            animation: fadeOut 2s ease forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        
+        .level-up-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .level-up-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .level-up-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+        
+        .level-up-level {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+        
+        .level-up-message {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+        }
         
         @media (max-width: 768px) {
             .container {
@@ -1747,15 +1537,6 @@ class CLibro
             .level-number {
                 font-size: 1.5rem;
             }
-            
-            .boss-quest-card {
-                padding: 16px;
-            }
-            
-            .boss-quest-rewards {
-                flex-direction: column;
-                gap: 8px;
-            }
         }
         
         .ai-container {
@@ -1892,6 +1673,36 @@ class CLibro
         .ai-message.error .ai-message-content {
             border-color: #f87171;
             color: #f87171;
+        }
+        
+        .ai-code-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px;
+            margin: 8px 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            white-space: pre;
+        }
+        
+        .ai-inline-code {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        
+        .ai-message-content strong {
+            font-weight: 700;
+        }
+        
+        .ai-message-content em {
+            font-style: italic;
         }
         
         .ai-input-container {
@@ -2247,6 +2058,26 @@ class CLibro
                     </div>
                 </div>
             </div>
+            
+            <div class="card">
+                <h2 class="card-title">> activity log</h2>
+                <table class="activity-table">
+                    <thead>
+                        <tr>
+                            <th>activity</th>
+                            <th>date</th>
+                            <th>status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activity-table">
+                        <tr>
+                            <td style="color: var(--text-dim);">start tracking your progress</td>
+                            <td style="color: var(--text-dim);">-</td>
+                            <td style="color: var(--text-dim);">pending</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
         
         <section id="shop" class="section">
@@ -2384,7 +2215,7 @@ class CLibro
                 
                 <div class="ai-chat-container">
                     <div class="ai-messages" id="ai-messages">
-                        <div class="ai-message ai-message-bot">
+                        <div class="ai-message bot">
                             <div class="ai-message-content">
                                 Ciao! Sono Peter, il tuo assistente AI personale. Come posso aiutarti oggi?
                             </div>
@@ -2406,13 +2237,6 @@ class CLibro
         </section>
         
         <section id="stats" class="section">
-            <div class="boss-quest-container" id="boss-quest-container"></div>
-            
-            <div class="card medals-section">
-                <h2 class="card-title">> medaglie</h2>
-                <div class="medals-grid" id="medals-container"></div>
-            </div>
-            
             <div class="stats-summary">
                 <div class="stat">
                     <span class="stat-value-inline" id="total-tasks">0</span>
@@ -2507,26 +2331,6 @@ class CLibro
                     <button class="reset-theme-btn" id="reset-theme-btn">reset theme to default</button>
                 </div>
             </div>
-            
-            <div class="card">
-                <h2 class="card-title">> activity log</h2>
-                <table class="activity-table">
-                    <thead>
-                        <tr>
-                            <th>activity</th>
-                            <th>date</th>
-                            <th>status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="activity-table">
-                        <tr>
-                            <td style="color: var(--text-dim);">start tracking your progress</td>
-                            <td style="color: var(--text-dim);">-</td>
-                            <td style="color: var(--text-dim);">pending</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </section>
     </div>
     
@@ -2536,7 +2340,7 @@ class CLibro
 
     <script>
         let credits = parseInt(localStorage.getItem('credits')) || 0;
-        let habits = JSON.parse(localStorage.getItem('habits'));
+        let habits = JSON.parse(localStorage.getItem('habits')) || [];
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         let documents = JSON.parse(localStorage.getItem('documents')) || {};
         let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
@@ -2550,111 +2354,13 @@ class CLibro
         let level = parseInt(localStorage.getItem('level')) || 1;
         let exp = parseInt(localStorage.getItem('exp')) || 0;
         let expHistory = JSON.parse(localStorage.getItem('expHistory')) || {};
-        let bossQuestActive = JSON.parse(localStorage.getItem('bossQuestActive')) || null;
-        let medals = JSON.parse(localStorage.getItem('medals')) || [];
         
-        const medalTiers = [
-            { level: 1, name: 'Principiante', icon: '[I]', color: '#9ca3af', rarity: 'Comune' },
-            { level: 10, name: 'Apprendista', icon: '[II]', color: '#9ca3af', rarity: 'Comune' },
-            { level: 100, name: 'Competente', icon: '[III]', color: '#4ade80', rarity: 'Non comune' },
-            { level: 1000, name: 'Esperto', icon: '[IV]', color: '#58a6ff', rarity: 'Raro' },
-            { level: 10000, name: 'Maestro', icon: '[V]', color: '#c084fc', rarity: 'Epico' },
-            { level: 100000, name: 'Leggendario', icon: '[VI]', color: '#fb923c', rarity: 'Leggendario' },
-            { level: 1000000, name: 'Ultra Leggendario', icon: '[VII]', color: '#fbbf24', rarity: 'Ultra Leggendario' }
-        ];
-        
-        function checkAndAwardMedal(newLevel) {
-            let medalEarned = false;
-            for (const tier of medalTiers) {
-                if (newLevel >= tier.level && !medals.some(m => m.level === tier.level)) {
-                    medals.push({
-                        level: tier.level,
-                        name: tier.name,
-                        icon: tier.icon,
-                        color: tier.color,
-                        rarity: tier.rarity,
-                        awardedAt: new Date().toISOString()
-                    });
-                    localStorage.setItem('medals', JSON.stringify(medals));
-                    showMedalAwarded(tier);
-                    addActivity('MEDAL EARNED: ' + tier.name + ' at level ' + tier.level);
-                    medalEarned = true;
-                }
-            }
-            if (medalEarned && !bossQuestActive) {
-                generateBossQuest();
-            }
-        }
-        
-        function showMedalAwarded(tier) {
-            const overlay = document.createElement('div');
-            overlay.className = 'level-up-overlay';
-            overlay.innerHTML = `
-                <div class="level-up-content" style="border-color: ${tier.color};">
-                    <div class="level-up-title" style="color: ${tier.color};">MEDAGLIA GUADAGNATA!</div>
-                    <div style="font-size: 3rem; margin: 20px 0; color: ${tier.color};">${tier.icon}</div>
-                    <div style="font-size: 1.5rem; font-weight: 700; color: ${tier.color}; margin-bottom: 8px;">${tier.name}</div>
-                    <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 16px;">Rarità: ${tier.rarity}</div>
-                    <div class="level-up-message">Hai raggiunto il livello ${tier.level}!</div>
-                    <button class="quest-generate-btn" style="background: ${tier.color}; border-color: ${tier.color};" onclick="this.closest('.level-up-overlay').remove();">fantastico!</button>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-        }
-        
-        function renderMedals() {
-            const container = document.getElementById('medals-container');
-            if (!container) return;
-            
-            if (medals.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">[^]</div>
-                        <div class="empty-text">nessuna medaglia ancora</div>
-                        <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 8px;">raggiungi i livelli 1, 10, 100, 1000...</div>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = medals.map(medal => `
-                <div class="medal-item" style="border-color: ${medal.color};">
-                    <div class="medal-icon" style="color: ${medal.color};">${medal.icon}</div>
-                    <div class="medal-info">
-                        <div class="medal-name" style="color: ${medal.color};">${medal.name}</div>
-                        <div class="medal-rarity" style="color: var(--text-dim);">${medal.rarity}</div>
-                        <div class="medal-level" style="color: var(--text-dim);">livello ${medal.level}+</div>
-                    </div>
-                </div>
-            `).join('');
-            
-            const nextMedal = medalTiers.find(t => !medals.some(m => m.level === t.level));
-            if (nextMedal) {
-                container.innerHTML += `
-                    <div class="medal-next" style="margin-top: 20px; padding: 16px; background: var(--bg-tertiary); border: 1px dashed var(--border); text-align: center;">
-                        <div style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Prossima medaglia</div>
-                        <div style="font-size: 1.5rem; color: ${nextMedal.color}; margin-bottom: 4px;">${nextMedal.icon}</div>
-                        <div style="font-size: 0.9rem; color: ${nextMedal.color};">${nextMedal.name}</div>
-                        <div style="font-size: 0.75rem; color: var(--text-dim);">al livello ${nextMedal.level}</div>
-                        <div class="progress-bar" style="margin-top: 12px;">
-                            <div class="progress-fill" id="medal-progress-fill" style="width: ${Math.min(100, (level / nextMedal.level) * 100)}%;"></div>
-                        </div>
-                        <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">${level} / ${nextMedal.level}</div>
-                    </div>
-                `;
-            }
-        }
         
         function getExpForLevel(lvl) {
             return Math.floor(100 * Math.pow(1.5, lvl - 1));
         }
         
         function addExp(amount) {
-            if (bossQuestActive) {
-                showExpBlockedPopup();
-                return;
-            }
-            
             exp += amount;
             let currentNeeded = getExpForLevel(level);
             
@@ -2662,15 +2368,7 @@ class CLibro
                 exp -= currentNeeded;
                 level++;
                 currentNeeded = getExpForLevel(level);
-                
-                if (bossQuestActive) {
-                    exp = 0;
-                    showBossQuestRequired();
-                    return;
-                }
-                
                 showLevelUp();
-                checkAndAwardMedal(level);
             }
             
             localStorage.setItem('exp', exp);
@@ -2678,31 +2376,14 @@ class CLibro
             updateLevelDisplay();
         }
         
-        function showExpBlockedPopup() {
-            const popup = document.createElement('div');
-            popup.className = 'exp-gain-popup';
-            popup.style.background = 'var(--bg-secondary)';
-            popup.style.borderColor = '#f87171';
-            popup.style.color = '#f87171';
-            popup.textContent = 'BOSS QUEST ATTIVA - EXP BLOCCATA';
-            document.body.appendChild(popup);
-            setTimeout(() => popup.remove(), 2000);
-        }
-        
         function updateLevelDisplay() {
             document.getElementById('level-display').textContent = level;
             const currentNeeded = getExpForLevel(level);
             const expText = document.getElementById('exp-text');
-            
-            if (bossQuestActive) {
-                expText.textContent = 'BOSS QUEST ATTIVA';
-                document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '0.5';
-            } else {
-                expText.textContent = `${exp} / ${currentNeeded}`;
-                const percentage = (exp / currentNeeded) * 100;
-                document.getElementById('exp-bar').style.width = percentage + '%';
-                document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '1';
-            }
+            expText.textContent = `${exp} / ${currentNeeded}`;
+            const percentage = (exp / currentNeeded) * 100;
+            document.getElementById('exp-bar').style.width = percentage + '%';
+            document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '1';
         }
         
         function showExpGainPopup(amount) {
@@ -2732,266 +2413,11 @@ class CLibro
                 <div class="level-up-content">
                     <div class="level-up-title">LEVEL UP!</div>
                     <div class="level-up-level">${level}</div>
-                    <div class="level-up-message">A boss quest has appeared! Complete it to advance to the next level.</div>
-                    <button class="quest-generate-btn" onclick="generateBossQuest(); this.closest('.level-up-overlay').remove();">view boss quest</button>
+                    <div class="level-up-message">Keep going, you're doing great!</div>
+                    <button class="quest-generate-btn" onclick="this.closest('.level-up-overlay').remove();">fantastico!</button>
                 </div>
             `;
             document.body.appendChild(overlay);
-        }
-        
-        function showBossQuestRequired() {
-            const overlay = document.createElement('div');
-            overlay.className = 'level-up-overlay';
-            overlay.innerHTML = `
-                <div class="level-up-content">
-                    <div class="level-up-title" style="color: #f87171;">LEVEL UP BLOCKED!</div>
-                    <div class="level-up-level" style="color: #f87171;">${level}</div>
-                    <div class="level-up-message">You must complete the current boss quest to continue advancing!</div>
-                    <button class="quest-generate-btn" onclick="this.closest('.level-up-overlay').remove(); document.querySelector('[data-tab=stats]').click();">go to boss quest</button>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-        }
-        
-        const bossQuestDatabase = {
-            1: {
-                title: "The Morning Beast",
-                quests: [
-                    { text: "Complete 5 daily habits", type: "challenge", difficulty: "easy", requirement: "5daily" },
-                    { text: "Finish 3 tasks before noon", type: "challenge", difficulty: "easy", requirement: "3tasks" }
-                ]
-            },
-            2: {
-                title: "The Focus Guardian",
-                quests: [
-                    { text: "Maintain a 3-day streak", type: "challenge", difficulty: "medium", requirement: "3streak" },
-                    { text: "Complete 10 daily habits this week", type: "challenge", difficulty: "medium", requirement: "10weekly" }
-                ]
-            },
-            3: {
-                title: "The Productivity Titan",
-                quests: [
-                    { text: "Complete 20 tasks total", type: "challenge", difficulty: "medium", requirement: "20tasks" },
-                    { text: "Achieve a 7-day streak", type: "challenge", difficulty: "hard", requirement: "7streak" }
-                ]
-            },
-            4: {
-                title: "The Habit Master",
-                quests: [
-                    { text: "Complete all daily habits for 5 consecutive days", type: "challenge", difficulty: "hard", requirement: "5alldaily" },
-                    { text: "Finish 30 tasks", type: "challenge", difficulty: "hard", requirement: "30tasks" }
-                ]
-            },
-            5: {
-                title: "The Time Lord",
-                quests: [
-                    { text: "Maintain a 14-day streak", type: "challenge", difficulty: "hard", requirement: "14streak" },
-                    { text: "Complete 50 tasks", type: "challenge", difficulty: "hard", requirement: "50tasks" }
-                ]
-            }
-        };
-        
-        function generateBossQuest() {
-            const tier = Math.min(level, 5);
-            const bossData = bossQuestDatabase[tier];
-            const quest = bossData.quests[Math.floor(Math.random() * bossData.quests.length)];
-            
-            const rewardExp = getExpForLevel(level) * 2;
-            const rewardCredits = level * 50;
-            
-            const previousLevel = level - 1;
-            
-            bossQuestActive = {
-                id: Date.now(),
-                title: bossData.title,
-                ...quest,
-                rewardExp: rewardExp,
-                rewardCredits: rewardCredits,
-                progress: getBossProgress(quest.requirement),
-                generatedAt: new Date().toISOString(),
-                previousLevel: previousLevel
-            };
-            
-            localStorage.setItem('bossQuestActive', JSON.stringify(bossQuestActive));
-            showBossQuestCard();
-            addActivity('Boss quest appeared: ' + quest.text);
-        }
-        
-        function getBossProgress(requirement) {
-            const today = new Date().toLocaleDateString();
-            const monthKey = new Date().toISOString().slice(0, 7);
-            
-            switch(requirement) {
-                case '5daily':
-                    const dailyToday = habits.filter(h => h.category === 'daily' && h.completed).length;
-                    return { current: dailyToday, target: 5 };
-                case '3tasks':
-                    return { current: 0, target: 3, note: 'resets daily' };
-                case '3streak':
-                    const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
-                    return { current: maxStreak, target: 3 };
-                case '10weekly':
-                    return { current: expHistory[monthKey]?.habitsCompleted || 0, target: 10 };
-                case '20tasks':
-                    return { current: tasks.filter(t => t.done).length, target: 20 };
-                case '7streak':
-                    const maxStreak7 = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
-                    return { current: maxStreak7, target: 7 };
-                case '5alldaily':
-                    return { current: 0, target: 5, note: 'track in background' };
-                case '30tasks':
-                    return { current: tasks.filter(t => t.done).length, target: 30 };
-                case '14streak':
-                    const maxStreak14 = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
-                    return { current: maxStreak14, target: 14 };
-                case '50tasks':
-                    return { current: tasks.filter(t => t.done).length, target: 50 };
-                default:
-                    return { current: 0, target: 1 };
-            }
-        }
-        
-        function updateBossProgress() {
-            if (!bossQuestActive) return;
-            bossQuestActive.progress = getBossProgress(bossQuestActive.requirement);
-            localStorage.setItem('bossQuestActive', JSON.stringify(bossQuestActive));
-            
-            const progressBar = document.getElementById('boss-progress-fill');
-            if (progressBar) {
-                const pct = Math.min(100, (bossQuestActive.progress.current / bossQuestActive.progress.target) * 100);
-                progressBar.style.width = pct + '%';
-            }
-            
-            const progressText = document.getElementById('boss-progress-text');
-            if (progressText) {
-                progressText.textContent = `${bossQuestActive.progress.current} / ${bossQuestActive.progress.target}`;
-            }
-        }
-        
-        function checkBossCompletion() {
-            if (!bossQuestActive) return false;
-            
-            const req = bossQuestActive.requirement;
-            const today = new Date().toLocaleDateString();
-            
-            if (req === '5daily') {
-                const dailyToday = habits.filter(h => h.category === 'daily' && h.completed).length;
-                return dailyToday >= 5;
-            }
-            if (req === '3tasks') {
-                const todayCompleted = tasks.filter(t => t.done && t.completedDate === today).length;
-                return todayCompleted >= 3;
-            }
-            if (req === '3streak' || req === '7streak' || req === '14streak') {
-                const target = parseInt(req.replace('streak', ''));
-                const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak), 0) : 0;
-                return maxStreak >= target;
-            }
-            if (req === '20tasks' || req === '30tasks' || req === '50tasks') {
-                const target = parseInt(req.replace('tasks', ''));
-                return tasks.filter(t => t.done).length >= target;
-            }
-            if (req === '10weekly') {
-                return (expHistory[new Date().toISOString().slice(0, 7)]?.habitsCompleted || 0) >= 10;
-            }
-            if (req === '5alldaily') {
-                return false;
-            }
-            
-            return false;
-        }
-        
-        function completeBossQuest() {
-            if (!bossQuestActive) return;
-            
-            if (!checkBossCompletion()) {
-                alert('Boss quest requirements not yet met!');
-                return;
-            }
-            
-            const rewardExp = bossQuestActive.rewardExp;
-            const rewardCredits = bossQuestActive.rewardCredits;
-            
-            credits += rewardCredits;
-            
-            addActivity(`BOSS DEFEATED! +${rewardExp} EXP, +${rewardCredits} credits`);
-            
-            bossQuestActive = null;
-            localStorage.setItem('bossQuestActive', JSON.stringify(null));
-            
-            addExp(rewardExp);
-            
-            save();
-            renderBossQuest();
-            renderTasks();
-            updateLevelDisplay();
-            updateTracking();
-            renderMedals();
-        }
-        
-        function showBossQuestCard() {
-            const container = document.getElementById('boss-quest-container');
-            if (!container) return;
-            
-            container.innerHTML = `
-                <div class="boss-quest-card">
-                    <div class="boss-quest-header">
-                        <div class="boss-quest-title">⚔️ ${bossQuestActive.title}</div>
-                        <div class="boss-quest-type">BOSS QUEST</div>
-                    </div>
-                    <div class="boss-quest-desc">${bossQuestActive.text}</div>
-                    <div class="boss-quest-reqs">
-                        <div style="margin-bottom: 8px;">Requisito:</div>
-                        <div id="boss-progress-text" style="font-weight: 700; color: var(--accent);">${bossQuestActive.progress.current} / ${bossQuestActive.progress.target}</div>
-                        <div class="progress-bar" style="margin-top: 8px;">
-                            <div class="progress-fill" id="boss-progress-fill" style="width: ${Math.min(100, (bossQuestActive.progress.current / bossQuestActive.progress.target) * 100)}%;"></div>
-                        </div>
-                        ${bossQuestActive.progress.note ? `<div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 4px;">${bossQuestActive.progress.note}</div>` : ''}
-                    </div>
-                    <div class="boss-quest-rewards">
-                        <div>exp: <span class="boss-reward-item">+${bossQuestActive.rewardExp}</span></div>
-                        <div>credits: <span class="boss-reward-item">+${bossQuestActive.rewardCredits}</span></div>
-                    </div>
-                    <div class="quest-preview-actions">
-                        <button class="quest-accept-btn" onclick="completeBossQuest()">completa boss quest</button>
-                        <button class="quest-refuse-btn" onclick="abandonBossQuest()">abbandona</button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '0.5';
-            document.getElementById('exp-text').textContent = 'BOSS QUEST ATTIVA';
-        }
-        
-        function abandonBossQuest() {
-            if (confirm('Abbandonare la boss quest? Tornerai al livello precedente e dovrai guadagnare di nuovo l\'EXP per salire.')) {
-                const prevLevel = bossQuestActive.previousLevel || (level - 1);
-                
-                level = prevLevel;
-                exp = getExpForLevel(level);
-                
-                localStorage.setItem('level', level);
-                localStorage.setItem('exp', exp);
-                
-                bossQuestActive = null;
-                localStorage.setItem('bossQuestActive', JSON.stringify(null));
-                
-                renderBossQuest();
-                updateLevelDisplay();
-                addActivity('Boss quest abbandonata - ritorno al livello ' + level);
-            }
-        }
-        
-        function renderBossQuest() {
-            const container = document.getElementById('boss-quest-container');
-            if (!container) return;
-            
-            if (bossQuestActive) {
-                showBossQuestCard();
-            } else {
-                container.innerHTML = '';
-                document.getElementById('exp-bar').parentElement.parentElement.style.opacity = '1';
-            }
         }
         
         let activeQuests = JSON.parse(localStorage.getItem('activeQuests')) || [];
@@ -3170,7 +2596,6 @@ class CLibro
             applyTheme(defaultTheme);
             currentTheme = null;
             localStorage.setItem('currentTheme', JSON.stringify(null));
-            addActivity('Theme reset to default');
         }
         
         function randomizeTheme() {
@@ -3292,11 +2717,7 @@ class CLibro
             const tomorrowStr = tomorrow.toISOString().split('T')[0];
             return tasks.filter(t => !t.done && t.deadline === tomorrowStr);
         }
-
-        function getActiveBossQuest() {
-            return bossQuestActive;
-        }
-
+        
         function getHabitsCompletionCount() {
             const counts = {};
             habits.forEach(h => {
@@ -3317,11 +2738,10 @@ class CLibro
 async function sendDailyEmail() {
             const pendingTasks = getPendingTasks();
             const expiringTasks = getExpiringTomorrowTasks();
-            const bossQuest = getActiveBossQuest();
-
+            
             let subject = 'Task Tracker - Daily Briefing';
             let text = 'Ciao! Ecco il tuo briefing giornaliero:\n\n';
-
+            
             if (pendingTasks.length > 0) {
                 text += 'TASK DA COMPLETARE:\n';
                 pendingTasks.forEach(t => {
@@ -3339,14 +2759,6 @@ async function sendDailyEmail() {
                     text += '- ' + t.text + '\n';
                 });
                 text += '\n';
-            }
-
-            if (bossQuest) {
-                text += 'BOSS QUEST ATTIVA:\n';
-                text += '- ' + bossQuest.title + ': ' + bossQuest.description + '\n';
-                text += '- Reward: ' + bossQuest.expReward + ' XP, ' + bossQuest.creditsReward + ' credits\n\n';
-            } else {
-                text += 'Nessuna Boss Quest attiva\n\n';
             }
 
             text += 'Buona giornata!';
@@ -3452,7 +2864,7 @@ async function sendDailyEmail() {
         
         applyInventoryEffects();
         
-        if (habits === null || habits === undefined) {
+        if (habits.length === 0) {
             habits = [
                 { name: 'meditation', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null },
                 { name: 'reading', streak: 0, difficulty: 'medium', category: 'daily', completed: false, completedCount: 0, lastCompletedDate: null }
@@ -3481,7 +2893,10 @@ async function sendDailyEmail() {
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab).classList.add('active');
                 if (tab.dataset.tab === 'stats') updateStats();
-                if (tab.dataset.tab === 'tracking') updateTracking();
+                if (tab.dataset.tab === 'tracking') {
+                    updateTracking();
+                    renderActivity();
+                }
             });
         });
         
@@ -3540,7 +2955,6 @@ async function sendDailyEmail() {
                 taskDeadlineInput.value = '';
                 save();
                 renderTasks();
-                addActivity('Added: ' + text);
             }
         });
         
@@ -3636,7 +3050,6 @@ async function sendDailyEmail() {
                         renderDocuments();
                         document.getElementById('doc-content').textContent = documents[currentDoc] || '';
                         document.getElementById('doc-title').value = currentDoc;
-                        addActivity('Deleted document: ' + docName);
                     }
                 });
             });
@@ -3739,7 +3152,7 @@ async function sendDailyEmail() {
                             addExp(habitExp);
                             showExpGainPopup(habitExp);
                             credits += getXpForDifficulty(habit.difficulty);
-                            addActivity('Completed habit: ' + habit.name + ' (x' + habit.completedCount + ')');
+                            addActivity('Completed habit: ' + habit.name);
                             updateExpHistory('habits');
                         }
                         
@@ -3773,7 +3186,6 @@ async function sendDailyEmail() {
                     habits.splice(idx, 1);
                     save();
                     renderHabits();
-                    addActivity('Deleted habit');
                 });
             });
         }
@@ -3804,7 +3216,6 @@ async function sendDailyEmail() {
                 input.value = '';
                 save();
                 renderHabits();
-                addActivity('New habit: ' + name);
             }
         });
         
@@ -3834,10 +3245,6 @@ async function sendDailyEmail() {
             const monthlyCircle = document.getElementById('monthly-circle');
             const monthlyOffset = dailyCircumference - (monthlyPercent / 100) * dailyCircumference;
             monthlyCircle.style.strokeDashoffset = monthlyOffset;
-            
-            if (bossQuestActive) {
-                updateBossProgress();
-            }
         }
         
         function updateStats() {
@@ -3862,7 +3269,6 @@ async function sendDailyEmail() {
             document.getElementById('stat-used').textContent = inventory.filter(i => i.used).length;
             
             applyInventoryEffects();
-            renderMedals();
         }
         
         document.querySelectorAll('.buy-btn').forEach((btn, index) => {
@@ -3884,7 +3290,6 @@ async function sendDailyEmail() {
                             applied: true,
                             purchasedAt: new Date().toLocaleDateString()
                         });
-                        addActivity('Applied new random theme');
                     } else {
                         inventory.push({
                             id: item.id,
@@ -3894,7 +3299,6 @@ async function sendDailyEmail() {
                             used: false,
                             purchasedAt: new Date().toLocaleDateString()
                         });
-                        addActivity('Purchased: ' + item.name);
                     }
                     
                     save();
@@ -3951,7 +3355,6 @@ async function sendDailyEmail() {
                     renderInventory();
                     applyInventoryEffects();
                     updateStats();
-                    addActivity(inventory[idx].used ? 'Activated: ' + inventory[idx].name : 'Deactivated: ' + inventory[idx].name);
                 });
             });
             
@@ -3963,18 +3366,14 @@ async function sendDailyEmail() {
                     renderInventory();
                     applyInventoryEffects();
                     updateStats();
-                    addActivity('Deleted item from inventory');
                 });
             });
         }
         
         renderTasks();
         renderHabits();
-        renderActivity();
         renderDocuments();
         renderInventory();
-        renderBossQuest();
-        renderMedals();
         document.getElementById('doc-content').textContent = documents[currentDoc] || '';
         document.getElementById('credits-display').textContent = credits;
         updateLevelDisplay();
@@ -4047,7 +3446,6 @@ async function sendDailyEmail() {
                 renderActiveQuests();
                 document.getElementById('quest-preview').style.display = 'none';
                 currentGeneratedQuest = null;
-                addActivity('Accepted quest: ' + selectedQuestType + ' ' + selectedQuestDifficulty);
             }
         });
         
@@ -4097,7 +3495,6 @@ async function sendDailyEmail() {
                     activeQuests.splice(idx, 1);
                     save();
                     renderActiveQuests();
-                    addActivity('Abandoned quest: ' + quest.text);
                 });
             });
         }
@@ -4217,7 +3614,6 @@ async function sendDailyEmail() {
             renderActiveQuests();
             renderMemories();
             renderTasks();
-            addActivity('Completed quest: ' + quest.text + ' (+' + quest.reward + ' credits)');
         }
         
         function renderMemories() {
@@ -4256,7 +3652,6 @@ async function sendDailyEmail() {
                     memories.splice(idx, 1);
                     save();
                     renderMemories();
-                    addActivity('Deleted a memory');
                 });
             });
         }
@@ -4267,16 +3662,16 @@ async function sendDailyEmail() {
         let aiCustomPrompt = localStorage.getItem('aiCustomPrompt') || '';
         let aiFocus = localStorage.getItem('aiFocus') || 'general';
         
-        const aiBasePrompt = 'Sei Peter, un assistente AI conciso e diretto. Rispondi in modo breve e chiaro, massimo 2-3 frasi. Vai subito al punto senza introduzioni inutili.';
+        const aiBasePrompt = 'Sei Peter, un assistente AI utile e dettagliato. Fornisci spiegazioni complete ed esaustive. Usa esempi, passaggi intermedi e contestualizza le risposte quando utile. Non essere troppo sintetico.';
         
         const aiFocusPrompts = {
-            general: 'Conoscenza ampia su qualsiasi argomento. Risposte brevi e incisive.',
-            math: 'MATEMATICA - Ricorda sempre. 1: Disequazioni con x2: x2 minore di n significa meno radice di n minore di x minore di radice di n. 2: Equazioni quadratiche: due soluzioni. 3: Risposte brevi ma complete.',
-            physics: 'Esperto fisica. Spiegazioni concise con formule essenziali.',
-            chemistry: 'Esperto chimica. Risposte rapide, formule chiave.',
-            informatics: 'Esperto informatica. Codice pulito e spiegazioni minime.',
-            mechanics: 'Esperto meccanica. Calcoli diretti, risultati precisi.',
-            telecom: 'Esperto circuiti elettrici. Risolvi con passaggi minimi: 1 identifica componenti, 2 applica formule Ohm Kirchhoff, 3 risultato con unita.',
+            general: 'Conoscenza ampia su qualsiasi argomento. Risposte dettagliate con esempi e spiegazioni approfondite.',
+            math: 'MATEMATICA - Ricorda sempre. 1: Disequazioni con x2: x2 minore di n significa meno radice di n minore di x minore di radice di n. 2: Equazioni quadratiche: due soluzioni. 3: Mostra sempre tutti i passaggi del calcolo, spiegando ogni singolo step in dettaglio.',
+            physics: 'Esperto fisica. Spiegazioni complete con formule, passaggi intermedi e interpretazione fisica dei risultati.',
+            chemistry: 'Esperto chimica. Risposte dettagliate con equazioni bilanciate, spiegazioni dei meccanismi e contestualizzazione.',
+            informatics: 'Esperto informatica. Codice ben commentato con spiegazioni dettagliate del funzionamento e delle scelte progettuali.',
+            mechanics: 'Esperto meccanica. Calcoli completi con tutti i passaggi, formule applicate e interpretazione dei risultati.',
+            telecom: 'Esperto circuiti elettrici. Risolvi con tutti i passaggi: 1 identifica componenti, 2 applica formule Ohm Kirchhoff, 3 risultato con unità di misura e spiegazione.',
             custom: ''
         };
         
@@ -4300,23 +3695,10 @@ async function sendDailyEmail() {
                 document.getElementById('ai-system-prompt').style.display = 'none';
             }
             
-            if (aiMessages.length > 0) {
-                renderAIMessages();
+            if (aiMessages.length === 0) {
+                aiMessages.push({ role: 'bot', content: 'Ciao! Sono Peter, il tuo assistente AI personale. Come posso aiutarti oggi?', hasImage: false });
             }
-        }
-        
-        function renderAIMessages() {
-            const container = document.getElementById('ai-messages');
-            container.innerHTML = '';
-            
-            aiMessages.forEach(msg => {
-                const div = document.createElement('div');
-                div.className = `ai-message ${msg.role}`;
-                div.innerHTML = `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
-                container.appendChild(div);
-            });
-            
-            container.scrollTop = container.scrollHeight;
+            renderAIMessages();
         }
         
         function addAIMessage(role, content, hasImage = false) {
@@ -4331,6 +3713,37 @@ async function sendDailyEmail() {
             return div.innerHTML;
         }
         
+        function formatAIMessage(text) {
+            let html = escapeHtml(text);
+            
+            // Extract code blocks to prevent inner formatting
+            const codeBlocks = [];
+            html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (match, lang, code) => {
+                const index = codeBlocks.length;
+                codeBlocks.push(`<pre class="ai-code-block"><code class="language-${lang || 'text'}">${code}</code></pre>`);
+                return `%%CODEBLOCK_${index}%%`;
+            });
+            
+            // Bold **text**
+            html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            
+            // Italic *text*
+            html = html.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+            
+            // Inline code `text`
+            html = html.replace(/`(.+?)`/g, '<code class="ai-inline-code">$1</code>');
+            
+            // Newlines to <br> (but not inside code blocks placeholders)
+            html = html.replace(/\n/g, '<br>');
+            
+            // Restore code blocks
+            codeBlocks.forEach((block, i) => {
+                html = html.replace(`%%CODEBLOCK_${i}%%`, block);
+            });
+            
+            return html;
+        }
+        
         function renderAIMessages() {
             const container = document.getElementById('ai-messages');
             container.innerHTML = '';
@@ -4338,7 +3751,7 @@ async function sendDailyEmail() {
             aiMessages.forEach(msg => {
                 const div = document.createElement('div');
                 div.className = `ai-message ${msg.role}`;
-                div.innerHTML = `<div class="ai-message-content">${escapeHtml(msg.content)}</div>`;
+                div.innerHTML = `<div class="ai-message-content">${formatAIMessage(msg.content)}</div>`;
                 container.appendChild(div);
             });
             
@@ -4360,7 +3773,7 @@ async function sendDailyEmail() {
             input.disabled = true;
             
             try {
-                const recentMessages = aiMessages.slice(-10);
+                const recentMessages = aiMessages.slice(-20);
                 
                 const conversation = [
                     { role: 'system', content: getFullPrompt() },
@@ -4384,6 +3797,10 @@ async function sendDailyEmail() {
                 
                 const data = await response.json();
                 console.log('Raw response:', data);
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
                 
                 let botResponse = '';
                 
@@ -4417,7 +3834,11 @@ async function sendDailyEmail() {
                 loadingDiv.remove();
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'ai-message bot error';
-                errorDiv.innerHTML = `<div class="ai-message-content">Errore: ${error.message}</div>`;
+                let errorMsg = error.message;
+                if (errorMsg.includes('clipboard') || errorMsg.includes('image input')) {
+                    errorMsg = 'Questo modello non supporta l\'input di immagini. Per favore, invia solo testo.';
+                }
+                errorDiv.innerHTML = `<div class="ai-message-content">Errore: ${errorMsg}</div>`;
                 document.getElementById('ai-messages').appendChild(errorDiv);
             }
             
